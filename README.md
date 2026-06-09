@@ -81,3 +81,8 @@ Before taking this comparing tool live in the United Kingdom, verify the followi
 3. **Data Protection & GDPR Consent**: The address verification consent check must remain strictly unchecked by default (no pre-ticking) and explain that details will only be passed to suppliers servicing their specific location.
 4. **Affiliate and Commissions Transparency**: The commission wording details must describe that we may receive referral finder's fees from selected providers.
 5. **Trading Style Ownership**: The footer must consistently declare Cane Communications Limited as the sole operator and copyright holder of the trading style.
+
+---
+
+## 🔍 Search Engine Optimization
+- **Google Search Console**: Google Search Console verification file is stored in `public/google46bc9a9e4cd6fd5e.html` and should be accessible from the live site root.
