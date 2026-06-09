@@ -1,0 +1,8 @@
+{
+  "name": "Wiltshires Best Broadband \u0026 Wi Fi Finder",
+  "description": "Broadband listing, comparison, and local availability check for rural Wiltshire villages and towns.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

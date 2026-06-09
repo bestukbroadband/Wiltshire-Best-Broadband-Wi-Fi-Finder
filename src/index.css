@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #0f766e;
+  --color-brand-green-hover: #115e59;
+  --color-brand-green-light: #ccfbf1;
+  --color-brand-blue: #0ea5e9;
+  --color-brand-blue-hover: #0284c7;
+  --color-brand-blue-light: #e0f2fe;
+  --color-brand-gold: #fbbf24;
+  --color-brand-gold-hover: #f59e0b;
+  --color-brand-gold-light: #fef3c7;
+  --color-brand-bg: #030712;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --font-serif: "Inter", system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+}
+
+body {
+  background-color: #0c101d;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings typography scales with clamp */
+h1 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-h1 {
+  font-size: clamp(2rem, 6vw, 4.25rem);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Enforce small text is no smaller than 14px (0.875rem) to avoid cramped, illegible mobile copy */
+small, .text-xs, .text-[11px], .text-[10px], .text-[9px] {
+  font-size: 0.875rem !important;
+}
+
+/* High readability forms with minimum standard dimensions for accessibility (44px) */
+input, select, textarea {
+  min-height: 44px;
+  font-size: 1rem !important;
+  line-height: 1.5;
+}
+
+/* Buttons must have touch-friendly height of 44px and minimum 1rem text on mobile */
+button, .btn {
+  min-height: 44px;
+  font-size: 1.05rem !important;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Nav links / compact buttons should still have a 44px tap capability */
+header button, footer button {
+  min-height: 44px;
+}
+
+/* High contrast visible focus state for fully accessible navigation and navigation flow */
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 2px;
+}
+
+/* Section spacing of at least 3rem (4rem preferred) to avoid cramming layout components */
+section, .section-spacing {
+  margin-top: clamp(2rem, 5vw, 4.5rem) !important;
+  margin-bottom: clamp(2rem, 5vw, 4.5rem) !important;
+}
+
+/* Transitions & Microanimations for premium feels */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee linear infinite;
+}
+

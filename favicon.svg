@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="24" fill="#0c101d"/>
+  <rect x="2" y="2" width="96" height="96" rx="22" stroke="#fbbf24" stroke-width="3" stroke-opacity="0.4"/>
+  <!-- Broadband signal waves (Gold) -->
+  <path d="M25 60 C 35 40, 65 40, 75 60" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+  <path d="M35 72 C 42 60, 58 60, 65 72" stroke="#fbbf24" stroke-width="5" stroke-linecap="round"/>
+  <!-- Fiber Optic Spire & Node (Teal & Gold Core) -->
+  <path d="M50 90 L50 45" stroke="#0f766e" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="50" cy="35" r="12" fill="#fbbf24"/>
+  <circle cx="50" cy="35" r="6" fill="#ffffff"/>
+  <!-- Pulsing outer signal boundary -->
+  <circle cx="50" cy="35" r="18" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 4"/>
+</svg>
