@@ -37,7 +37,7 @@ export interface WeeklyOfferHighlightProps {
 export function WeeklyOfferHighlight({
   offerId = "weekly-giga-01",
   providerName = "Voneus Broadband",
-  packageName = "Gigabit Rural Fibre",
+  packageName = "Gigabit Local Fibre",
   offerHeadline = "Fast full fibre option for selected Wiltshire towns",
   postcodeTargeting = "SN10, SN11, BA14, BA15, SP1, SP2",
   townTargeting = "Worton, Devizes, Calne, lacock, Melksham & parished villages",
@@ -50,9 +50,9 @@ export function WeeklyOfferHighlight({
   knownPriceRise = "Fixed rate lock - no mid-contract inflation price rises during initial contract period",
   offerValidUntil = "June 30, 2026",
   editorScore = 8.4,
-  editorVerdict = "Outstanding rural alternative to copper services with absolute price stability.",
+  editorVerdict = "Outstanding alternative to copper services with absolute price stability.",
   editorNotes = "This offer looks strong where full fibre is actually available, especially for households moving from older copper based services. Check the contract length, install date and any annual price change before ordering.",
-  bestFor = "Rural remote villages & homeworkers requiring synchronous speeds",
+  bestFor = "Wiltshire villages & homeworkers requiring synchronous speeds",
   thingsToWatch = [
     "Subject to detailed local optical line survey",
     "24-month commitment applies to lock in the special pricing rate",

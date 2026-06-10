@@ -18,7 +18,7 @@ export function EditorScoreCard({ provider, isDark = false }: EditorScoreCardPro
     return (
       <div className={`p-4 rounded-xl border-2 border-dashed mt-4 text-center space-y-1 ${isDark ? "border-slate-800 bg-slate-950/20 text-slate-400" : "border-slate-200 bg-slate-50 text-slate-600"} text-xs`}>
         <p className="font-extrabold uppercase tracking-widest text-[10.5px] text-brand-gold">Editor review pending</p>
-        <p className="font-semibold leading-relaxed">We are currently verifying listed packages, public pricing sources, and direct coverage footprints for this provider. Symmetrical and rural options are subject to strict direct check verification before scoring occurs.</p>
+        <p className="font-semibold leading-relaxed">We are currently verifying listed packages, public pricing sources, and direct coverage footprints for this provider. Symmetrical and local options are subject to strict direct check verification before scoring occurs.</p>
       </div>
     );
   }
@@ -27,7 +27,7 @@ export function EditorScoreCard({ provider, isDark = false }: EditorScoreCardPro
   const score = provider.editorScore ?? parseFloat(((provider.rankingScore ?? 85) / 10).toFixed(1));
   const verdict = provider.editorVerdict ?? (
     provider.providerType.includes("Alternative network providers")
-      ? "Outstanding rural private network bypassing traditional copper infrastructure."
+      ? "Outstanding independent private network bypassing traditional copper infrastructure."
       : provider.providerType.includes("5G home broadband providers")
       ? "Excellent high-flexibility, instant-on candidate where cell tower lines are robust."
       : provider.providerType.includes("Satellite broadband providers")
@@ -36,10 +36,10 @@ export function EditorScoreCard({ provider, isDark = false }: EditorScoreCardPro
   );
 
   const notes = provider.editorNotes ?? (
-    `This package from ${provider.providerName} is a solid rural option on the ${provider.networkType} platform, providing speeds of up to ${provider.averageDownloadSpeed} Mbps download. In rural Wiltshire villages, this represents a welcome upgrade from standard copper setups, although exact speeds depend on structural line layout.`
+    `This package from ${provider.providerName} is a solid local option on the ${provider.networkType} platform, providing speeds of up to ${provider.averageDownloadSpeed} Mbps download. In Wiltshire villages, this represents a welcome upgrade from standard copper setups, although exact speeds depend on structural line layout.`
   );
 
-  const bestFor = provider.bestFor ?? "Wiltshire rural villages & families moving from outdated copper lines";
+  const bestFor = provider.bestFor ?? "Wiltshire villages & families moving from outdated copper lines";
   
   const rawWatch = provider.thingsToWatch ?? [
     `Annual price modifications may take effect after the ${provider.contractLength}-month commitment ends.`,
@@ -153,7 +153,7 @@ export function EditorScoreCard({ provider, isDark = false }: EditorScoreCardPro
       <div className="pt-2 border-t border-slate-700/10 text-[9.5px] text-slate-405 flex items-start gap-1.5 leading-relaxed font-semibold">
         <ShieldAlert className="h-3.5 w-3.5 text-brand-gold shrink-0" />
         <p>
-          <strong>Editor Notice:</strong> Editor scores are based on the offers currently listed on this site, including price, speed, contract length, setup costs, known price changes and suitability for rural or town households.
+          <strong>Editor Notice:</strong> Editor scores are based on the offers currently listed on this site, including price, speed, contract length, setup costs, known price changes and suitability for local or town households.
         </p>
       </div>
 

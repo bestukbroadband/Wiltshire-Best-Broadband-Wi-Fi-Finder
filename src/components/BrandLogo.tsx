@@ -156,7 +156,7 @@ export function BrandLogo({
             {siteSettingsData.brandName}
           </span>
           <span className="text-[9px] uppercase font-bold tracking-widest text-brand-gold -mt-0.5 block leading-none">
-            Rural Wiltshire Broadband Finder
+            Wiltshire Broadband Finder
           </span>
         </div>
       )}

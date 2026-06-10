@@ -53,7 +53,7 @@ export function ProviderDirectoryView({
   const filterOptions = [
     { label: "Mainstream Providers", category: "Mainstream broadband" },
     { label: "Alternative Networks (AltNets)", category: "Alternative network" },
-    { label: "Rural Specialized", category: "Rural broadband" },
+    { label: "Local Specialists", category: "Rural broadband" },
     { label: "Full Fibre (FTTP)", category: "Full fibre provider" },
     { label: "Fixed Wireless Access", category: "Wireless broadband" },
     { label: "LEO Satellite Providers", category: "Satellite broadband" },
@@ -455,7 +455,7 @@ export function ProviderDirectoryView({
               <div className="bg-slate-900/20 border border-slate-850 rounded-xl p-4 space-y-1.5">
                 <h3 className="text-xs font-bold text-white font-sans">Are all UK broadband brands represented?</h3>
                 <p className="text-[11px] text-slate-400 leading-relaxed font-sans">
-                  We track a wide list of national networks, alt-nets, rural developers, wireless beams and wholesale operators. Standard household offers depend on regional Openreach or custom fiber presence.
+                  We track a wide list of national networks, alt-nets, local developers, wireless beams and wholesale operators. Standard household offers depend on regional Openreach or custom fiber presence.
                 </p>
               </div>
               <div className="bg-slate-900/20 border border-slate-850 rounded-xl p-4 space-y-1.5">

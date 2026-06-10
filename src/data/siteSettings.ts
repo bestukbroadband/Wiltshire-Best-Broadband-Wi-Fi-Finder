@@ -5,7 +5,7 @@
 
 export const siteSettingsData = {
   brandName: "Wiltshire Broadband Finder",
-  fullBrandName: "Broadband Listings for Rural Wiltshire Villages and Towns",
+  fullBrandName: "Broadband Listings for Wiltshire Villages and Towns",
   owner: {
     companyName: "Cane Communications Limited",
     companyNumber: "11485145",
@@ -13,7 +13,7 @@ export const siteSettingsData = {
     contactEmail: "bestukbroaband@proton.me"
   },
   headlines: {
-    heroTitle: "Find local broadband options for rural Wiltshire villages and towns",
+    heroTitle: "Find local broadband options for Wiltshire villages and towns",
     heroSubheading: "Compare full fibre networks, alternative networks, 5G home broadband, wireless and national providers across Wiltshire. Search your town, village or postcode area and request an address-level check.",
     ctaPrimary: "Check my postcode",
     ctaSecondary: "List your service",

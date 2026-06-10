@@ -40,7 +40,7 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
           <div className="space-y-4 md:col-span-1">
             <BrandLogo variant="footer" showText={true} />
             <p className="text-[11px] text-slate-400 leading-relaxed">
-              Assisting rural Wiltshire households and agricultural ventures in connecting with high-speed full fibre, altnet, 5G, and orbit satellite arrays.
+              Assisting Wiltshire households and agricultural ventures in connecting with high-speed full fibre, altnet, 5G, and orbit satellite arrays.
             </p>
             <div className="text-[10px] text-slate-450 space-y-1.5 leading-tight">
               <p className="font-extrabold text-brand-gold">Project of: {siteSettingsData.owner.companyName}</p>
@@ -67,7 +67,7 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
               </li>
               <li>
                 <button onClick={() => handleLinkClick("rural-broadband-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Best Rural Broadband
+                  Best Local Broadband
                 </button>
               </li>
               <li>

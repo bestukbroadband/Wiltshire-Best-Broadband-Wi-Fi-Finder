@@ -202,7 +202,7 @@ export function TownPage({
                 Active & Build-Stage Providers in {town.name}
               </h2>
               <p className="text-xs text-slate-500 leading-relaxed">
-                The broadband providers listed below serve rural or urban premises within the {town.name} sectors. Check speeds carefully.
+                The broadband providers listed below serve village or urban premises within the {town.name} sectors. Check speeds carefully.
               </p>
             </div>
 
@@ -270,7 +270,7 @@ export function TownPage({
               Nearby Parishes & Towns
             </h4>
             <p className="text-[11px] text-slate-300 leading-normal font-semibold font-sans">
-              Compare broadband infrastructure in neighboring local rural communities within Wiltshire:
+              Compare broadband infrastructure in neighboring local communities within Wiltshire:
             </p>
             <div className="flex flex-col gap-1.5 font-sans">
               {nearbyTowns.length > 0 ? (

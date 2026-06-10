@@ -44,7 +44,7 @@ export function ProviderComparisonBlocks({
       id: "mainstream",
       category: "Mainstream broadband",
       title: "Mainstream Providers",
-      intro: "National brands with massive UK-wide coverage footprints. Primarily rely on Openreach or independent cable frames to serve major towns or rural parishes.",
+      intro: "National brands with massive UK-wide coverage footprints. Primarily rely on Openreach or independent cable frames to serve major towns or local parishes.",
       examples: [
         { name: "BT Broadband", slug: "bt-broadband" },
         { name: "EE Broadband", slug: "ee-brand" },
@@ -81,8 +81,8 @@ export function ProviderComparisonBlocks({
     {
       id: "rural",
       category: "Rural broadband",
-      title: "Rural Specialists",
-      intro: "Broadband builders focused specifically on parished villages and outlying rural settlements that national operators bypass.",
+      title: "Local Specialists",
+      intro: "Broadband builders focused specifically on parished villages and outlying settlements that national operators bypass.",
       examples: [
         { name: "Voneus", slug: "voneus-broadband" },
         { name: "Wessex Internet", slug: "wessex-internet-broadband" },
@@ -94,8 +94,8 @@ export function ProviderComparisonBlocks({
         "Leverages hybrid fixed wireless and deep fibre routing",
         "Eligible for regional community voucher infrastructure subsidies"
       ],
-      ctaLabel: "View Rural Specialized",
-      tooltip: "Filter listings to rural and parished telecom specialists."
+      ctaLabel: "View Local Specialists",
+      tooltip: "Filter listings to local and parished telecom specialists."
     },
     {
       id: "full-fibre",

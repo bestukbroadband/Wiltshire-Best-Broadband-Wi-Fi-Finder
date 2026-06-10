@@ -33,7 +33,7 @@ export function NewsletterSignup() {
             STAY UPDATED
           </span>
           <h2 className="text-xl md:text-2xl font-extrabold tracking-tight text-white">
-            Wiltshire Rural Fibre & Mast Tracker
+            Wiltshire Local Fibre & Mast Tracker
           </h2>
           <p className="text-xs text-stone-200 leading-relaxed">
             Sign up to receive monthly notifications of new altnet fibre rollouts, government Project Gigabit approvals, and 5G mast installations within Wiltshire villages.

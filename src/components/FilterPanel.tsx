@@ -44,7 +44,7 @@ export function FilterPanel({ filters, onChange, onReset, resultCount }: FilterP
     { label: "Mainstream Brands", value: "Mainstream broadband providers" },
     { label: "FTTP (Full Fibre)", value: "Full fibre providers" },
     { label: "Openreach Based", value: "Openreach based providers" },
-    { label: "Rural Specialized", value: "Rural broadband providers" },
+    { label: "Local Specialists", value: "Rural broadband providers" },
     { label: "Wireless / FWA", value: "Wireless broadband providers" },
     { label: "5G Home Broadband", value: "5G home broadband providers" },
     { label: "LEO Satellite", value: "Satellite broadband providers" },

@@ -64,7 +64,7 @@ export function HeroSearch({ onSearchSubmit, onListProviderClick, className = ""
           <h1 className="hero-h1 text-white max-w-3xl">
             Find local broadband options for <br className="hidden md:inline" />
             <span className="bg-gradient-to-r from-brand-gold via-amber-300 to-yellow-200 bg-clip-text text-transparent">
-              rural Wiltshire
+              Wiltshire
             </span> villages and towns
           </h1>
           

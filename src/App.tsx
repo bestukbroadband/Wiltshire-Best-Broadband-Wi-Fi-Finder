@@ -452,8 +452,8 @@ export default function App() {
         secondaryKeywords: [],
         faqItems: [
           {
-            question: `Is ${prov?.displayName || "this provider"} available in rural Wiltshire?`,
-            answer: `${prov?.displayName || "This provider's"} coverage varies by street and address. Some rural Wiltshire villages have active fiber lines laid, while other homes may require a satellite or wireless unit.`
+            question: `Is ${prov?.displayName || "this provider"} available in Wiltshire?`,
+            answer: `${prov?.displayName || "This provider's"} coverage varies by street and address. Some Wiltshire villages have active fiber lines laid, while other homes may require a satellite or wireless unit.`
           }
         ],
         schemaType: "ItemPage",
@@ -664,7 +664,7 @@ export default function App() {
                       </h3>
                     </div>
                     <p className="text-xs text-slate-700 leading-relaxed font-semibold">
-                      We are currently reviewing listed broadband options for this area. Availability can vary by exact address, especially across rural Wiltshire. Use the postcode search or provider checkers to confirm current packages before ordering.
+                      We are currently reviewing listed broadband options for this area. Availability can vary by exact address, especially across Wiltshire. Use the postcode search or provider checkers to confirm current packages before ordering.
                     </p>
                   </div>
                 )}
@@ -766,7 +766,7 @@ export default function App() {
                     {filteredProviders.length > 0 && filters.searchQuery === "" && (
                       <div className="space-y-4">
                         <span className="text-[10px] uppercase font-black text-slate-300 block tracking-widest mb-1">
-                          Featured rural specialists
+                          Featured local specialists
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5 animate-fadeIn">
                           {providersData.filter((p) => p.isSponsored).slice(0, 2).map((spon) => (
@@ -854,7 +854,7 @@ export default function App() {
                       Local Digital Infrastructure News
                     </h2>
                     <p className="text-xs text-slate-300 font-semibold max-w-xl leading-relaxed">
-                      Read about BDUK Project Gigabit rollouts, altnet mergers, and rural fibre voucher statuses across our counties.
+                      Read about BDUK Project Gigabit rollouts, altnet mergers, and local fibre voucher statuses across our counties.
                     </p>
                   </div>
 
@@ -929,7 +929,7 @@ export default function App() {
                 <div className="space-y-2">
                   <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">Wiltshire Best Listed Deals</h1>
                   <p className="text-xs leading-relaxed text-slate-300 max-w-2xl">
-                    Our objective ranking algorithm scores and orders current provider offerings serving rural villages based on speed, stability, price freeze lock, and installation expenses.
+                    Our objective ranking algorithm scores and orders current provider offerings serving Wiltshire villages based on speed, stability, price freeze lock, and installation expenses.
                   </p>
                 </div>
                 <BestDealsSection onEnquire={handleEnquireTrigger} limit={12} />
@@ -1012,7 +1012,7 @@ export default function App() {
                           Advertise With Us
                         </h1>
                         <p className="text-xs text-slate-300 leading-relaxed text-left">
-                          Reach rural Wiltshire households, farm complexes, and local tech professionals actively seeking full fibre and satellite broadband.
+                          Reach Wiltshire households, farm complexes, and local tech professionals actively seeking full fibre and satellite broadband.
                         </p>
                       </div>
 
@@ -1022,7 +1022,7 @@ export default function App() {
                           <li><strong>Homepage Leaderboard banner:</strong> Placed prominently on top of local listing results.</li>
                           <li><strong>Town Page Sponsor banner:</strong> Target specific regions like Salisbury or Worton.</li>
                           <li><strong>Featured Provider Spotlight:</strong> Highlight speeds and details in glowing partner blocks.</li>
-                          <li><strong>Rural Newsletter Banner:</strong> Monthly BDUK Gigabit voucher updates tracker sponsor.</li>
+                          <li><strong>Local Newsletter Banner:</strong> Monthly BDUK Gigabit voucher updates tracker sponsor.</li>
                         </ul>
                       </div>
 
@@ -1066,7 +1066,7 @@ export default function App() {
 
                   <div className="bg-white border rounded-2xl p-4.5 text-xs text-slate-600 space-y-2.5 leading-relaxed">
                     <p>
-                        Our mission is to help rural communities see what is truly available at their village limits. We do not charge listing onboarding fees.
+                        Our mission is to help local communities see what is truly available at their village limits. We do not charge listing onboarding fees.
                     </p>
                     <p className="font-semibold text-slate-900">
                       Standard Requirements:
@@ -1258,7 +1258,7 @@ export default function App() {
                 <h1 className="text-xl md:text-2xl font-black text-slate-900">Privacy & Data Protection Policy</h1>
                 <p className="text-[10px] font-mono tracking-wider text-slate-400">LAST REVISED: JUNE 2026 &bull; COMPLIANT WITH GDPR / DATA ACT</p>
                 <p>
-                  At Wiltshire Broadband Finder (a project style of <strong>Cane Communications Limited</strong>), we represent robust rural privacy directives. When you submit postcode parameters or house names for an &ldquo;Address Availability Check&rdquo;, we process contact values purely to analyze telecom maps active in your parish boundary.
+                  At Wiltshire Broadband Finder (a project style of <strong>Cane Communications Limited</strong>), we represent robust local privacy directives. When you submit postcode parameters or house names for an &ldquo;Address Availability Check&rdquo;, we process contact values purely to analyze telecom maps active in your parish boundary.
                 </p>
                 <h3 className="text-sm font-bold text-slate-905">1. What information do we collect?</h3>
                 <p>
@@ -1280,7 +1280,7 @@ export default function App() {
                 <h1 className="text-xl md:text-2xl font-black text-slate-900">Terms of Use</h1>
                 <p className="text-[10px] font-mono tracking-wider text-slate-400">LAST REVISED: JUNE 2026</p>
                 <p>
-                  Wiltshire Broadband Finder is a comparison directory project. We compile publicly reported pricing arrays, manual submissions, and wholesale indicators to assist rural communities.
+                  Wiltshire Broadband Finder is a comparison directory project. We compile publicly reported pricing arrays, manual submissions, and wholesale indicators to assist Wiltshire communities.
                 </p>
                 <h3 className="text-sm font-bold text-slate-950">No Direct Switching Services</h3>
                 <p>
@@ -1340,7 +1340,7 @@ export default function App() {
                         <input type="text" name="name" required placeholder="Full Name" className="p-2 border rounded" />
                         <input type="email" name="email" required placeholder="Work Email" className="p-2 border rounded" />
                       </div>
-                      <textarea name="message" required rows={4} placeholder="Your question or rural village fibre status report..." className="w-full text-xs p-2.5 border rounded" />
+                      <textarea name="message" required rows={4} placeholder="Your question or local village fibre status report..." className="w-full text-xs p-2.5 border rounded" />
                       <button type="submit" className="px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-lg cursor-pointer">
                         Send Message
                       </button>
@@ -1412,7 +1412,7 @@ export default function App() {
               </p>
               <div className="p-4 bg-stone-50 rounded-lg text-[11.5px] text-stone-600 border space-y-2 leading-relaxed">
                 <p>
-                    Rural Wiltshire Parishes continue to receive custom fibre voucher grants backed by BDUK programs. This allows local altnets to roll out optical terminations directly to villages and farms experiencing ADSL speeds under 15Mbps.
+                    Wiltshire Parishes continue to receive custom fibre voucher grants backed by BDUK programs. This allows local altnets to roll out optical terminations directly to villages and farms experiencing ADSL speeds under 15Mbps.
                 </p>
                 <p>
                     By matching and tracking these developments daily, Wiltshire Broadband Finder makes checking, compares, and provider checks simple for local residents.
