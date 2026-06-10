@@ -99,10 +99,63 @@ Before taking this comparing tool live in the United Kingdom, verify the followi
 - **Build Integration**: The sitemap is automatically regenerated *prior* to every production build by default under `npm run build`.
 - **Crawler Optimization**: `public/robots.txt` is configured to allow crawling from index bots (`User-agent: *`, `Allow: /`) and directs indexing packages directly to the compiled XML sitemap URL.
 
-### GitHub Pages Readiness
-- **Custom Domains**: If deploying to a custom domain (e.g. `https://www.wiltshirebroadbandfinder.co.uk`), ensure `base` in `vite.config.ts` is omitted or set to `"/"`.
-- **Repository Subpaths**: If deploying your project directly to GitHub Pages static subpath (e.g. `https://username.github.io/repository-name/`), edit `vite.config.ts` to include:
-  ```typescript
-  base: "/repository-name/",
-  ```
-  And update the canonical URL patterns inside your sitemap generator script `scripts/generate-sitemap.js` accordingly.
+### 🚀 GitHub Pages Deployment Guide
+
+We have pre-configured this application for automated, continuous deployment to **GitHub Pages** using GitHub Actions workflows.
+
+#### Step 1: Set the Vite Base Path
+To support the subpath directory layout used by GitHub Pages by default (e.g. `https://your-username.github.io/your-repository/`), the assets must be referenced correctly relative to your repository name.
+1. Open up `vite.config.ts`.
+2. Locate the `base` parameter.
+3. Replace the placeholder with your actual GitHub repository name (surrounded by slashes):
+   ```typescript
+   // Use base: "/" only for a custom domain or root deployment.
+   // Use base: "/REPOSITORY_NAME/" for GitHub Pages project deployment.
+   base: "/your-repository-name/",
+   ```
+4. If you decide to link a **custom domain** (e.g. `wiltshirebroadbandfinder.co.uk`) to your GitHub Pages settings later on, revert this parameter to:
+   ```typescript
+   base: "/",
+   ```
+
+#### Step 2: Push Your Code to GitHub
+We have configured an automated workflow file at `.github/workflows/deploy.yml` that will build and publish your project dynamically on every commit pushed to your default branch:
+1. Initialize a Git repository locally if you haven't already:
+   ```bash
+   git init
+   git add .
+   git commit -m "feat: configure github pages deployment"
+   ```
+2. Add your remote GitHub repository as origin:
+   ```bash
+   git remote add origin https://github.com/your-username/your-repository-name.git
+   ```
+3. Push your changes up to the `main` branch:
+   ```bash
+   git branch -M main
+   git push -u origin main
+   ```
+
+#### Step 3: Enable Pages in GitHub Settings
+Once you push your code, follow these steps inside your GitHub browser tab:
+1. Navigate to your repository page on GitHub.
+2. Click on the **Settings** tab.
+3. In the left sidebar under the "Code and automation" section, click on **Pages**.
+4. Inside the **Build and deployment** area, click on the **Source** dropdown menu and select:
+   * **GitHub Actions** (highly recommended, as our `.github/workflows/deploy.yml` takes care of this automatically).
+5. Once selected, head over to the **Actions** tab on top to see the active "Deploy static content to Pages" job compiling, uploading the `/dist` artifacts, and going green!
+
+#### Step 4: Find Your Live URL
+Once the actions deploy job status displays as completed successfully:
+1. Return to **Settings > Pages**.
+2. A banner on top will describe: **"Your site is live at..."** alongside your direct URL (e.g., `https://your-username.github.io/your-repository-name/`).
+
+---
+
+### 🔧 Troubleshooting Assets & Broken Links
+
+If you notice broken logo graphics, blank screens, missing styles, or unresolved favicon pointers when first opening your live URL, it typically means the compilation base path mismatch occurred:
+1. **Empty / Blank White Screen with JS Errors (Console 404)**: Verify that the `base` name supplied inside `vite.config.ts` matches your **case-sensitive** GitHub repository name exactly. If your repo is named `Wiltshire-Broadband`, the path *must* be `/Wiltshire-Broadband/` (including both enclosing slashes).
+2. **Missing Google Search Console Verification**: Ensure your Search Console verification file (`google46bc9a9e4cd6fd5e.html`) is located exactly inside the `public/` folder, which gets cloned directly into the output root directory during construction.
+3. **Canonical Sitemap Errors**: If hosting on a subpath, open up `/scripts/generate-sitemap.js`, adjust the `DOMAIN` constant value to include the subpath URL prefix (e.g., `https://your-username.github.io/your-repository-name`), and trigger `npm run build` or push code to let the pipeline generate sitemap entries properly matching your live route index layout.
+

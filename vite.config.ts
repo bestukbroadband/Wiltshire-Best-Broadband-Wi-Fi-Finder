@@ -5,6 +5,9 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // Use base: "/" only for a custom domain or root deployment.
+    // Use base: "/REPOSITORY_NAME/" for GitHub Pages project deployment.
+    base: "/REPOSITORY_NAME/",
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
