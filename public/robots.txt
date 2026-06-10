@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.wiltshirebroadbandfinder.co.uk/sitemap.xml

@@ -31,7 +31,7 @@ export const siteSettingsData = {
         "Instead, use careful wording: Best match, Featured deal, Popular option, Strong value, Fastest listed package, Lowest listed monthly price, Subject to provider confirmation, Final terms confirmed by provider."
       ]
     },
-    localResultsDisclaimer: "Results are an initial local match. Final availability must be confirmed by the provider using your full address."
+    localResultsDisclaimer: "Results are an initial local match. Final availability, speed, price and contract terms must be confirmed by the provider using your full address."
   },
   howItWorks: {
     steps: [

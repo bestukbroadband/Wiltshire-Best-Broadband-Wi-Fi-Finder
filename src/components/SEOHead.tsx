@@ -60,6 +60,10 @@ export function SEOHead({ seoData }: SEOHeadProps) {
       const keywords = [seoData.primaryKeyword, ...(seoData.secondaryKeywords || [])].join(", ");
       updateOrCreateMeta("name", "keywords", keywords);
     }
+
+    // 7. Robots (index/noindex)
+    const robotsVal = seoData.indexStatus === "noindex" ? "noindex, follow" : "index, follow";
+    updateOrCreateMeta("name", "robots", robotsVal);
   }, [seoData]);
 
   // Handle rich JSON-LD parsing safely

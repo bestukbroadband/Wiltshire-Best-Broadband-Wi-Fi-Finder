@@ -371,6 +371,32 @@ export default function App() {
       return seoPagesData[activeTab];
     }
 
+    if (activeTab === "admin") {
+      return {
+        pageTitle: "Admin Dashboard | Wiltshire Broadband Finder",
+        metaTitle: "Admin Dashboard",
+        metaDescription: "Internal portal and administrator hub for Wiltshire Broadband Finder.",
+        canonicalUrl: "https://www.wiltshirebroadbandfinder.co.uk/admin",
+        slug: "admin",
+        h1: "Admin Dashboard Control Center",
+        primaryKeyword: "wiltshire broadband finder admin",
+        secondaryKeywords: [],
+        faqItems: [],
+        schemaType: "WebPage",
+        schemaJson: "{}",
+        ogTitle: "Admin Dashboard",
+        ogDescription: "Internal administrative use only.",
+        ogImage: "https://www.wiltshirebroadbandfinder.co.uk/logo.png",
+        twitterTitle: "Admin Dashboard",
+        twitterDescription: "Internal administrative use only.",
+        twitterImage: "https://www.wiltshirebroadbandfinder.co.uk/logo.png",
+        lastUpdated: "2026-06-10",
+        reviewedBy: "Joshua Greedy",
+        publishedBy: "Cane Communications Limited",
+        indexStatus: "noindex"
+      };
+    }
+
     if (activeTab === "providers-directory") {
       return {
         pageTitle: "UK Broadband Providers Directory & Wiltshire Coverage Maps",
@@ -441,7 +467,8 @@ export default function App() {
         lastUpdated: "2026-06-08",
         editorName: "Cane Editorial Team",
         reviewedBy: "Joshua Greedy",
-        publishedBy: "Cane Communications Limited"
+        publishedBy: "Cane Communications Limited",
+        indexStatus: (prov && prov.isLive !== false && prov.listingStatus !== "Disabled") ? "index" : "noindex"
       };
     }
     
@@ -474,7 +501,8 @@ export default function App() {
         lastUpdated: "2026-06-08",
         editorName: "Cane Editorial Team",
         reviewedBy: "Joshua Greedy",
-        publishedBy: "Cane Communications Limited"
+        publishedBy: "Cane Communications Limited",
+        indexStatus: activeTown?.indexStatus || "index"
       };
     }
 
@@ -514,7 +542,8 @@ export default function App() {
         lastUpdated: activePostcodeArea.lastUpdated || "2026-06-08",
         editorName: "Cane Editorial Team",
         reviewedBy: "Joshua Greedy",
-        publishedBy: "Cane Communications Limited"
+        publishedBy: "Cane Communications Limited",
+        indexStatus: activePostcodeArea.indexStatus || "index"
       };
     }
 

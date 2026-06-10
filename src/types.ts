@@ -75,6 +75,7 @@ export interface Town {
   sponsoredBannerId?: string;
   nearbyTowns: string[]; // IDs/names of nearby towns
   faqs: { question: string; answer: string }[];
+  indexStatus?: "index" | "noindex";
 }
 
 export type AdvertPlacement =
@@ -210,6 +211,7 @@ export interface PostcodeArea {
   faqs: { question: string; answer: string }[];
   nearbyPostcodes: string[];
   lastUpdated: string;
+  indexStatus?: "index" | "noindex";
 }
 
 export interface Offer {
@@ -349,6 +351,7 @@ export interface SeoPageData {
   editorNote?: string;
   ctaLabel?: string;
   ctaTarget?: string;
+  indexStatus?: "index" | "noindex";
 }
 
 export interface DirectoryProvider {

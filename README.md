@@ -84,5 +84,25 @@ Before taking this comparing tool live in the United Kingdom, verify the followi
 
 ---
 
-## 🔍 Search Engine Optimization
-- **Google Search Console**: Google Search Console verification file is stored in `public/google46bc9a9e4cd6fd5e.html` and should be accessible from the live site root.
+## 🔍 Search Engine Optimization & Deployments
+
+### Google Search Console Verification
+- **Support**: Universal HTML file verification. Place your Google Search Console verification HTML file (e.g., `google46bc9a9e4cd6fd5e.html`) inside the `public/` directory. Confirm it is served directly from the live site root after deployment (e.g. `/google46bc9a9e4cd6fd5e.html`).
+- **Active Verification File**: Done! `public/google46bc9a9e4cd6fd5e.html` is in place.
+
+### Sitemap & Robots Verification
+- **Dynamic Sitemap**: Built dynamically from your real dataset files (`seoPages.ts`, `postcodeAreas.ts`, `townPages.ts`, `providerDirectory.ts`).
+- **Regenerate Command**: Run the following script to compile an updated `public/sitemap.xml` listing all indexable pages:
+  ```bash
+  npm run generate:sitemap
+  ```
+- **Build Integration**: The sitemap is automatically regenerated *prior* to every production build by default under `npm run build`.
+- **Crawler Optimization**: `public/robots.txt` is configured to allow crawling from index bots (`User-agent: *`, `Allow: /`) and directs indexing packages directly to the compiled XML sitemap URL.
+
+### GitHub Pages Readiness
+- **Custom Domains**: If deploying to a custom domain (e.g. `https://www.wiltshirebroadbandfinder.co.uk`), ensure `base` in `vite.config.ts` is omitted or set to `"/"`.
+- **Repository Subpaths**: If deploying your project directly to GitHub Pages static subpath (e.g. `https://username.github.io/repository-name/`), edit `vite.config.ts` to include:
+  ```typescript
+  base: "/repository-name/",
+  ```
+  And update the canonical URL patterns inside your sitemap generator script `scripts/generate-sitemap.js` accordingly.
