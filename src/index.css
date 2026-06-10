@@ -110,3 +110,84 @@ button {
   animation: marquee linear infinite;
 }
 
+/* Ensure all global SVG icons have defined, scalable bounds */
+svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+/* Ensure external link and CTA icons conform to small dimensions */
+.external-link-icon,
+.link-icon,
+.cta-icon,
+.ticker-item svg {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
+
+/* News Ticker horizontal scroll styling */
+.broadband-news-ticker {
+  width: 100%;
+  overflow: hidden;
+  background: #07111f;
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ticker-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  animation: ticker-scroll 60s linear infinite;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.ticker-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .broadband-news-ticker {
+    font-size: 0.75rem;
+  }
+
+  .ticker-inner {
+    min-height: 36px;
+  }
+}
+
