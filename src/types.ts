@@ -16,6 +16,7 @@ export type ProviderType =
 
 export interface Provider {
   id: string;
+  providerId?: string; // Canonical identifier
   providerName: string;
   providerType: ProviderType[];
   networkType: string; // e.g. "FTTP", "FTTC", "5G Mobile", "Satellite", "FWA"
@@ -42,7 +43,7 @@ export interface Provider {
   priceChangeDate?: string;
   bestFor: string; // e.g. "Rural homes", "Ultra-fast speed"
   coverageNote: string;
-  availabilityStatus: "Available" | "Limited Coverage" | "Coming Soon";
+  availabilityStatus: string; // e.g. "Address check required" or others
   rankingScore: number; // computed or configured score
   dealRank: number;
   isSponsored: boolean;
@@ -58,13 +59,30 @@ export interface Provider {
   providerApiUrl?: string;
   trackingUrl?: string;
   lastPriceSync?: string;
-  priceStatus: "Active" | "Pending Review" | "Expired";
+  priceStatus: "Active" | "Pending Review" | "Expired" | "Featured" | string;
   priceDisclaimer: string;
   editorScore?: number;
   editorVerdict?: string;
   editorNotes?: string;
   thingsToWatch?: string[];
   lastReviewedDate?: string;
+
+  // Additional Fields from User request
+  websiteUrl?: string;
+  availabilityCheckerUrl?: string;
+  sourceUrl?: string;
+  sourceName?: string;
+  sourceLastChecked?: string;
+  verifiedAreas?: string[];
+  unverifiedAreas?: string[];
+  postcodeTargets?: string[];
+  townTargets?: string[];
+  coverageNotes?: string;
+  pricingStatus?: string; // "verified_price" | "provider_checker_required" etc
+  isLive?: boolean;
+  showOnHomepage?: boolean;
+  showOnPostcodePages?: boolean;
+  requiresAddressCheck?: boolean;
 }
 
 export interface Town {

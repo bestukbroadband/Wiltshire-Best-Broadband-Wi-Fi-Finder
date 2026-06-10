@@ -11,8 +11,8 @@ export const featuredOfferData: FeaturedOffer = {
   providerName: "Zzoomm",
   providerType: "Alternative network providers",
   packageName: "Homebi 500",
-  headline: "Exclusive Wiltshire Symmetrical 500Mbps Special",
-  shortDescription: "Symmetrical super-fast speeds with a complete price freeze and zero setup fees for Devizes, Calne and Melksham.",
+  headline: "Tracked Wiltshire Symmetrical 500Mbps Special",
+  shortDescription: "Symmetrical super-fast speeds with a complete price freeze and zero setup fees for Calne and Melksham.",
   monthlyPrice: 27.95,
   contractLength: 12,
   averageDownloadSpeed: 500,
@@ -23,11 +23,11 @@ export const featuredOfferData: FeaturedOffer = {
   knownPriceRise: "£0.00 (Fixed price for the standard duration of the contract)",
   priceAfterContract: 39.95,
   offerValidUntil: "2026-12-31",
-  targetPostcodes: ["SN10", "SN11", "SN12"],
-  targetTowns: ["Devizes", "Calne", "Melksham"],
+  targetPostcodes: ["SN11", "SN12"],
+  targetTowns: ["Calne", "Melksham"],
   editorScore: 9.2,
   editorVerdict: "Exceptional short contract speed offering with unmatched upload performance and a complete CPI price rise immunity.",
-  editorNotes: "Zzoomm runs its brilliant pink cables straight into Devizes and Calne properties. This is a top-performing listed campaign with no activation fees.",
+  editorNotes: "Zzoomm runs its network straight into Calne and Melksham properties. This is a top-performing listed campaign with no activation fees.",
   thingsToCheck: [
     "Verify pink street markings to ensure fibre is active on your specific street sector",
     "Does not include commercial copper backup or analogue landline service"
@@ -41,7 +41,7 @@ export const featuredOfferData: FeaturedOffer = {
   utmMedium: "referral",
   utmCampaign: "weekly_offer",
   utmContent: "weekly_highlight_card",
-  utmTerm: "sn10_devizes",
+  utmTerm: "sn11_calne",
   lastReviewedDate: "2026-06-08",
-  isLive: true
+  isLive: false // Deactivated on safety audit until fully verified pricing and coverage sources are established
 };

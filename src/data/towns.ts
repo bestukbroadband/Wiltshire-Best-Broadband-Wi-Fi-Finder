@@ -9,18 +9,18 @@ export const townsData: Town[] = [
   {
     id: "devizes",
     name: "Devizes",
-    shortIntro: "Devizes is a historic Wiltshire market town with a rich brewing heritage. Broadband availability has advanced rapidly, with local altnets deploying hyperfast full fibre networks in competition with mainstream Openreach lines.",
+    shortIntro: "Broadband availability around Devizes and Market Lavington can vary by street and property. National providers may be available through Openreach based networks, while rural or alternative options should be checked by exact address. Use provider checkers and postcode tools before relying on any package or price.",
     postcodeExamples: ["SN10 1", "SN10 3", "SN10 5"],
-    sponsoredBannerId: "banner-devizes-1",
+    sponsoredBannerId: undefined,
     nearbyTowns: ["Potterne", "Worton", "Rowde", "Seend", "Urchfont", "Melksham"],
     faqs: [
       {
-        question: "Can I get full fibre broadband in Devizes?",
-        answer: "Yes, full fibre is widely available in Devizes. Both Trooli and Zzoomm have laid proprietary fibre networks across the town, promising speeds up to 1000Mbps, alongside Openreach's FTTP rollouts."
+        question: "Is full fibre broadband available in Devizes?",
+        answer: "Fibre-to-the-Premises (FTTP) and alternative networks are listed for select streets and areas, but availability is not county-wide and varies by address. You must use specific provider availability checkers with your exact postcode to confirm coverage."
       },
       {
-        question: "Which altnets operate in Devizes?",
-        answer: "Zzoomm and Trooli are highly active in Devizes. Some surrounding rural villages can also access Wessex Internet or Voneus."
+        question: "Which networks are listed for checking in Devizes?",
+        answer: "National providers using Openreach-based channels may be relevant, while alternative networks like Wessex Internet, Trooli, and Zzoomm are listed as regionally relevant or require separate address checkers to verify active service lines."
       }
     ]
   },

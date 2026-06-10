@@ -349,7 +349,7 @@ export function PostcodePage({
           </section>
 
           {/* 5. WEEKLY OFFER HIGHLIGHT (IF APPLICABLE) */}
-          {matchResult && matchResult.weeklyOffer && (
+          {matchResult && matchResult.weeklyOffer ? (
             <section className="space-y-3">
               <div className="space-y-1">
                 <h2 className="text-lg font-extrabold text-white tracking-tight font-sans flex items-center gap-2">
@@ -424,11 +424,29 @@ export function PostcodePage({
                   sponsorLabel={matchResult.weeklyOffer.sponsorLabel}
                   lastReviewedDate={matchResult.weeklyOffer.lastCheckedDate}
                   onEnquire={() => {
-                    const mappedProv = mapOfferToProvider(matchResult.weeklyOffer!, true);
+                    const mappedProv = mapOfferToProvider(matchResult.weeklyOffer!, false);
                     onEnquire(mappedProv);
                   }}
                 />
               )}
+            </section>
+          ) : (
+            <section className="space-y-3">
+              <div className="bg-[#1e293b] border-2 border-slate-700 rounded-2xl p-6 space-y-3" id="weekly-availability-editorial-card-postcode">
+                <div className="flex items-center gap-2 text-brand-gold">
+                  <span className="p-1.5 bg-slate-800 rounded-lg">
+                    <svg className="h-4.5 w-4.5 text-brand-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </span>
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-white font-sans">
+                    Weekly availability note
+                  </h3>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed font-semibold">
+                  We are currently reviewing listed broadband options for this area. Availability can vary by exact address, especially across rural Wiltshire. Use the postcode search or provider checkers to confirm current packages before ordering.
+                </p>
+              </div>
             </section>
           )}
 

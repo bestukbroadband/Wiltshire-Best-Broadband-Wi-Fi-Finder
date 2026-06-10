@@ -8,6 +8,7 @@ import { Provider } from "../types";
 import { ArrowUp, ArrowDown, MapPin, ExternalLink, HelpCircle, AlertCircle } from "lucide-react";
 import { PriceDetails } from "./PriceDetails";
 import { EditorScoreCard } from "./EditorScoreCard";
+import { ProviderSourceNote } from "./ProviderSourceNote";
 
 interface SponsoredProviderCardProps {
   key?: any;
@@ -115,10 +116,18 @@ export function SponsoredProviderCard({ provider, onEnquire, className = "" }: S
           <div className="flex items-start gap-1.5 text-slate-950 bg-brand-gold-light p-2.5 rounded-lg border-2 border-brand-gold text-[11.5px] leading-snug">
             <MapPin className="h-4 w-4 text-[#bf7c13] shrink-0 mt-0.5" />
             <span>
-              <strong className="text-slate-950 font-black">Sponsor Local Scope:</strong> {provider.coverageNote} Dedicated rural engineering tracks active in Wiltshire.
+              <strong className="text-slate-950 font-black">Sponsor Local Scope:</strong> {provider.coverageNotes || provider.coverageNote} Dedicated rural engineering tracks active in Wiltshire.
             </span>
           </div>
         </div>
+
+        {/* Source Checked Registry Note */}
+        <ProviderSourceNote
+          sourceName={provider.sourceName}
+          lastCheckedDate={provider.sourceLastChecked}
+          sourceUrl={provider.sourceUrl}
+          isDark={true}
+        />
 
         {/* Editorial Scoring Card */}
         <EditorScoreCard provider={provider} isDark={true} />
@@ -144,7 +153,10 @@ export function SponsoredProviderCard({ provider, onEnquire, className = "" }: S
             <ExternalLink className="h-3 w-3" />
           </a>
         </div>
-        <div className="flex items-center justify-center gap-1 text-[9.5px] text-slate-400 font-bold">
+        <p className="text-[10px] text-center text-slate-400 font-semibold leading-relaxed font-sans">
+          Availability varies by exact address. Final price, speed, package and installation terms must be confirmed by the provider.
+        </p>
+        <div className="flex items-center justify-center gap-1 text-[9.5px] text-slate-400 font-bold pt-1">
           <AlertCircle className="h-3 w-3 text-brand-gold-hover shrink-0" />
           <span>Sponsored listings do not automatically influence objective data rankings.</span>
         </div>

@@ -1193,12 +1193,48 @@ export const providersData: Provider[] = rawProvidersData.map((p) => {
 
   const disclaimer = p.priceDisclaimer || "Example price only. Final price confirmed by provider.";
 
+  // Custom logic for Devizes / Wiltshire Altnet cautions
+  let resolvedStatus = p.availabilityStatus || "Address check required";
+  if (p.id === "zzoomm") {
+    resolvedStatus = "Address check required";
+  }
+
+  // Wording checks for Wiltshire provider relevance
+  let resolvedCoverageNote = p.coverageNote || "";
+  if (p.id === "wessex") {
+    resolvedCoverageNote = "Wessex Internet is regionally relevant. Exact availability is subject to address checking.";
+  } else if (p.id === "openreach" || p.id === "bt") {
+    resolvedCoverageNote = p.coverageNote + " Openreach serving. Use Openreach fibre checker to confirm address.";
+  } else if (p.id === "toob") {
+    resolvedCoverageNote = "Cheques available for Chippenham only, subject to exact postcode checks.";
+  }
+
   return {
     ...p,
     monthlyPrice: p.monthlyPrice ?? p.monthlyPriceFrom ?? 0,
     knownAnnualPriceRise: resolvedPriceRise,
     priceAfterMinimumTerm: p.priceAfterMinimumTerm ?? p.monthlyPriceAfterContract,
     priceDisclaimer: disclaimer,
+    
+    // Core 21 fields requested by the user
+    providerId: p.providerId || p.id,
+    websiteUrl: p.websiteUrl || p.ctaUrl,
+    availabilityCheckerUrl: p.availabilityCheckerUrl || p.ctaUrl,
+    sourceUrl: p.sourceUrl || p.ctaUrl,
+    sourceName: p.sourceName || (p.providerName + " Public Page"),
+    sourceLastChecked: p.sourceLastChecked || p.lastCheckedDate || "2026-06-05",
+    availabilityStatus: resolvedStatus,
+    verifiedAreas: p.verifiedAreas || (p.id === "zzoomm" ? ["Calne", "Melksham"] : p.townsCovered),
+    unverifiedAreas: p.unverifiedAreas || (p.id === "zzoomm" ? ["Devizes"] : []),
+    postcodeTargets: p.postcodeTargets || p.postcodeAreas || [],
+    townTargets: p.townTargets || p.townsCovered || [],
+    coverageNotes: p.coverageNotes || resolvedCoverageNote || "",
+    pricingStatus: p.pricingStatus || "provider_checker_required",
+    editorNotes: p.editorNotes || p.editorVerdict || "",
+    isLive: p.isLive !== false,
+    showOnHomepage: p.showOnHomepage !== false,
+    showOnPostcodePages: p.showOnPostcodePages !== false,
+    requiresAddressCheck: p.requiresAddressCheck !== false,
   };
 });
 

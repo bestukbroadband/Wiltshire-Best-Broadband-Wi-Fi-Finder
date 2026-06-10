@@ -7,25 +7,25 @@ import { SeoPageData } from "../types";
 
 export const townPagesData: Record<string, SeoPageData> = {
   devizes: {
-    pageTitle: "Best Broadband Deals in Devizes | Wiltshire Broadband Finder",
+    pageTitle: "Best Listed Broadband Options to Check in Devizes | Wiltshire Broadband Finder",
     metaTitle: "Broadband in Devizes | Symmetrical Full Fibre Comparisons",
-    metaDescription: "Check high speed internet availability in Devizes. Compare Zzoomm symmetrical gigabit fibre, Trooli rural broadband packages, and national lines.",
+    metaDescription: "Check high speed internet availability in Devizes. Compare potential symmetrical gigabit fibre checkers, Trooli rural broadband packages, and national lines.",
     canonicalUrl: "https://www.wiltshirebroadbandfinder.co.uk/town/devizes",
     slug: "devizes",
     h1: "Broadband in Devizes",
-    introCopy: "Devizes features some of the most competitive full fibre coverage in Wiltshire. Multiple dedicated networks now compete alongside standard Openreach options.",
+    introCopy: "Broadband availability around Devizes and Market Lavington can vary by street and property. National providers may be available through Openreach based networks, while rural or alternative options should be checked by exact address. Use provider checkers and postcode tools before relying on any package or price.",
     postcodeTargets: ["SN10 1", "SN10 3", "SN10 5"],
     townTargets: ["devizes", "potterne", "worton"],
-    primaryKeyword: "broadband deals in devizes",
-    secondaryKeywords: ["Zzoomm fibre Devizes", "Trooli broadband Potterne", "Devizes village internet"],
+    primaryKeyword: "broadband choices to check in devizes",
+    secondaryKeywords: ["Zzoomm checker Devizes", "Trooli broadband Potterne", "Devizes village address check"],
     faqItems: [
       {
         question: "Is Zzoomm active in Devizes?",
-        answer: "Yes, Zzoomm operates a proprietary full-fibre network across Devizes, giving symmetric download and upload speeds with zero inflation pricing."
+        answer: "Zzoomm is listed as an address-checker provider. Symmetrical fiber coverage is not universal and can vary dramatically by exact street segment. You must use their postcode checker to verify active service before ordering."
       },
       {
         question: "Which networks cover Potterne and Worton villages near Devizes?",
-        answer: "Potterne and Worton are served by Trooli and Voneus, bringing gigabit connections directly to village households."
+        answer: "Potterne and Worton are served by several regional altnets, but availability resides at the address level. An exact postcode search is required."
       }
     ],
     schemaType: "LocalBusiness",

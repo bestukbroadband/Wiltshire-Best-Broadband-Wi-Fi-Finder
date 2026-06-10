@@ -278,26 +278,26 @@ export const postcodeAreasData: PostcodeArea[] = [
     county: "Wiltshire",
     region: "South West",
     slug: "sn10_devizes_market_lavington",
-    introCopy: "SN10 covers Devizes, Market Lavington, Potterne, and surrounding Kennet Valley parishes. It is one of the most competitive districts in Wiltshire, featuring both commercial altnets and nationwide infrastructures.",
-    localBroadbandNotes: "Zzoomm, Trooli, and Voneus are highly active within SN10. Devizes town is a stronghold for Zzoomm's symmetrical full fibre, while outlying villages like Potterne enjoy reliable updates from Voneus and Trooli.",
+    introCopy: "SN10 covers Devizes, Market Lavington, Potterne, and surrounding Kennet Valley parishes.",
+    localBroadbandNotes: "Broadband availability around Devizes and Market Lavington can vary by street and property. National providers may be available through Openreach based networks, while rural or alternative options should be checked by exact address. Use provider checkers and postcode tools before relying on any package or price.",
     postcodeExamples: ["SN10 1EP", "SN10 3BY", "SN10 5AA"],
     providerIds: ["zzoomm", "trooli", "voneus", "bt", "sky", "talktalk", "ee_5g", "starlink"],
-    weeklyOfferId: "zzoomm",
-    seoTitle: "Broadband Deals in Devizes & Market Lavington (SN10)",
-    metaDescription: "Review competitive broadband offers in SN10. Compare Zzoomm's symmetrical speeds, Trooli rural plans, and Openreach providers in Devizes.",
-    h1: "Broadband Options in SN10: Devizes & Market Lavington",
+    weeklyOfferId: undefined,
+    seoTitle: "Listed Broadband Options to Check in Devizes & Market Lavington (SN10)",
+    metaDescription: "Review competitive broadband options to check in SN10. Compare potential symmetrical options, Trooli rural plans, and national Openreach providers around Devizes.",
+    h1: "Broadband Options to Check in SN10: Devizes & Market Lavington",
     faqs: [
       {
-        question: "Is Zzoomm available throughout Devizes?",
-        answer: "Yes, Zzoomm has completed substantial network builds covering almost all residential streets in Devizes."
+        question: "How do I check Altnet or Zzoomm availability in Devizes?",
+        answer: "Zzoomm is listed as an address-checker provider. Symmetrical fiber coverage varies substantially by exact street and segment. You must use their postcode availability checker to see if your address is supported before ordering."
       },
       {
         question: "Can Market Lavington and Potterne residents get full fibre?",
-        answer: "Potterne has excellent coverage from Trooli and Voneus, while Market Lavington is served by Openreach and key regional altnets."
+        answer: "Potterne has select coverage from regional altnets, while Market Lavington is served primarily by Openreach based networks. Always perform an exact address check."
       },
       {
-        question: "Are setup fees common in Devizes?",
-        answer: "Most local altnets like Zzoomm offer free setup, while standard Openreach providers may include modest delivery or activation charges."
+        question: "Are setup fees guaranteed to be free in Devizes?",
+        answer: "No setup fees or prices are guaranteed. While some regional providers offer free standard installation promotions, final price and setup terms must be confirmed by the provider."
       }
     ],
     nearbyPostcodes: ["SN11", "SN12", "SN9"],

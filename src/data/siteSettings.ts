@@ -10,7 +10,7 @@ export const siteSettingsData = {
     companyName: "Cane Communications Limited",
     companyNumber: "11485145",
     registeredOffice: "United Kingdom",
-    contactEmail: "enquiries@canecommunications.co.uk"
+    contactEmail: "bestukbroaband@proton.me"
   },
   headlines: {
     heroTitle: "Find local broadband options for rural Wiltshire villages and towns",

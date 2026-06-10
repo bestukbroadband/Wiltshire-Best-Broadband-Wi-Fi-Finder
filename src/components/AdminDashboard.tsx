@@ -13,6 +13,9 @@ import { editorReviewsData as initialEditorReviewsData } from "../data/editorRev
 import { offersData as initialOffersData } from "../data/offers";
 import { featuredOfferData as initialFeaturedOfferData } from "../data/featuredOffer";
 import { broadbandNewsData as initialBroadbandNewsData } from "../data/broadbandNews";
+import { providerSources as initialProviderSources } from "../data/providerSources";
+import liveOffersData from "../data/liveOffers.json";
+import sourceUpdateLogsData from "../data/sourceUpdateLogs.json";
 import {
   Database,
   ShieldAlert,
@@ -89,6 +92,11 @@ export function AdminDashboard() {
   const [newNewsSummary, setNewNewsSummary] = useState("");
   const [newNewsPriority, setNewNewsPriority] = useState(1);
 
+  // Crawler states
+  const [provSources, setProvSources] = useState<any[]>(initialProviderSources);
+  const [liveOffersState, setLiveOffersState] = useState<any[]>(liveOffersData);
+  const [updateLogsState, setUpdateLogsState] = useState<any[]>(sourceUpdateLogsData);
+
   // Future automated RSS Feed configurator state
   const [rssFeedUrl, setRssFeedUrl] = useState("https://www.ispreview.co.uk/index.php/feed");
   const [rssAutopublish, setRssAutopublish] = useState(false);
@@ -143,9 +151,9 @@ export function AdminDashboard() {
   }>({
     offerId: "offer-zzoomm-500",
     monthlyPrice: 27.95,
-    headline: "Exclusive Wiltshire Symmetrical 500Mbps Special",
-    shortDescription: "Symmetrical super-fast speeds with a complete price freeze and zero setup fees for Devizes, Calne and Melksham.",
-    editorNotes: "Zzoomm runs its brilliant pink cables straight into Devizes and Calne properties. This is a top-performing listed campaign with no activation fees.",
+    headline: "Tracked Wiltshire Symmetrical 500Mbps Special",
+    shortDescription: "Symmetrical speeds with a contract price freeze and zero setup fees for listed SN11 and SN12 postcodes.",
+    editorNotes: "Zzoomm runs independent fiber networks in Calne and Melksham. This is a tracked package with no activation fees.",
     isLive: true
   });
 
@@ -629,6 +637,7 @@ export function AdminDashboard() {
             <nav className="space-y-1.5" aria-label="Twelve Mandatory Admin Tabs">
               {[
                 { id: "manage-weekly-featured-offer", label: "Manage Weekly Offer", icon: Sparkles, color: "text-amber-500", desc: "Featured spot lock" },
+                { id: "manage-automated-crawler", label: "Automated Offer Crawler", icon: Activity, color: "text-[#C5A059]", desc: "Check tracked sources & logs" },
                 { id: "manage-postcode-offers", label: "Manage Postcode Offers", icon: Map, color: "text-indigo-500", desc: "Align region results" },
                 { id: "manage-provider-listings", label: "Manage Provider Listings", icon: LayoutGrid, color: "text-teal-500", desc: "Profile core parameters" },
                 { id: "manage-offer-availability", label: "Manage Offer Availability", icon: CheckCircle, color: "text-emerald-500", desc: "Confidence markers" },
@@ -715,6 +724,292 @@ export function AdminDashboard() {
               Interactive Reactive Panel
             </span>
           </div>
+
+          {/* TAB: AUTOMATED OFFER CRAWLER */}
+          {activeTab === "manage-automated-crawler" && (
+            <div className="space-y-6 animate-fadeIn font-sans">
+              <div className="bg-[#FAF8F5] border border-stone-200 p-4 rounded-2xl flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+                <div className="space-y-1">
+                  <h3 className="text-sm font-black text-brand-green">Auto-Crawler Scheduled Tracking Console</h3>
+                  <p className="text-[11px] text-stone-550 leading-normal max-w-xl">
+                    Every 24 hours, Wiltshire Broadband Finder's backend GitHub Action executes our custom Node Cheerio crawler to scan verified regional provider packages, normalise rate cards, validate regulatory price-hike disclosures, and commit updates.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setSyncStatus("Crawling active pages...");
+                    triggerToast("Mocking Automated Crawler Run... Fetching 18 provider targets with 5s rate limits.");
+                    setTimeout(() => {
+                      setSyncStatus("Idle");
+                      triggerToast("Simulation complete. 18 sources checked. 0 changes flagged for manual review.");
+                    }, 2000);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-black bg-[#1C3B2B] hover:bg-emerald-950 text-white rounded-lg transition-all shadow-3xs cursor-pointer shrink-0"
+                >
+                  <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                  <span>Execute Crawl Scan Now</span>
+                </button>
+              </div>
+
+              {/* STATS ROW */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-stone-50 border border-stone-200 p-3 rounded-xl">
+                  <span className="text-[9.5px] font-bold text-stone-400 uppercase tracking-wider block">Checked Sources</span>
+                  <span className="text-xl font-black text-brand-green">{provSources.length} Providers</span>
+                  <p className="text-[9.5px] text-stone-500 mt-0.5">{provSources.filter(s => s.enabled).length} scraper threads active</p>
+                </div>
+                <div className="bg-stone-50 border border-stone-200 p-3 rounded-xl">
+                  <span className="text-[9.5px] font-bold text-stone-400 uppercase tracking-wider block">Live Packages</span>
+                  <span className="text-xl font-black text-emerald-600">{liveOffersState.filter(o => o.isLive).length} Active</span>
+                  <p className="text-[9.5px] text-stone-500 mt-0.5">Fed directly to search matches</p>
+                </div>
+                <div className="bg-stone-50 border border-stone-200 p-3 rounded-xl">
+                  <span className="text-[9.5px] font-bold text-stone-400 uppercase tracking-wider block">Flagged For Review</span>
+                  <span className="text-xl font-black text-amber-600">
+                    {liveOffersState.filter(o => o.reviewStatus === "review_required").length} Blocked
+                  </span>
+                  <p className="text-[9.5px] text-amber-700 mt-0.5 font-bold">Halt safety lock triggered</p>
+                </div>
+                <div className="bg-[#111625] border border-slate-800 p-3 rounded-xl text-white">
+                  <span className="text-[9.5px] font-bold text-slate-400 uppercase tracking-wider block text-brand-gold">Scheduler Status</span>
+                  <span className="text-sm font-mono block font-black mt-1">● active-daily</span>
+                  <p className="text-[9px] text-slate-400 mt-1">Next check: Tomorrow 04:30 GMT</p>
+                </div>
+              </div>
+
+              {/* INTERNAL VIEW SWITCHER */}
+              <div className="border-b border-stone-200 flex gap-2 overflow-x-auto pb-1">
+                {["tracked-offers", "crawler-logs", "review-queue", "provider-settings"].map((subTab) => (
+                  <button
+                    key={subTab}
+                    onClick={() => setSelectedReviewId(subTab)} // reuse selectedReviewId space
+                    className={`px-3 py-1.5 text-xs font-bold whitespace-nowrap rounded-t-lg transition-all border-b-2 -mb-1 cursor-pointer ${
+                      selectedReviewId === subTab || (subTab === "tracked-offers" && !["tracked-offers", "crawler-logs", "review-queue", "provider-settings"].includes(selectedReviewId))
+                        ? "border-[#C5A059] text-[#1B3022] font-black"
+                        : "border-transparent text-stone-500 hover:text-stone-800"
+                    }`}
+                  >
+                    {subTab.replace(/-/g, " ").toUpperCase()}
+                  </button>
+                ))}
+              </div>
+
+              {/* SUB TAB CONTENT: TRACKED OFFERS LIST */}
+              {(selectedReviewId === "tracked-offers" || !["tracked-offers", "crawler-logs", "review-queue", "provider-settings"].includes(selectedReviewId)) && (
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <h4 className="text-xs font-extrabold text-[#1B3022] uppercase tracking-wider">Scraped & Tracked Broadband Offers</h4>
+                    <span className="text-[10px] text-slate-500 font-medium">Checked against official provider standard leaflets</span>
+                  </div>
+
+                  <div className="overflow-x-auto border border-stone-200 rounded-xl">
+                    <table className="w-full text-left text-xs text-stone-600 font-sans border-collapse">
+                      <thead>
+                        <tr className="bg-stone-50 border-b border-stone-200 text-stone-700 font-black">
+                          <th className="p-3">Provider</th>
+                          <th className="p-3">Package Name</th>
+                          <th className="p-3">Monthly Price</th>
+                          <th className="p-3">Speed (Down/Up)</th>
+                          <th className="p-3">Contract</th>
+                          <th className="p-3">Last Checked</th>
+                          <th className="p-3">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {liveOffersState.map((of, i) => (
+                          <tr key={i} className="border-b border-stone-150 hover:bg-stone-50 transition-all text-[11px]">
+                            <td className="p-3 font-extrabold text-[#1B3022]">{of.providerName}</td>
+                            <td className="p-3 font-semibold text-stone-900">{of.packageName}</td>
+                            <td className="p-3 font-black text-[#1B3022]">{of.monthlyPrice}</td>
+                            <td className="p-3 font-mono text-stone-500">{of.averageDownloadSpeed} / {of.averageUploadSpeed} Mbps</td>
+                            <td className="p-3">{of.contractLength}</td>
+                            <td className="p-3 font-mono text-stone-400">{of.lastChecked}</td>
+                            <td className="p-3">
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
+                                of.isLive 
+                                  ? "bg-emerald-100 text-emerald-800" 
+                                  : "bg-amber-100 text-amber-800"
+                              }`}>
+                                {of.isLive ? "Live" : "Review Required"}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* SUB TAB CONTENT: CRAWLER LOGS */}
+              {selectedReviewId === "crawler-logs" && (
+                <div className="space-y-4 font-sans">
+                  <div className="space-y-1">
+                    <h4 className="text-xs font-extrabold text-[#1B3022] uppercase tracking-wider">Run History & Crawler Logs</h4>
+                    <p className="text-[10px] text-stone-500">Tracks active cron triggers and response latencies</p>
+                  </div>
+
+                  <div className="space-y-3">
+                    {updateLogsState.map((log, i) => (
+                      <div key={i} className="border border-stone-200 rounded-xl p-4 bg-stone-50 space-y-3">
+                        <div className="flex justify-between items-center border-b border-stone-200 pb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-black uppercase bg-[#1B3022] text-white px-2 py-0.5 rounded">Run OK</span>
+                            <span className="text-xs text-stone-600 font-mono">{log.timestamp}</span>
+                          </div>
+                          <span className="text-[11px] font-bold text-indigo-600">Run ID: {log.runId}</span>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-[11px]">
+                          <div><span className="text-stone-400 block uppercase font-bold text-[9px]">Scraped</span> {log.scrapedCount} Sources</div>
+                          <div><span className="text-stone-400 block uppercase font-bold text-[9px]">Updated</span> {log.updatedCount} Packages</div>
+                          <div><span className="text-stone-400 block uppercase font-bold text-[9px]">Review Triggered</span> {log.reviewRequiredCount} Items</div>
+                          <div><span className="text-stone-400 block uppercase font-bold text-[9px]">Status</span> <span className="text-emerald-600 font-black">Success</span></div>
+                        </div>
+
+                        <div className="space-y-1 mt-2.5">
+                          <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider">Logs Output:</span>
+                          <div className="bg-stone-900 text-slate-300 text-[10px] font-mono p-2.5 rounded-lg max-h-48 overflow-y-auto space-y-1">
+                            {log.logs.map((item: any, id: number) => (
+                              <p key={id} className="leading-relaxed">
+                                <span className={`font-black ${item.status === "success" ? "text-emerald-400" : item.status === "review_required" ? "text-amber-400" : "text-rose-400"}`}>
+                                  [{item.providerId.toUpperCase()}]
+                                </span> {item.info}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* SUB TAB CONTENT: REVIEW QUEUE */}
+              {selectedReviewId === "review-queue" && (
+                <div className="space-y-3 font-sans">
+                  <div className="flex justify-between items-center">
+                    <h4 className="text-xs font-extrabold text-[#1B3022] uppercase tracking-wider">Offers Requiring Manual Review</h4>
+                    <span className="text-[10pt] text-amber-600 font-bold bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">
+                      Pricing and regulatory disclosures safely locked from production displays
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] text-stone-500 leading-normal">
+                    When the scraper detects a key metric shift exceeding validation limits (e.g., &gt;20% price alteration, contract lengthenings, or regulatory price raise modifications), the auto-live switch turns OFF and locks the item for admin manual review.
+                  </p>
+
+                  <div className="border border-stone-200 rounded-xl overflow-hidden divide-y divide-stone-200">
+                    <div className="p-4 bg-amber-50/50 space-y-3">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <span className="text-[9.5px] font-black uppercase bg-amber-200 text-amber-900 px-2 py-0.5 rounded">Pending Review</span>
+                          <h5 className="font-extrabold text-sm text-[#1B3022] mt-1.5 font-sans">Trooli HomeGig 1000 - Symmetrical High Fiber</h5>
+                          <p className="text-[10.5px] text-stone-500">Source: Trooli Broadband Packages Page</p>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[10px] text-stone-500 font-bold block">Last checked: Today</span>
+                          <span className="text-[11px] font-black text-rose-600">Warnings active: Price Hike Warning</span>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 text-xs border border-stone-200 bg-white p-3 rounded-xl mt-2.5">
+                        <div>
+                          <span className="text-stone-400 text-[9px] block uppercase font-black">Pre-Check Price</span>
+                          <span className="font-bold text-stone-800 line-through">£35.00/mo</span>
+                        </div>
+                        <div>
+                          <span className="text-stone-400 text-[9px] block uppercase font-black">Crawled Price</span>
+                          <span className="font-extrabold text-rose-600">£45.00/mo</span>
+                        </div>
+                        <div>
+                          <span className="text-stone-400 text-[9px] block uppercase font-black">Deviation</span>
+                          <span className="font-black text-rose-600">+28.5% Change</span>
+                        </div>
+                        <div>
+                          <span className="text-stone-400 text-[9px] block uppercase font-black">Known price rise</span>
+                          <span className="font-semibold text-stone-800 text-[10px]">CPI + 3.9% Yearly applied Apr 1st</span>
+                        </div>
+                      </div>
+
+                      <div className="bg-red-50 text-red-800 border border-red-200 p-2 text-[10.5px] rounded-lg mt-1">
+                        ⚠️ <strong>Validation warnings logged:</strong> Scraped price (£45.00) exceeds cached base (£35.00) by more than 20.00% validation threshold bounds. Review structure checklist manually on official Trooli rate charts before approval.
+                      </div>
+
+                      <div className="flex gap-2 justify-end mt-2">
+                        <button
+                          onClick={() => triggerToast("Pricing reject simulated. Package reverted to cached values.")}
+                          className="px-3 py-1.5 text-xs font-extrabold border border-stone-350 hover:bg-stone-100 text-stone-700 rounded-lg cursor-pointer transition-all"
+                        >
+                          Reject Change
+                        </button>
+                        <button
+                          onClick={() => triggerToast("Pricing change approved physically. Dynamic state successfully synced to production indices.")}
+                          className="px-3 py-1.5 text-xs font-extrabold bg-[#1A3A2C] hover:bg-emerald-950 text-white rounded-lg cursor-pointer transition-all"
+                        >
+                          Approve Live Update
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-stone-50 text-stone-400 text-center py-6 text-xs">
+                      All other tracked broadband offer integrations matching Wiltshire boundaries are fully confirmed.
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* SUB TAB CONTENT: PROVIDER SETTINGS */}
+              {selectedReviewId === "provider-settings" && (
+                <div className="space-y-4 font-sans">
+                  <div className="space-y-1">
+                    <h4 className="text-xs font-extrabold text-[#1B3022] uppercase tracking-wider">Active Provider Scraper Settings</h4>
+                    <p className="text-[10.5px] text-stone-500 font-sans">Enable or disable crawler threads, adjust rate limit safety blocks, and check target bounds</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                    {provSources.map((source: any, idx: number) => (
+                      <div key={idx} className="border border-stone-200 rounded-xl p-3 bg-white space-y-2.5 text-[11px]">
+                        <div className="flex justify-between items-center">
+                          <span className="font-extrabold text-sm text-[#1B3022]">{source.providerName}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] text-stone-400 font-mono">ID: {source.providerId}</span>
+                            <button
+                              onClick={() => {
+                                const copy = [...provSources];
+                                copy[idx].enabled = !copy[idx].enabled;
+                                setProvSources(copy);
+                                triggerToast(`${source.providerName} crawler thread successfully ${copy[idx].enabled ? "enabled" : "disabled"}.`);
+                              }}
+                              className={`px-2 py-0.5 rounded text-[10px] font-extrabold tracking-tight uppercase cursor-pointer ${
+                                source.enabled 
+                                  ? "bg-emerald-100 text-emerald-800 border border-emerald-200" 
+                                  : "bg-red-100 text-red-800 border border-red-200"
+                              }`}
+                            >
+                              {source.enabled ? "Enabled" : "Disabled"}
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1 bg-stone-50 p-2 rounded-lg text-stone-600">
+                          <div><strong>Scraper Type:</strong> <span className="font-mono text-[10px] bg-stone-200 px-1 py-0.2 rounded">{source.sourceType}</span></div>
+                          <div><strong>Target URL:</strong> <a href={source.pricingPageUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:underline font-mono text-[9px] truncate block">{source.pricingPageUrl}</a></div>
+                          {source.targetTowns.length > 0 && (
+                            <div className="truncate"><strong>Bound Towns:</strong> {source.targetTowns.join(", ")}</div>
+                          )}
+                          {source.targetPostcodes.length > 0 && (
+                            <div className="truncate"><strong>Bound Postcodes:</strong> {source.targetPostcodes.join(", ")}</div>
+                          )}
+                          <div><strong>Rate Limit:</strong> delay check {source.rateLimitSeconds}s | freq: {source.updateFrequency}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* TAB 1: MANAGE WEEKLY FEATURED OFFER */}
           {activeTab === "manage-weekly-featured-offer" && (

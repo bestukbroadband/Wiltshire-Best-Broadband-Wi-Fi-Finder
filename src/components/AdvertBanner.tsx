@@ -294,68 +294,40 @@ export function AdvertBanner({
       ) : (
         <div className="flex-1 flex flex-col justify-center text-left">
           {adType === "standard" && (
-            matchedAd ? (
-              <div className="relative flex flex-col justify-between h-full font-sans">
-                {/* 🌟 Mandatory Standard Legals Regulatory Checkbox/Badges */}
-                <div className="absolute top-0 right-1 px-1.5 py-0.2 bg-stone-200/90 dark:bg-slate-800/95 text-[#1B3022] dark:text-slate-300 text-[8px] font-black uppercase tracking-widest rounded border border-stone-300/40 select-none">
-                  {matchedAd.sponsorLabel}
-                </div>
-
-                <div className="pr-20 space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[9.5px] font-extrabold text-[#C5A059] uppercase tracking-wider">
-                      {matchedAd.advertiserName}
-                    </span>
-                  </div>
-                  
-                  <h4 className="text-xs md:text-sm font-black text-[#1B3022] dark:text-white leading-tight tracking-tight max-w-2xl">
-                    {matchedAd.headline}
-                  </h4>
-                  
-                  {resolvedLocation !== "newsletter-sponsor" && resolvedLocation !== "hero-sponsor-strip" && (
-                    <p className="text-[11px] text-[#1B3022]/80 dark:text-slate-350 leading-relaxed max-w-3xl font-medium">
-                      {matchedAd.body}
-                    </p>
-                  )}
-                  
-                  {/* Subtle newsletter and strip body */}
-                  {(resolvedLocation === "newsletter-sponsor" || resolvedLocation === "hero-sponsor-strip") && (
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-normal max-w-3xl">
-                      {matchedAd.body}
-                    </p>
-                  )}
-                </div>
-
-                <div className="mt-2.5 shrink-0 flex items-center justify-between">
-                  {/* Explanatory Data Safety Mouseover Info Icon */}
-                  <div className="group relative flex items-center gap-1 text-[9.5px] text-[#1B3022]/40 dark:text-slate-500 font-semibold cursor-help">
-                    <Info className="h-3.5 w-3.5" />
-                    <span>Privacy Assured Offer</span>
-                    <div className="absolute left-0 bottom-5 hidden group-hover:block bg-stone-900 text-white rounded p-2 text-[9px] leading-relaxed w-52 shadow-md z-30 font-sans tracking-normal border border-stone-700">
-                      Wiltshire Finder never shares personal parameters with cookies or secondary networks. This specific partner campaign funds local parished coverage.
-                    </div>
-                  </div>
-
-                  <a
-                    href={matchedAd.ctaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-3 py-1 text-[11px] font-extrabold bg-[#1C3B2B] hover:bg-[#12241b] dark:bg-[#C5A059] dark:hover:bg-[#b08c47] text-white dark:text-stone-950 rounded-md transition-all shadow-3xs cursor-pointer"
-                  >
-                    <span>{matchedAd.ctaText}</span>
-                    <ExternalLink className="h-2.5 w-2.5" />
-                  </a>
-                </div>
+            <div className="relative flex flex-col justify-between h-full font-sans p-2">
+              <div className="absolute top-0 right-1 px-1.5 py-0.5 bg-brand-gold/15 text-brand-gold text-[8.5px] font-black uppercase tracking-widest rounded border border-brand-gold/35 select-none animate-pulse">
+                Ad Space Blank
               </div>
-            ) : (
-              <div className="text-center py-2 text-xs text-stone-500 font-sans">
-                <span className="font-extrabold text-[#1B3022] tracking-tight">Prime Local sponsorship space available ({resolvedLocation})</span>
-                <p className="text-[10px] text-stone-400 mt-0.5">Advertise with Wiltshire Broadband Finder to reach parished consumers.</p>
-                <a href="#advertise" className="mt-1 text-[10px] font-black text-[#C5A059] hover:underline block">
-                  Get Local Profile Options &rarr;
+
+              <div className="space-y-1">
+                <span className="text-[9px] font-extrabold text-[#C5A059] uppercase tracking-wider block">
+                  Sponsorship Directory Placeholder
+                </span>
+                
+                <h4 className="text-xs md:text-sm font-black text-[#1B3022] dark:text-white leading-tight tracking-tight">
+                  Advertisement space available / Sponsored placement available
+                </h4>
+                
+                <p className="text-[10.5px] text-[#1B3022]/80 dark:text-slate-300 leading-relaxed max-w-3xl font-semibold">
+                  This targeted slot is ready for verified alternative networks, rural regional providers, or commercial partners serving Wiltshire broadband consumers. Standard verification and copy safety criteria apply.
+                </p>
+              </div>
+
+              <div className="mt-2.5 shrink-0 flex items-center justify-between">
+                <div className="flex items-center gap-1 text-[9.5px] text-[#1B3022]/40 dark:text-slate-500 font-semibold">
+                  <Info className="h-3.5 w-3.5 text-[#C5A059]" />
+                  <span>Verified Ad Space Placeholder</span>
+                </div>
+
+                <a
+                  href="#enquire"
+                  className="inline-flex items-center gap-1 px-3 py-1 text-[10px] font-extrabold bg-[#1C3B2B] hover:bg-[#12241b] dark:bg-[#C5A059] dark:hover:bg-[#b08c47] text-white dark:text-stone-950 rounded-md transition-all cursor-pointer shadow-3xs"
+                >
+                  <span>Sponsored placement available</span>
+                  <ExternalLink className="h-2.5 w-2.5" />
                 </a>
               </div>
-            )
+            </div>
           )}
 
           {/* GOOGLE ADSENSE READY EMBED PREVIEW */}

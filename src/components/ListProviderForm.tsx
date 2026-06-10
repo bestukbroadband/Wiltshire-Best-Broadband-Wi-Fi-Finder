@@ -83,7 +83,7 @@ export function ListProviderForm() {
             required
             value={formData.providerName}
             onChange={handleInputChange}
-            placeholder="e.g. Salisbury Fibre Corp"
+            placeholder="e.g. Broadband Networks Ltd"
             className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-hidden"
           />
         </div>
@@ -96,7 +96,7 @@ export function ListProviderForm() {
             required
             value={formData.website}
             onChange={handleInputChange}
-            placeholder="https://salisburyfibre.co.uk"
+            placeholder="https://broadband-networks.co.uk"
             className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-hidden"
           />
         </div>
@@ -124,7 +124,7 @@ export function ListProviderForm() {
             required
             value={formData.email}
             onChange={handleInputChange}
-            placeholder="richard@salisburyfibre.co.uk"
+            placeholder="richard@broadband-networks.co.uk"
             className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-hidden"
           />
         </div>
@@ -182,7 +182,7 @@ export function ListProviderForm() {
           required
           value={formData.areasCovered}
           onChange={handleInputChange}
-          placeholder="e.g. Salisbury, Downton, Wilton, Fovant"
+          placeholder="e.g. Calne, Melksham, Devizes, Worton"
           className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-hidden"
         />
       </div>
@@ -195,7 +195,7 @@ export function ListProviderForm() {
           required
           value={formData.examplePackages}
           onChange={handleInputChange}
-          placeholder="e.g. Salisbury Light: 150Mbps Symmetrical, from £25.00/mo."
+          placeholder="e.g. Symmetrical Home Fibre: 150Mbps Symmetrical, from £25.00/mo."
           className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-hidden"
         />
       </div>

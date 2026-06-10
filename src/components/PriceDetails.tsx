@@ -26,7 +26,7 @@ interface PriceDetailsProps {
   deliveryFee: number;
   midContractPriceRise: boolean;
   lastCheckedDate: string;
-  priceStatus?: "Active" | "Pending Review" | "Expired";
+  priceStatus?: "Active" | "Pending Review" | "Expired" | "Featured" | string;
   priceDisclaimer?: string;
   isDark?: boolean;
 }

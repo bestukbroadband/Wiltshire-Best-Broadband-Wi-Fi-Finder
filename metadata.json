@@ -1,6 +1,6 @@
 {
-  "name": "Wiltshire's Best Broadband and WiFi Finder",
-  "description": "Find and compare listed broadband, WiFi and internet provider options across rural Wiltshire villages and towns, with postcode based availability guidance, editor notes and local offer highlights.",
+  "name": "Wiltshires Best Broadband \u0026 Wi Fi Finder",
+  "description": "Broadband listing, comparison, and local availability check for rural Wiltshire villages and towns.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

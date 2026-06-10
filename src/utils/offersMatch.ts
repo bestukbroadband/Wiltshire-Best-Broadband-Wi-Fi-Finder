@@ -5,7 +5,65 @@
 
 import { PostcodeArea, Offer, OfferAvailability, FeaturedOffer, BroadbandNewsItem } from "../types";
 import { postcodeAreasData } from "../data/postcodeAreas";
-import { offersData } from "../data/offers";
+import rawLiveOffers from "../data/liveOffers.json";
+import { providersData } from "../data/providers";
+
+// Dynamic map of JSON offers to strong Offer types
+export const offersData: Offer[] = (rawLiveOffers as any[]).map((item) => {
+  const provider = providersData.find(p => p.id === item.providerId) || {
+    rankingScore: 85,
+    editorVerdict: "Tracked provider offering verified speeds, subject to address checking.",
+    editorNotes: "Pricing and specifications are tracked from public sources. Exact services depend on direct address status.",
+    townsCovered: [],
+    postcodeAreas: [],
+    coverageNotes: "",
+    coverageNote: "",
+  };
+
+  const midContractRise = !(item.knownPriceRise || "").toLowerCase().includes("fixed") && 
+                         !(item.knownPriceRise || "").toLowerCase().includes("no yearly") &&
+                         !(item.knownPriceRise || "").toLowerCase().includes("price locked");
+
+  const score = item.editorScore || parseFloat(((provider.rankingScore || 85) / 10).toFixed(1));
+
+  return {
+    offerId: item.offerId,
+    providerId: item.providerId,
+    providerName: item.providerName,
+    packageName: item.packageName,
+    headline: item.packageName + " - Tracked Rate",
+    shortDescription: `Tracked offer checked regularly. Symmetrical options and exact speeds are subject to address check verification.`,
+    monthlyPrice: item.monthlyPriceNumeric,
+    contractLength: item.contractLengthMonths,
+    averageDownloadSpeed: item.averageDownloadSpeed,
+    averageUploadSpeed: item.averageUploadSpeed,
+    setupFee: item.setupFee,
+    installationFee: item.installationFee,
+    routerCost: item.routerCost || 0,
+    routerIncluded: item.routerIncluded !== false,
+    knownAnnualPriceRise: item.knownPriceRise || "Fixed during contract term",
+    midContractPriceRise: midContractRise,
+    priceAfterMinimumTerm: item.priceAfterContract || (item.monthlyPriceNumeric * 1.25),
+    offerValidUntil: "2026-12-31",
+    targetPostcodes: item.targetPostcodes || provider.postcodeAreas || [],
+    targetTowns: item.targetTowns || provider.townsCovered || [],
+    targetProviderTypes: ["Full fibre providers", "Alternative network providers"],
+    availabilityConfidence: "High",
+    editorScore: score,
+    editorVerdict: provider.editorVerdict || "Verified option",
+    editorNotes: provider.editorNotes || "Tracked option",
+    thingsToCheck: ["Requires direct provider address check", "Terms can change without notice"],
+    bestFor: "Tracked pricing stability & solid download rates",
+    isSponsored: item.providerId === "zzoomm", // Let Zzoomm remain featured partner if suitable
+    sponsorLabel: "Best Listed Deal to Check",
+    baseUrl: item.sourceUrl,
+    ctaLabel: "Check physical availability",
+    pricingMode: "csv_import",
+    lastCheckedDate: item.lastChecked || "2026-06-08",
+    isLive: item.isLive !== false,
+  };
+});
+
 import { offerAvailabilityData, getAvailabilityForOffer } from "../data/offerAvailability";
 import { featuredOfferData } from "../data/featuredOffer";
 

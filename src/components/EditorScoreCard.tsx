@@ -13,6 +13,16 @@ interface EditorScoreCardProps {
 }
 
 export function EditorScoreCard({ provider, isDark = false }: EditorScoreCardProps) {
+  // Guard clause for missing or invalid source URL (showing 'Editor review pending')
+  if (!provider.sourceUrl || provider.sourceUrl === "#" || provider.sourceUrl === "") {
+    return (
+      <div className={`p-4 rounded-xl border-2 border-dashed mt-4 text-center space-y-1 ${isDark ? "border-slate-800 bg-slate-950/20 text-slate-400" : "border-slate-200 bg-slate-50 text-slate-600"} text-xs`}>
+        <p className="font-extrabold uppercase tracking-widest text-[10.5px] text-brand-gold">Editor review pending</p>
+        <p className="font-semibold leading-relaxed">We are currently verifying listed packages, public pricing sources, and direct coverage footprints for this provider. Symmetrical and rural options are subject to strict direct check verification before scoring occurs.</p>
+      </div>
+    );
+  }
+
   // 1. Process data inputs with smart parametric fallbacks to ensure rich coverage
   const score = provider.editorScore ?? parseFloat(((provider.rankingScore ?? 85) / 10).toFixed(1));
   const verdict = provider.editorVerdict ?? (

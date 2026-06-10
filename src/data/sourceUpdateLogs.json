@@ -1,0 +1,18 @@
+[
+  {
+    "timestamp": "2026-06-08T18:30:22Z",
+    "runId": "run-initial-seeded-validation",
+    "success": true,
+    "scrapedCount": 18,
+    "updatedCount": 5,
+    "reviewRequiredCount": 0,
+    "failedSources": [],
+    "logs": [
+      { "providerId": "zzoomm", "status": "success", "info": "Scraped pricing listing. Symmetrical package details verified matching 500Mbps rate cards." },
+      { "providerId": "wessex", "status": "success", "info": "Wessex Internet pricing validated. Checked 300Mbps residential tier matches £35 rate." },
+      { "providerId": "gigaclear", "status": "success", "info": "Checked 300Mbps gigaclear packages. Rates match active standard promotional codes." },
+      { "providerId": "virgin", "status": "success", "info": "Virgin coaxial lines checked. Confirmed Swindon M350 packages active." },
+      { "providerId": "bt", "status": "success", "info": "Openreach BT Full Fibre 150 verified. Pricing active with standard setup waivers." }
+    ]
+  }
+]

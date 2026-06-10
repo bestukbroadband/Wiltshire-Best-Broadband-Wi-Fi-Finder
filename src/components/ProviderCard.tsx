@@ -9,6 +9,7 @@ import { ArrowUp, ArrowDown, MapPin, BadgeHelp, Check, ExternalLink, Calendar } 
 import { PriceDetails } from "./PriceDetails";
 import { ContractLengthBadge } from "./ContractLengthBadge";
 import { EditorScoreCard } from "./EditorScoreCard";
+import { ProviderSourceNote } from "./ProviderSourceNote";
 
 interface ProviderCardProps {
   key?: any;
@@ -109,10 +110,17 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
           <div className="flex items-start gap-1.5 text-black bg-brand-green-light/80 p-2.5 rounded-lg border-2 border-brand-green/35 text-[11px] leading-snug">
             <MapPin className="h-3.5 w-3.5 text-brand-gold shrink-0 mt-0.5" />
             <span>
-              <strong className="text-black font-extrabold">Wiltshire Coverage:</strong> {provider.coverageNote} Suffix checks required.
+              <strong className="text-black font-extrabold">Wiltshire Coverage:</strong> {provider.coverageNotes || provider.coverageNote} Suffix checks required.
             </span>
           </div>
         </div>
+
+        {/* Source Checked Registry Note */}
+        <ProviderSourceNote
+          sourceName={provider.sourceName}
+          lastCheckedDate={provider.sourceLastChecked}
+          sourceUrl={provider.sourceUrl}
+        />
 
         {/* Editorial Scoring Card */}
         <EditorScoreCard provider={provider} isDark={false} />
@@ -138,8 +146,8 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
             <ExternalLink className="h-3 w-3" />
           </a>
         </div>
-        <p className="text-[10px] text-center text-black font-bold leading-none font-sans">
-          * Subject to local lines. Checking is free.
+        <p className="text-[10px] text-center text-slate-500 font-semibold leading-relaxed font-sans">
+          Availability varies by exact address. Final price, speed, package and installation terms must be confirmed by the provider.
         </p>
       </div>
     </div>

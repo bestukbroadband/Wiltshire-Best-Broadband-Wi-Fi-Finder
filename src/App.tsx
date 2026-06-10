@@ -592,7 +592,7 @@ export default function App() {
                 <AdvertBanner location="hero-sponsor-strip" className="w-full mt-4" />
 
                 {/* WEEKLY OFFER HIGHLIGHT SECTION */}
-                {featuredOfferData && featuredOfferData.isLive && (
+                {featuredOfferData && featuredOfferData.isLive ? (
                   <WeeklyOfferHighlight
                     offerId={featuredOfferData.offerId}
                     providerName={featuredOfferData.providerName}
@@ -651,6 +651,22 @@ export default function App() {
                       setShowStickyEnquiryModal(true);
                     }}
                   />
+                ) : (
+                  <div className="bg-white border-2 border-slate-200 rounded-2xl shadow-md p-6 space-y-3" id="weekly-availability-editorial-card">
+                    <div className="flex items-center gap-2 text-brand-green">
+                      <span className="p-1.5 bg-brand-green-light rounded-lg">
+                        <svg className="h-4.5 w-4.5 text-brand-green shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </span>
+                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-950 font-sans">
+                        Weekly availability note
+                      </h3>
+                    </div>
+                    <p className="text-xs text-slate-700 leading-relaxed font-semibold">
+                      We are currently reviewing listed broadband options for this area. Availability can vary by exact address, especially across rural Wiltshire. Use the postcode search or provider checkers to confirm current packages before ordering.
+                    </p>
+                  </div>
                 )}
 
                 {/* AD LEADERBOARD BILLBOARD */}
@@ -1011,7 +1027,14 @@ export default function App() {
                       </div>
 
                       <p className="text-[11px] leading-relaxed text-slate-550 text-left">
-                        All placements comply strictly with CAP codes and ASA transparency instructions. Sponsored status is always explicitly declared.
+                        All placements comply strictly with CAP codes and ASA transparency instructions. Sponsored status is always explicitly declared. For customized commercial integrations, pitch layouts, or target region sponsorships, please reach out directly at{" "}
+                        <a 
+                          href="mailto:bestukbroaband@proton.me" 
+                          className="text-brand-gold font-bold hover:underline transition-colors"
+                          id="advertise-side-email-link"
+                        >
+                          Info
+                        </a>.
                       </p>
                     </div>
 
@@ -1295,7 +1318,7 @@ export default function App() {
                   <div className="bg-white border rounded-xl p-4 space-y-2 text-xs text-slate-600">
                     <p><strong>Operator:</strong> Cane Communications Limited</p>
                     <p><strong>Reg No:</strong> 11485145</p>
-                    <p><strong>Email:</strong> info@canecommunications.co.uk</p>
+                    <p><strong>Email:</strong> <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-slate-900 font-bold hover:underline transition-colors animate-pulse" id="contact-tab-email-link">Info</a></p>
                     <p><strong>Address:</strong> Wiltshire, United Kingdom</p>
                   </div>
                 </div>

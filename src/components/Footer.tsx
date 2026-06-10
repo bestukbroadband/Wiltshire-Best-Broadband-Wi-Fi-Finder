@@ -45,7 +45,7 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
             <div className="text-[10px] text-slate-450 space-y-1.5 leading-tight">
               <p className="font-extrabold text-brand-gold">Project of: {siteSettingsData.owner.companyName}</p>
               <p>Company Reg No: {siteSettingsData.owner.companyNumber}</p>
-              <p>Enquiry Email: {siteSettingsData.owner.contactEmail}</p>
+              <p>Enquiry Email: <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-brand-gold hover:underline transition-colors font-bold" id="footer-contact-email-link">Info</a></p>
             </div>
           </div>
 

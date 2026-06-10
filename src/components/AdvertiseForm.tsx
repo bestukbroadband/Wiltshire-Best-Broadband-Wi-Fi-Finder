@@ -66,7 +66,14 @@ export function AdvertiseForm() {
         </div>
         <h4 className="text-base font-bold text-brand-green font-sans">Enquiry Submitted Successfully</h4>
         <p className="text-xs text-stone-650 leading-relaxed max-w-sm mx-auto">
-          Thank you for your campaign enquiry. Our partnership director will review your targeted regions and send over the media pack rate sheet within one business day.
+          Thank you for your campaign enquiry. Our partnership director will review your targeted regions and send over the media pack rate sheet within one business day. You can also follow up directly at{" "}
+          <a
+            href="mailto:bestukbroaband@proton.me"
+            className="underline font-bold text-brand-green hover:text-emerald-900 transition-colors"
+            id="advertise-success-email-link"
+          >
+            Info
+          </a>.
         </p>
       </div>
     );
@@ -83,7 +90,7 @@ export function AdvertiseForm() {
             required
             value={formData.companyName}
             onChange={handleInputChange}
-            placeholder="e.g. Trooli Wiltshire Office"
+            placeholder="e.g. Regional Broadband Partner Ltd"
             className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg outline-hidden bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green"
           />
         </div>
@@ -111,7 +118,7 @@ export function AdvertiseForm() {
             required
             value={formData.email}
             onChange={handleInputChange}
-            placeholder="e.g. s.jennings@trooli.co.uk"
+            placeholder="e.g. contact@localprovider.co.uk"
             className="w-full px-3 py-2 text-xs border border-stone-250 rounded-lg outline-hidden bg-white text-stone-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green"
           />
         </div>
@@ -224,6 +231,17 @@ export function AdvertiseForm() {
         <span>{isSubmitting ? "Submitting Campaign Details..." : "File Commercial Enquiry"}</span>
         <Send className="h-3 w-3" />
       </button>
+
+      <p className="text-[11px] text-stone-500 text-center leading-normal">
+        Alternatively, please direct your commercial enquiries via email to{" "}
+        <a 
+          href="mailto:bestukbroaband@proton.me" 
+          className="underline font-bold text-brand-green hover:text-emerald-900 transition-colors"
+          id="advertise-direct-email-link"
+        >
+          Info
+        </a>.
+      </p>
     </form>
   );
 }
