@@ -9,7 +9,8 @@ import rawLiveOffers from "../data/liveOffers.json";
 import { providersData } from "../data/providers";
 
 // Dynamic map of JSON offers to strong Offer types
-export const offersData: Offer[] = (rawLiveOffers as any[]).map((item) => {
+const safeRawLiveOffers = Array.isArray(rawLiveOffers) ? rawLiveOffers : [];
+export const offersData: Offer[] = (safeRawLiveOffers as any[]).map((item) => {
   const provider = providersData.find(p => p.id === item.providerId) || {
     rankingScore: 85,
     editorVerdict: "Tracked provider offering verified speeds, subject to address checking.",

@@ -10,6 +10,9 @@ import { PriceDetails } from "./PriceDetails";
 import { EditorScoreCard } from "./EditorScoreCard";
 import { ProviderSourceNote } from "./ProviderSourceNote";
 
+import { providerLinksData } from "../data/providerLinks";
+import { buildTrackedUrl } from "../data/trackingConfig";
+
 interface SponsoredProviderCardProps {
   key?: any;
   provider: Provider;
@@ -18,6 +21,84 @@ interface SponsoredProviderCardProps {
 }
 
 export function SponsoredProviderCard({ provider, onEnquire, className = "" }: SponsoredProviderCardProps) {
+  if (!provider) {
+    return (
+      <div className="p-4 bg-yellow-950/20 border border-yellow-850 text-yellow-300 text-xs rounded-xl">
+        Provider details are missing or unavailable.
+      </div>
+    );
+  }
+
+  const provId = (provider.id || provider.providerId || "").toLowerCase();
+  const links = providerLinksData[provId];
+  const hasChecker = !!(links?.availabilityCheckerUrl);
+  const hasDeals = !!(links?.broadbandDealsUrl);
+  const hasWebsite = !!(links?.officialWebsite);
+
+  let primaryBtn = null;
+  let secondaryBtn = null;
+
+  if (hasChecker) {
+    const trackerUrl = buildTrackedUrl(links.availabilityCheckerUrl, "default", { utm_term: "postcode_or_area" });
+    primaryBtn = (
+      <a
+        href={trackerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full py-2.5 px-3 text-xs font-black text-center bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-md"
+      >
+        Check availability
+        <ExternalLink className="h-3 w-3" />
+      </a>
+    );
+  } else if (hasWebsite) {
+    const trackerUrl = buildTrackedUrl(links.officialWebsite, "default", { utm_term: "postcode_or_area" });
+    primaryBtn = (
+      <a
+        href={trackerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full py-2.5 px-3 text-xs font-black text-center bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-md"
+      >
+        Visit provider
+        <ExternalLink className="h-3 w-3" />
+      </a>
+    );
+  } else {
+    primaryBtn = (
+      <button
+        onClick={() => onEnquire(provider)}
+        className="col-span-2 w-full py-2.5 px-4 text-xs font-black bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg transition-all shadow-md cursor-pointer"
+      >
+        Ask us to check this area
+      </button>
+    );
+  }
+
+  if (hasChecker && hasDeals) {
+    const trackerUrl = buildTrackedUrl(links.broadbandDealsUrl, "default", { utm_term: "postcode_or_area" });
+    secondaryBtn = (
+      <a
+        href={trackerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full py-2.5 px-3 text-xs font-black text-center border-2 border-brand-gold bg-[#12192c] text-brand-gold hover:bg-brand-gold-light hover:text-slate-950 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+      >
+        View broadband packages
+        <ExternalLink className="h-3 w-3" />
+      </a>
+    );
+  } else if (hasChecker || hasWebsite) {
+    secondaryBtn = (
+      <button
+        onClick={() => onEnquire(provider)}
+        className="w-full py-2.5 px-4 text-xs font-black border-2 border-brand-gold bg-[#12192c] text-brand-gold hover:bg-brand-gold-light hover:text-slate-950 rounded-lg transition-all shadow-md cursor-pointer text-center flex items-center justify-center"
+      >
+        Ask us to check this area
+      </button>
+    );
+  }
+
   return (
     <div
       className={`bg-[#12192c] border-4 border-brand-gold rounded-3xl shadow-xl hover:border-brand-gold-hover hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all duration-200 overflow-hidden flex flex-col justify-between relative ${className}`}
@@ -135,23 +216,9 @@ export function SponsoredProviderCard({ provider, onEnquire, className = "" }: S
 
       {/* CALL TO ACTIONS */}
       <div className="p-5 bg-slate-900 border-t-2 border-brand-gold/30 space-y-2">
-        <div className="grid grid-cols-2 gap-2.5">
-          <button
-            onClick={() => onEnquire(provider)}
-            className="w-full py-2.5 px-4 text-xs font-black bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg transition-all shadow-md cursor-pointer"
-          >
-            Check coverage
-          </button>
-          
-          <a
-            href={provider.ctaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full py-2.5 px-3 text-xs font-black text-center border-2 border-brand-gold bg-[#12192c] text-brand-gold hover:bg-brand-gold-light hover:text-slate-950 rounded-lg flex items-center justify-center gap-1.5 transition-all"
-          >
-            {provider.ctaLabel || "View listed deals"}
-            <ExternalLink className="h-3 w-3" />
-          </a>
+        <div className={secondaryBtn ? "grid grid-cols-2 gap-2.5" : "block"}>
+          {primaryBtn}
+          {secondaryBtn}
         </div>
         <p className="text-[10px] text-center text-slate-400 font-semibold leading-relaxed font-sans">
           Availability varies by exact address. Final price, speed, package and installation terms must be confirmed by the provider.

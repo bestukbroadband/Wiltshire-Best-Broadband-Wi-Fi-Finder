@@ -74,6 +74,17 @@ import { WiltshireTrackedProviders } from "./components/WiltshireTrackedProvider
 import { providerDirectoryData } from "./data/providerDirectory";
 
 export default function App() {
+  const pushStateSafe = (state: any, title: string, url: string) => {
+    const repoName = "/Wiltshire-Best-Broadband-Wi-Fi-Finder";
+    let targetUrl = url;
+    if (window.location.hostname.endsWith(".github.io") || window.location.pathname.startsWith(repoName)) {
+      if (!url.startsWith(repoName)) {
+        targetUrl = repoName + (url.startsWith("/") ? "" : "/") + url;
+      }
+    }
+    window.history.pushState(state, title, targetUrl);
+  };
+
   const [activeTab, setActiveTab] = useState<string>("home"); // "home" | "best-deals" | "alt-net" | "mainstream" | "advertise" | "list-provider" | "admin" | "town-<id>" | "privacy" | "terms" | "cookie" | "contact" | "postcode-<prefix>"
   const [filters, setFilters] = useState<FilterState>(initialFilterState);
   
@@ -92,8 +103,16 @@ export default function App() {
   // Synchronize path/slug router on load & popstate
   useEffect(() => {
     const handleUrlRouting = () => {
-      const path = window.location.pathname;
+      let path = window.location.pathname;
       const hash = window.location.hash;
+      
+      const repoName = "/Wiltshire-Best-Broadband-Wi-Fi-Finder";
+      if (path.startsWith(repoName)) {
+        path = path.substring(repoName.length);
+      }
+      if (!path.startsWith("/")) {
+        path = "/" + path;
+      }
       
       // Support /broadband-providers or #/broadband-providers
       if (path === "/broadband-providers" || hash === "#/broadband-providers") {
@@ -111,7 +130,7 @@ export default function App() {
       }
 
       // Match /broadband/slug in pathname or #/broadband/slug
-      const pathMatch = path.match(/^\/broadband\/([a-z0-0_]+)/i);
+      const pathMatch = path.match(/^\/broadband\/([a-z0-9_]+)/i);
       const hashMatch = hash.match(/^#\/broadband\/([a-z0-9_]+)/i);
       
       const slugVal = (pathMatch && pathMatch[1]) || (hashMatch && hashMatch[1]);
@@ -149,7 +168,7 @@ export default function App() {
           setActiveTab(matchedPageId);
           return;
         }
-      } else if (cleanPath) {
+      } else if (cleanPath && cleanPath !== "index.html") {
         // If matches direct root level slug or pageId key
         const matchedPageId = Object.keys(seoPagesData).find(key => 
           key.toLowerCase() === cleanPath || 
@@ -160,6 +179,9 @@ export default function App() {
           return;
         }
       }
+      
+      // Default to home tab
+      setActiveTab("home");
     };
 
     handleUrlRouting();
@@ -187,7 +209,7 @@ export default function App() {
 
     if (matchedPostcode) {
       const newPath = `/broadband/${matchedPostcode.slug}`;
-      window.history.pushState({ tab: `postcode-${matchedPostcode.postcodePrefix}` }, "", newPath);
+      pushStateSafe({ tab: `postcode-${matchedPostcode.postcodePrefix}` }, "", newPath);
       setActiveTab(`postcode-${matchedPostcode.postcodePrefix}`);
       return;
     }
@@ -830,12 +852,12 @@ export default function App() {
                 {/* WILTSHIRE REGISTERED TRACKED PROVIDERS GRID */}
                 <WiltshireTrackedProviders
                   onNavigateToDirectory={() => {
-                    window.history.pushState({ tab: "providers-directory" }, "", "/broadband-providers");
+                    pushStateSafe({ tab: "providers-directory" }, "", "/broadband-providers");
                     setActiveTab("providers-directory");
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   onNavigateToProvider={(slug) => {
-                    window.history.pushState({ tab: `provider-${slug}` }, "", `/providers/${slug}`);
+                    pushStateSafe({ tab: `provider-${slug}` }, "", `/providers/${slug}`);
                     setActiveTab(`provider-${slug}`);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
@@ -890,7 +912,7 @@ export default function App() {
                       const page = seoPagesData[pageId];
                       if (page) {
                         const newPath = `/guide/${page.slug}`;
-                        window.history.pushState({ tab: pageId }, "", newPath);
+                        pushStateSafe({ tab: pageId }, "", newPath);
                         setActiveTab(pageId);
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }
@@ -899,7 +921,7 @@ export default function App() {
                       const area = postcodeAreasData.find(a => a.postcodePrefix === prefix);
                       if (area) {
                         const newPath = `/broadband/${area.slug}`;
-                        window.history.pushState({ tab: `postcode-${prefix}` }, "", newPath);
+                        pushStateSafe({ tab: `postcode-${prefix}` }, "", newPath);
                         setActiveTab(`postcode-${prefix}`);
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }
@@ -908,7 +930,7 @@ export default function App() {
                       const town = townsData.find(t => t.id === townId);
                       if (town) {
                         const newPath = `/town/${town.id}`;
-                        window.history.pushState({ tab: `town-${town.id}` }, "", newPath);
+                        pushStateSafe({ tab: `town-${town.id}` }, "", newPath);
                         setActiveTab(`town-${town.id}`);
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }
@@ -1085,16 +1107,16 @@ export default function App() {
               </div>
             )}
 
-            {/* DIRECTORY VIEW TAB ROUTES */}
+             {/* DIRECTORY VIEW TAB ROUTES */}
             {activeTab === "providers-directory" && (
               <ProviderDirectoryView
                 onNavigateToTab={(tabId) => {
-                  window.history.pushState({ tab: tabId }, "", `/${tabId}`);
+                  pushStateSafe({ tab: tabId }, "", `/${tabId}`);
                   setActiveTab(tabId);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 onNavigateToProviderProfile={(provSlug) => {
-                  window.history.pushState({ tab: `provider-${provSlug}` }, "", `/providers/${provSlug}`);
+                  pushStateSafe({ tab: `provider-${provSlug}` }, "", `/providers/${provSlug}`);
                   setActiveTab(`provider-${provSlug}`);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
@@ -1106,7 +1128,7 @@ export default function App() {
               <ProviderProfileView
                 provider={activeProvider}
                 onBackToDirectory={() => {
-                  window.history.pushState({ tab: "providers-directory" }, "", "/broadband-providers");
+                  pushStateSafe({ tab: "providers-directory" }, "", "/broadband-providers");
                   setActiveTab("providers-directory");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
@@ -1114,7 +1136,7 @@ export default function App() {
                   const area = postcodeAreasData.find(a => a.postcodePrefix === prefix);
                   if (area) {
                     const newPath = `/broadband/${area.slug}`;
-                    window.history.pushState({ tab: `postcode-${prefix}` }, "", newPath);
+                    pushStateSafe({ tab: `postcode-${prefix}` }, "", newPath);
                     setActiveTab(`postcode-${prefix}`);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }
@@ -1123,7 +1145,7 @@ export default function App() {
                   const town = townsData.find(t => t.id === townId);
                   if (town) {
                     const newPath = `/town/${town.id}`;
-                    window.history.pushState({ tab: `town-${town.id}` }, "", newPath);
+                    pushStateSafe({ tab: `town-${town.id}` }, "", newPath);
                     setActiveTab(`town-${town.id}`);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }
@@ -1140,13 +1162,13 @@ export default function App() {
                 onBackToHome={() => setActiveTab("home")}
                 onPageClick={(pageId) => {
                   if (pageId === "home") {
-                    window.history.pushState({ tab: "home" }, "", "/");
+                    pushStateSafe({ tab: "home" }, "", "/");
                     setActiveTab("home");
                   } else {
                     const page = seoPagesData[pageId];
                     if (page) {
                       const newPath = `/guide/${page.slug}`;
-                      window.history.pushState({ tab: pageId }, "", newPath);
+                      pushStateSafe({ tab: pageId }, "", newPath);
                       setActiveTab(pageId);
                     }
                   }
@@ -1155,7 +1177,7 @@ export default function App() {
                   const area = postcodeAreasData.find(a => a.postcodePrefix === prefix);
                   if (area) {
                     const newPath = `/broadband/${area.slug}`;
-                    window.history.pushState({ tab: `postcode-${prefix}` }, "", newPath);
+                    pushStateSafe({ tab: `postcode-${prefix}` }, "", newPath);
                     setActiveTab(`postcode-${prefix}`);
                   }
                 }}
@@ -1172,23 +1194,23 @@ export default function App() {
                   const area = postcodeAreasData.find(a => a.postcodePrefix === prefix);
                   if (area) {
                     const newPath = `/broadband/${area.slug}`;
-                    window.history.pushState({ tab: `postcode-${prefix}` }, "", newPath);
+                    pushStateSafe({ tab: `postcode-${prefix}` }, "", newPath);
                     setActiveTab(`postcode-${prefix}`);
                   }
                 }}
                 onBackToHome={() => {
-                  window.history.pushState({ tab: "home" }, "", "/");
+                  pushStateSafe({ tab: "home" }, "", "/");
                   setActiveTab("home");
                 }}
                 onPageClick={(pageId) => {
                   if (pageId === "home") {
-                    window.history.pushState({ tab: "home" }, "", "/");
+                    pushStateSafe({ tab: "home" }, "", "/");
                     setActiveTab("home");
                   } else {
                     const page = seoPagesData[pageId];
                     if (page) {
                       const newPath = `/guide/${page.slug}`;
-                      window.history.pushState({ tab: pageId }, "", newPath);
+                      pushStateSafe({ tab: pageId }, "", newPath);
                       setActiveTab(pageId);
                     }
                   }
@@ -1197,7 +1219,7 @@ export default function App() {
                   const town = townsData.find(t => t.id === townId);
                   if (town) {
                     const newPath = `/town/${town.id}`;
-                    window.history.pushState({ tab: `town-${town.id}` }, "", newPath);
+                    pushStateSafe({ tab: `town-${town.id}` }, "", newPath);
                     setActiveTab(`town-${town.id}`);
                   }
                 }}
@@ -1212,7 +1234,7 @@ export default function App() {
                   const area = postcodeAreasData.find(a => a.postcodePrefix === prefix);
                   if (area) {
                     const newPath = `/broadband/${area.slug}`;
-                    window.history.pushState({ tab: `postcode-${prefix}` }, "", newPath);
+                    pushStateSafe({ tab: `postcode-${prefix}` }, "", newPath);
                     setActiveTab(`postcode-${prefix}`);
                   }
                 }}
@@ -1220,7 +1242,7 @@ export default function App() {
                   const town = townsData.find(t => t.id === townId);
                   if (town) {
                     const newPath = `/town/${town.id}`;
-                    window.history.pushState({ tab: `town-${town.id}` }, "", newPath);
+                    pushStateSafe({ tab: `town-${town.id}` }, "", newPath);
                     setActiveTab(`town-${town.id}`);
                   }
                 }}
@@ -1228,13 +1250,13 @@ export default function App() {
                   const page = seoPagesData[pageId];
                   if (page) {
                     const newPath = `/guide/${page.slug}`;
-                    window.history.pushState({ tab: pageId }, "", newPath);
+                    pushStateSafe({ tab: pageId }, "", newPath);
                     setActiveTab(pageId);
                   }
                 }}
                 onEnquire={handleEnquireTrigger}
                  onTriggerAddressCheck={() => {
-                  window.history.pushState({ tab: "home" }, "", "/");
+                  pushStateSafe({ tab: "home" }, "", "/");
                   setActiveTab("home");
                   setTimeout(() => {
                     const queryInput = document.getElementById("hero-search-input");

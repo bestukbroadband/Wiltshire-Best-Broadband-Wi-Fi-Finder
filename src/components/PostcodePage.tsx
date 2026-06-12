@@ -572,7 +572,7 @@ export function PostcodePage({
               Frequently Asked Questions for {postcodeArea.postcodePrefix} Residents
             </h3>
             <div className="space-y-3 font-sans">
-              {postcodeArea.faqs.map((faq, idx) => (
+              {(postcodeArea.faqs || []).map((faq, idx) => (
                 <div key={idx} className="bg-slate-900 border border-slate-700/30 p-4 rounded-xl space-y-2">
                   <h4 className="text-xs font-black text-white flex items-start gap-1.5 leading-snug">
                     <span className="text-brand-gold">Q:</span>

@@ -94,7 +94,7 @@ export function AdminDashboard() {
 
   // Crawler states
   const [provSources, setProvSources] = useState<any[]>(initialProviderSources);
-  const [liveOffersState, setLiveOffersState] = useState<any[]>(liveOffersData);
+  const [liveOffersState, setLiveOffersState] = useState<any[]>(Array.isArray(liveOffersData) ? liveOffersData : []);
   const [updateLogsState, setUpdateLogsState] = useState<any[]>(sourceUpdateLogsData);
 
   // Future automated RSS Feed configurator state

@@ -214,7 +214,7 @@ export function WeeklyOfferHighlight({
               Things to watch before ordering
             </span>
             <ul className="space-y-2 text-xs text-slate-300 font-semibold">
-              {thingsToWatch.map((item, index) => (
+              {(thingsToWatch || []).map((item, index) => (
                 <li key={index} className="flex gap-2 items-start">
                   <Check className="h-4 w-4 text-brand-gold shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{item}</span>

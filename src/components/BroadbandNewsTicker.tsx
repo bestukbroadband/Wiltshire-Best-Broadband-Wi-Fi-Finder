@@ -13,7 +13,8 @@ export function BroadbandNewsTicker() {
 
   useEffect(() => {
     // Only fetch active news items
-    const activeNews = broadbandNewsData.filter((item) => item.isActive);
+    const safeNewsData = Array.isArray(broadbandNewsData) ? broadbandNewsData : [];
+    const activeNews = safeNewsData.filter((item) => item?.isActive);
     setNews(activeNews);
   }, []);
 

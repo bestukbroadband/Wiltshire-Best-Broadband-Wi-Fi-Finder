@@ -16,6 +16,14 @@ interface SponsoredDealCardProps {
 }
 
 export function SponsoredDealCard({ provider, onEnquire }: SponsoredDealCardProps) {
+  if (!provider) {
+    return (
+      <div className="p-4 bg-amber-50 border border-amber-200 text-amber-700 text-xs rounded-xl">
+        Deal details are missing or unavailable.
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-5 border-2 border-amber-300 shadow-sm relative overflow-hidden" id={`spon-deal-${provider.id}`}>
       {/* AD REVEAL HEADER */}

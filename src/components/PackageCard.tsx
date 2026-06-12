@@ -15,6 +15,14 @@ interface PackageCardProps {
 }
 
 export function PackageCard({ provider, onEnquire }: PackageCardProps) {
+  if (!provider) {
+    return (
+      <div className="p-4 bg-yellow-950/20 border border-yellow-850 text-yellow-300 text-xs rounded-xl">
+        Package details are missing or unavailable.
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#12192c] border-2 border-slate-700/60 rounded-xl p-5 flex flex-col gap-4 hover:border-brand-gold/50 hover:shadow-lg hover:shadow-brand-gold/5 transition-all text-slate-100" id={`pkg-card-${provider.id}`}>
       {/* 1. Brand/Header Row */}

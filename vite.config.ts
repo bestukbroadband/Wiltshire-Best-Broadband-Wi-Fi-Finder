@@ -7,7 +7,7 @@ export default defineConfig(() => {
   return {
     // Use base: "/" only for a custom domain or root deployment.
     // Use base: "/REPOSITORY_NAME/" for GitHub Pages project deployment.
-    base: "/REPOSITORY_NAME/",
+    base: "/Wiltshire-Best-Broadband-Wi-Fi-Finder/",
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

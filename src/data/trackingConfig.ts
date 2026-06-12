@@ -37,23 +37,20 @@ export function buildTrackedUrl(
     const urlObj = new URL(baseUrl.startsWith("http") ? baseUrl : `https://${baseUrl}`);
     
     const defaults: TrackingParams = {
-      utm_source: "wiltshire_broadband_finder",
+      utm_source: "site_referral",
       utm_medium: "referral",
-      utm_campaign: "broadband_listing",
+      utm_campaign: "wiltshire_broadband_listing",
       utm_content: "provider_card",
       utm_term: "postcode_or_area",
     };
 
-    // Override campaign based on campaignType
+    // Override campaign based on campaignType or customParams
     if (campaignType === "weekly") {
-      defaults.utm_campaign = "weekly_offer";
-      defaults.utm_content = "weekly_highlight_card";
+      defaults.utm_content = "weekly_offer_watch";
     } else if (campaignType === "postcode") {
-      defaults.utm_campaign = "postcode_page";
-      defaults.utm_content = "postcode_matches";
+      defaults.utm_content = "offer_card";
     } else if (campaignType === "sponsored") {
-      defaults.utm_campaign = "sponsored_ad";
-      defaults.utm_content = "sponsored_placement";
+      defaults.utm_content = "provider_card";
     }
 
     const finalParams = {
@@ -72,21 +69,18 @@ export function buildTrackedUrl(
     // Fallback if URL parsing fails
     let cleanedUrl = baseUrl;
     const separator = cleanedUrl.includes("?") ? "&" : "?";
-    const utmSourceObj = customParams.utm_source || "wiltshire_broadband_finder";
+    const utmSourceObj = customParams.utm_source || "site_referral";
     const utmMediumObj = customParams.utm_medium || "referral";
-    let utmCampaignObj = customParams.utm_campaign || "broadband_listing";
+    let utmCampaignObj = customParams.utm_campaign || "wiltshire_broadband_listing";
     let utmContentObj = customParams.utm_content || "provider_card";
     const utmTermObj = customParams.utm_term || "postcode_or_area";
 
     if (campaignType === "weekly") {
-      utmCampaignObj = "weekly_offer";
-      utmContentObj = "weekly_highlight_card";
+      utmContentObj = "weekly_offer_watch";
     } else if (campaignType === "postcode") {
-      utmCampaignObj = "postcode_page";
-      utmContentObj = "postcode_matches";
+      utmContentObj = "offer_card";
     } else if (campaignType === "sponsored") {
-      utmCampaignObj = "sponsored_ad";
-      utmContentObj = "sponsored_placement";
+      utmContentObj = "provider_card";
     }
 
     return `${cleanedUrl}${separator}utm_source=${encodeURIComponent(utmSourceObj)}&utm_medium=${encodeURIComponent(utmMediumObj)}&utm_campaign=${encodeURIComponent(utmCampaignObj)}&utm_content=${encodeURIComponent(utmContentObj)}&utm_term=${encodeURIComponent(utmTermObj)}`;
