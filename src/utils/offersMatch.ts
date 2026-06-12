@@ -74,7 +74,10 @@ import { featuredOfferData } from "../data/featuredOffer";
  * Also returns clean space-separated formats where appropriate.
  */
 export function normalisePostcode(postcodeInput: string): string {
-  const outward = extractOutwardCode(postcodeInput);
+  if (!postcodeInput) return "";
+  
+  // Clean up input: remove all spaces, make uppercase
+  const cleaned = postcodeInput.replace(/\s+/g, "").toUpperCase();
   
   // Hardcoded check for matching known Wiltshire prefixes
   const knownPrefixes = [
@@ -84,17 +87,23 @@ export function normalisePostcode(postcodeInput: string): string {
     "BA13", "BA15", "GL8"
   ];
 
-  // Try exact lookup first
+  // Try exact lookup of extracted outward code first
+  const outward = extractOutwardCode(postcodeInput).toUpperCase();
   if (knownPrefixes.includes(outward)) {
     return outward;
   }
 
-  // Try to find if any known prefix is a prefix of the cleaned input
-  // Sorting is descending by length to match SP11 before SP1, etc.
+  // Check matching on cleaned string representing prefix + 3-char inward code
   const sortedPrefixes = [...knownPrefixes].sort((a, b) => b.length - a.length);
   for (const prefix of sortedPrefixes) {
-    if (outward.startsWith(prefix)) {
+    if (cleaned === prefix) {
       return prefix;
+    }
+    if (cleaned.startsWith(prefix)) {
+      const remaining = cleaned.substring(prefix.length);
+      if (remaining.length === 3 && /^\d[A-Z]{2}$/.test(remaining)) {
+        return prefix;
+      }
     }
   }
 

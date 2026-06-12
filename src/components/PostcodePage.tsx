@@ -12,13 +12,136 @@ import { DealRanking } from "./DealRanking";
 import { AdvertBanner } from "./AdvertBanner";
 import { postcodeAreasData } from "../data/postcodeAreas";
 import { townsData } from "../data/towns";
-import { Compass, MapPin, ChevronRight, HelpCircle, AlertCircle, Building2, Landmark, ShieldCheck, Info, Sparkles } from "lucide-react";
+import { Compass, MapPin, ChevronRight, HelpCircle, AlertCircle, Building2, Landmark, ShieldCheck, Info, Sparkles, Globe, Radio, Activity, ExternalLink } from "lucide-react";
 import { getOffersForPostcode, calculateOfferScore } from "../utils/offersMatch";
 import { buildTrackedUrl } from "../data/trackingConfig";
 import { SeoContentBlock } from "./SeoContentBlock";
 import { InternalSEOLinks } from "./InternalSEOLinks";
 import { reusableSeoBlocks } from "../data/reusableSeoBlocks";
 import { JsonLdSchema } from "./JsonLdSchema";
+import { wiltshirePostcodeProviderMap } from "../data/wiltshirePostcodeProviderMap";
+
+// Private Note: For more accurate automatic availability data, consider a commercial broadband availability API such as ThinkBroadband’s availability API, or approved provider APIs. Do not scrape public maps or copy third party datasets without permission.
+
+const extraProviders: Record<string, Partial<Provider>> = {
+  toob: {
+    id: "toob",
+    providerName: "toob",
+    providerType: ["Alternative network providers", "Full fibre providers"],
+    networkType: "Full Fibre (FTTP)",
+    logoText: "toob",
+    townsCovered: ["Chippenham", "Salisbury"],
+    postcodeAreas: ["SN14", "SN15"],
+    packageName: "toob Symmetrical Home Broadband Only",
+    averageDownloadSpeed: 900,
+    averageUploadSpeed: 900,
+    monthlyPriceFrom: 29.00,
+    monthlyPrice: 29.00,
+    monthlyPriceAfterContract: 34.00,
+    contractLength: 18,
+    setupFee: 0,
+    routerCost: 0,
+    routerIncluded: true,
+    installationFee: 0,
+    deliveryFee: 0,
+    phoneLineRequired: false,
+    midContractPriceRise: false,
+    annualPriceRiseNote: "No mid-contract price rises in active campaigns.",
+    knownAnnualPriceRise: "No price rise guarantee.",
+    bestFor: "High-speed symmetrical connections",
+    coverageNote: "Check precise address for locally relevant rollouts.",
+    availabilityStatus: "Address check required",
+    rankingScore: 82,
+    dealRank: 3,
+    isSponsored: false,
+    ctaLabel: "Check toob",
+    ctaUrl: "https://www.toob.co.uk/check-availability/",
+    leadFormEnabled: true,
+    description: "Symmetrical gigabit fibre connection delivering 900 Mbps upload and download speeds, featuring standard premium hardware.",
+    lastCheckedDate: "2026-06-12",
+    pricingMode: "manual",
+    priceStatus: "Active",
+    priceDisclaimer: "Local deployment in matching sectors only."
+  },
+  youfibre: {
+    id: "youfibre",
+    providerName: "YouFibre",
+    providerType: ["Alternative network providers", "Full fibre providers"],
+    networkType: "Full Fibre (FTTP)",
+    logoText: "YouFibre",
+    townsCovered: ["Chippenham", "Melksham", "Malmesbury"],
+    postcodeAreas: ["SN14", "SN15", "SN16"],
+    packageName: "YouFibre Symmetrical Essential Gigabit",
+    averageDownloadSpeed: 1000,
+    averageUploadSpeed: 1000,
+    monthlyPriceFrom: 27.99,
+    monthlyPrice: 27.99,
+    monthlyPriceAfterContract: 34.99,
+    contractLength: 24,
+    setupFee: 0,
+    routerCost: 0,
+    routerIncluded: true,
+    installationFee: 0,
+    deliveryFee: 0,
+    phoneLineRequired: false,
+    midContractPriceRise: false,
+    annualPriceRiseNote: "Price fixed for contract term.",
+    knownAnnualPriceRise: "Price fixed.",
+    bestFor: "Ultra-fast value gigabit",
+    coverageNote: "Selectively available on Netomnia physical network fibres.",
+    availabilityStatus: "Address check required",
+    rankingScore: 81,
+    dealRank: 4,
+    isSponsored: false,
+    ctaLabel: "Check YouFibre",
+    ctaUrl: "https://www.youfibre.com/check-availability/",
+    leadFormEnabled: true,
+    description: "Outstanding symmetrical speeds up to 1000 Mbps upload and download using brand new physical fibre lines.",
+    lastCheckedDate: "2026-06-12",
+    pricingMode: "manual",
+    priceStatus: "Active",
+    priceDisclaimer: "Subject to postcode matching checks on the Netomnia footprint."
+  },
+  brsk: {
+    id: "brsk",
+    providerName: "Brsk",
+    providerType: ["Alternative network providers", "Full fibre providers"],
+    networkType: "Full Fibre (FTTP)",
+    logoText: "Brsk",
+    townsCovered: ["Malmesbury", "Swindon Border"],
+    postcodeAreas: ["SN14", "SN15", "SN16"],
+    packageName: "Brsk BetterNet Symmetrical Gig",
+    averageDownloadSpeed: 950,
+    averageUploadSpeed: 950,
+    monthlyPriceFrom: 28.00,
+    monthlyPrice: 28.00,
+    monthlyPriceAfterContract: 35.00,
+    contractLength: 24,
+    setupFee: 0,
+    routerCost: 0,
+    routerIncluded: true,
+    installationFee: 0,
+    deliveryFee: 0,
+    phoneLineRequired: false,
+    midContractPriceRise: false,
+    annualPriceRiseNote: "No automatic mid-term contract price hikes in active campaigns.",
+    knownAnnualPriceRise: "No price increases during minimum term.",
+    bestFor: "Symmetrical bandwidth stability",
+    coverageNote: "Check exact local parished streets to verify active ports.",
+    availabilityStatus: "Address check required",
+    rankingScore: 80,
+    dealRank: 5,
+    isSponsored: false,
+    ctaLabel: "Check Brsk",
+    ctaUrl: "https://www.brsk.co.uk/check-availability",
+    leadFormEnabled: true,
+    description: "Symmetrical full fibre connection running independent physical fibre strings to your home boundary, with modern router included.",
+    lastCheckedDate: "2026-06-12",
+    pricingMode: "manual",
+    priceStatus: "Active",
+    priceDisclaimer: "Final availability requires full boundary status verification."
+  }
+};
 import {
   createWebsiteSchema,
   createOrganisationSchema,
@@ -223,18 +346,100 @@ export function PostcodePage({
   };
 
   // Map matched offers into Provider format for easy rendering inside existing Provider components
-  const activeProvidersMapped = useMemo(() => {
-    if (!matchResult || matchResult.matchingOffers.length === 0) {
-      // Fallback: Filter providers historically mapped
-      const list = providers.filter((p) =>
-        postcodeArea.providerIds.includes(p.id) ||
-        p.postcodeAreas.includes(postcodeArea.postcodePrefix)
-      );
-      return list.length > 0 ? list : providers.slice(0, 4);
+  const postcodeMapping = useMemo(() => {
+    return wiltshirePostcodeProviderMap[postcodeArea.postcodePrefix.toUpperCase()];
+  }, [postcodeArea]);
+
+  const groupedProviders = useMemo(() => {
+    if (!postcodeMapping) {
+      return {
+        national: [],
+        regional: [],
+        ruralAlternative: [],
+        satelliteMobile: []
+      };
     }
 
-    return matchResult.matchingOffers.map((mapped) => mapOfferToProvider(mapped, false));
-  }, [matchResult, postcodeArea, providers]);
+    const findProvider = (id: string): Provider | null => {
+      const mainProv = providers.find((p) => p.id === id);
+      if (mainProv) return { ...mainProv };
+      
+      const extraProv = extraProviders[id];
+      if (extraProv) return { ...extraProv } as Provider;
+      
+      return null;
+    };
+
+    const getOverriddenProvider = (id: string): Provider | null => {
+      const p = findProvider(id);
+      if (!p) return null;
+      
+      const customStatus = postcodeMapping.providerStatuses[id];
+      let resolvedLabel = "";
+      
+      if (customStatus === "address_check_required") {
+        resolvedLabel = "Address check required";
+      } else if (customStatus === "review_pending") {
+        resolvedLabel = "Review pending";
+      } else if (customStatus === "regional_relevance") {
+        resolvedLabel = "Regional relevance";
+      } else if (customStatus === "verified_for_area") {
+        resolvedLabel = "Verified for area";
+      } else if (id === "starlink" || id === "three5g" || postcodeMapping.mobileOrSatelliteProviders.includes(id)) {
+        resolvedLabel = "Satellite option";
+      } else if (postcodeMapping.regionalProviders.includes(id)) {
+        resolvedLabel = "Regional provider to check";
+      } else if (postcodeMapping.ruralProviders.includes(id)) {
+        resolvedLabel = "Rural broadband option to check";
+      } else if (postcodeMapping.alternativeNetworkProviders.includes(id)) {
+        resolvedLabel = "Alternative network to check";
+      } else if (postcodeMapping.defaultProviders.includes(id)) {
+        resolvedLabel = "National provider checker";
+      } else {
+        resolvedLabel = "Provider checker required";
+      }
+
+      p.bestFor = resolvedLabel;
+      p.availabilityStatus = resolvedLabel;
+      p.priceDisclaimer = "Availability varies by exact address. Final price, speed, installation and contract terms must be confirmed by the provider.";
+      
+      return p;
+    };
+
+    const national = postcodeMapping.defaultProviders
+      .map(id => getOverriddenProvider(id))
+      .filter((p): p is Provider => p !== null && p.id !== "starlink" && p.id !== "three5g" && p.id !== "three");
+
+    const regional = postcodeMapping.regionalProviders
+      .map(id => getOverriddenProvider(id))
+      .filter((p): p is Provider => p !== null);
+
+    const ruralAlternative = [
+      ...postcodeMapping.ruralProviders,
+      ...postcodeMapping.alternativeNetworkProviders
+    ].map(id => getOverriddenProvider(id))
+     .filter((p): p is Provider => p !== null && (p.id !== "zzoomm" || postcodeMapping.providerStatuses["zzoomm"] !== "not_verified_for_area"));
+
+    const satelliteMobile = postcodeMapping.mobileOrSatelliteProviders
+      .map(id => getOverriddenProvider(id))
+      .filter((p): p is Provider => p !== null);
+
+    return {
+      national,
+      regional,
+      ruralAlternative,
+      satelliteMobile
+    };
+  }, [postcodeMapping, providers]);
+
+  const activeProvidersMapped = useMemo(() => {
+    return [
+      ...groupedProviders.regional,
+      ...groupedProviders.ruralAlternative,
+      ...groupedProviders.national,
+      ...groupedProviders.satelliteMobile
+    ];
+  }, [groupedProviders]);
 
   // Map nearby postcode areas from overall list
   const nearbyPostcodeObjects = useMemo(() => {
@@ -326,26 +531,92 @@ export function PostcodePage({
         <div className="lg:col-span-2 space-y-8">
           
           {/* 4. ACTIVE & BUILD-STAGE PROVIDER CARDS */}
-          <section className="space-y-4">
-            <div className="space-y-1">
-              <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2 font-sans">
-                <Building2 className="h-5.5 w-5.5 text-brand-gold" />
-                Active Broadband Providers in {postcodeArea.postcodePrefix}
+          <section className="space-y-6">
+            <div className="space-y-2">
+              <h2 className="text-xl md:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2.5 font-sans" id="providers-to-check-heading">
+                <Building2 className="h-6 w-6 text-brand-gold" />
+                Broadband providers to check in {postcodeArea.areaName}
               </h2>
-              <p className="text-xs text-slate-400 leading-relaxed font-semibold">
-                These alternative and national providers currently offer service or are actively building networks within the parished sectors of {postcodeArea.areaName}.
+              <p className="text-xs text-slate-350 leading-relaxed font-sans font-medium">
+                Broadband availability in <strong>{postcodeArea.areaName} ({postcodeArea.postcodePrefix})</strong> can vary by exact address, street and property type. The providers below are listed as useful checks for this area, not guaranteed availability. Use the provider checkers to confirm current packages, speeds, installation options and pricing.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {activeProvidersMapped.map((provider) => (
-                <ProviderCard
-                  key={provider.id}
-                  provider={provider}
-                  onEnquire={onEnquire}
-                />
-              ))}
-            </div>
+            {/* A. REGIONAL PROVIDERS LAYER */}
+            {groupedProviders.regional.length > 0 && (
+              <div className="space-y-3" id="regional-providers-section">
+                <h3 className="text-sm font-extrabold uppercase tracking-widest text-brand-gold border-b border-slate-800 pb-1.5 flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-brand-gold" />
+                  Regional Providers to Check
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {groupedProviders.regional.map((provider) => (
+                    <ProviderCard
+                      key={provider.id}
+                      provider={provider}
+                      onEnquire={onEnquire}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* B. RURAL & ALTERNATIVE NETWORKS LAYER */}
+            {groupedProviders.ruralAlternative.length > 0 && (
+              <div className="space-y-3" id="rural-altnet-providers-section">
+                <h3 className="text-sm font-extrabold uppercase tracking-widest text-emerald-400 border-b border-slate-800 pb-1.5 flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-emerald-400" />
+                  Rural or Alternative Options to Check
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {groupedProviders.ruralAlternative.map((provider) => (
+                    <ProviderCard
+                      key={provider.id}
+                      provider={provider}
+                      onEnquire={onEnquire}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* C. NATIONAL BROADBAND PROVIDERS LAYER */}
+            {groupedProviders.national.length > 0 && (
+              <div className="space-y-3" id="national-providers-section">
+                <h3 className="text-sm font-extrabold uppercase tracking-widest text-blue-450 border-b border-slate-800 pb-1.5 flex items-center gap-2">
+                  <Globe className="h-4 w-4 text-blue-450" />
+                  National Providers to Check
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {groupedProviders.national.map((provider) => (
+                    <ProviderCard
+                      key={provider.id}
+                      provider={provider}
+                      onEnquire={onEnquire}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* D. SATELLITE & WIRELESS BROADBAND PROVIDERS LAYER */}
+            {groupedProviders.satelliteMobile.length > 0 && (
+              <div className="space-y-3" id="satellite-mobile-providers-section">
+                <h3 className="text-sm font-extrabold uppercase tracking-widest text-purple-400 border-b border-slate-800 pb-1.5 flex items-center gap-2">
+                  <Radio className="h-4 w-4 text-purple-400" />
+                  Satellite or Mobile Broadband Options
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {groupedProviders.satelliteMobile.map((provider) => (
+                    <ProviderCard
+                      key={provider.id}
+                      provider={provider}
+                      onEnquire={onEnquire}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
 
           {/* 5. WEEKLY OFFER HIGHLIGHT (IF APPLICABLE) */}
@@ -562,6 +833,73 @@ export function PostcodePage({
                   }
                 }}
               />
+            </div>
+          </section>
+
+          {/* INDEPENDENT BOUNDARY REFERENCE CHECKS SECTION */}
+          <section className="bg-slate-900 border-2 border-slate-800 p-6 rounded-2xl space-y-4" id="independent-reference-checks">
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-extrabold uppercase tracking-wider text-brand-gold flex items-center gap-2">
+                <ShieldCheck className="h-4.5 w-4.5 text-brand-gold" />
+                Independent Boundary Reference Checks
+              </h3>
+              <p className="text-xs text-slate-350 leading-relaxed">
+                For deeper postcode level availability checks, use provider checkers, Ofcom, Openreach and independent tools such as ThinkBroadband. This site uses local editorial matching and provider source links, but address level availability must be confirmed before ordering.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1.5">
+              <a
+                href="https://www.openreach.com/fibre-checker?utm_source=wiltshirebroadbandfinder&utm_campaign=postcode_check&utm_medium=external_checker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-xl group transition-all text-xs"
+              >
+                <div className="space-y-0.5">
+                  <span className="font-extrabold text-white group-hover:text-brand-gold">Openreach Fibre Checker</span>
+                  <p className="text-[10px] text-slate-500 font-medium">Official Openreach line survey database</p>
+                </div>
+                <ExternalLink className="h-3.5 w-3.5 text-slate-500 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all" />
+              </a>
+
+              <a
+                href="https://checker.ofcom.org.uk/en-gb/broadband-coverage?utm_source=wiltshirebroadbandfinder&utm_campaign=postcode_check&utm_medium=external_checker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-xl group transition-all text-xs"
+              >
+                <div className="space-y-0.5">
+                  <span className="font-extrabold text-white group-hover:text-brand-gold">Ofcom Broadband Checker</span>
+                  <p className="text-[10px] text-slate-500 font-medium">Government telecom coverage search</p>
+                </div>
+                <ExternalLink className="h-3.5 w-3.5 text-slate-500 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all" />
+              </a>
+
+              <a
+                href="https://labs.thinkbroadband.com/local/postcode?utm_source=wiltshirebroadbandfinder&utm_campaign=postcode_check&utm_medium=external_checker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-xl group transition-all text-xs"
+              >
+                <div className="space-y-0.5">
+                  <span className="font-extrabold text-white group-hover:text-brand-gold">ThinkBroadband Local Map</span>
+                  <p className="text-[10px] text-slate-500 font-medium font-heavy">Interactive maps showing FTTP/cabinet layout</p>
+                </div>
+                <ExternalLink className="h-3.5 w-3.5 text-slate-500 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all" />
+              </a>
+
+              <a
+                href="https://www.thinkbroadband.com/postcode-search?utm_source=wiltshirebroadbandfinder&utm_campaign=postcode_check&utm_medium=external_checker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-xl group transition-all text-xs"
+              >
+                <div className="space-y-0.5">
+                  <span className="font-extrabold text-white group-hover:text-brand-gold">ThinkBroadband Search</span>
+                  <p className="text-[10px] text-slate-500 font-medium font-heavy">Independent postcode check analysis</p>
+                </div>
+                <ExternalLink className="h-3.5 w-3.5 text-slate-500 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all" />
+              </a>
             </div>
           </section>
 
