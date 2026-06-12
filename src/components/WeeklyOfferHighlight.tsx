@@ -235,13 +235,15 @@ export function WeeklyOfferHighlight({
             )}
 
             <div className="space-y-2">
-              <button
-                onClick={handleCtaClick}
+              <a
+                href={ctaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full py-4 bg-brand-gold hover:bg-brand-gold-hover text-slate-950 text-xs font-black rounded-xl transition-all shadow-lg hover:shadow-brand-gold/15 flex items-center justify-center gap-1.5 cursor-pointer leading-none group"
               >
                 <span>{ctaLabel}</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+              </a>
               
               {offerValidUntil && (
                 <p className="text-[10px] text-slate-450 text-center font-bold">
@@ -265,7 +267,7 @@ export function WeeklyOfferHighlight({
             Verification Disclaimer:
           </span>
           <p className="text-slate-350">
-            This is an editorial listing based on the information currently available to this site. Final price, speed, terms and availability must be confirmed by the provider.
+            We do not sell broadband directly. Provider pricing, availability, installation and contract terms must be confirmed on the provider’s website.
           </p>
         </div>
       </div>

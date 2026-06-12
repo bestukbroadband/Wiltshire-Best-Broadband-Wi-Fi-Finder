@@ -41,7 +41,7 @@ export const postcodeAreasData: PostcodeArea[] = [
   },
   {
     postcodePrefix: "SN2",
-    areaName: "Swindon North and Commandery",
+    areaName: "Swindon North and Cheney Manor",
     primaryTown: "Swindon",
     nearbyAreas: ["Swindon Central", "Cricklade", "Highworth"],
     county: "Wiltshire",
@@ -730,6 +730,35 @@ export const postcodeAreasData: PostcodeArea[] = [
       }
     ],
     nearbyPostcodes: ["SP4", "SP11", "SP2"],
+    lastUpdated: "June 8, 2026"
+  },
+  {
+    postcodePrefix: "SP10",
+    areaName: "Andover",
+    primaryTown: "Andover",
+    nearbyAreas: ["Weyhill", "Ludgershall", "Tidworth"],
+    county: "Hampshire",
+    region: "South East",
+    slug: "sp10_andover",
+    introCopy: "SP10 covers central Andover and immediate urban residential sectors. This hub is extremely well connected, featuring diverse high-speed standard and altnet providers.",
+    localBroadbandNotes: "Openreach Full Fibre has extensive reaching coverage across SP10. Various national mainstream providers utilize this line, offering speeds exceeding 900 Mbps.",
+    postcodeExamples: ["SP10 1AA", "SP10 2BG", "SP10 3DJ"],
+    providerIds: ["bt", "sky", "talktalk", "virgin", "ee_5g", "starlink"],
+    weeklyOfferId: "bt",
+    seoTitle: "Best Listed Broadband Deals in Andover | SP10 Postcode",
+    metaDescription: "Compare listed high-speed broadband rates across SP10 Andover. Read about Openreach FTTP, digital connectivity, and 5G option availability.",
+    h1: "Broadband Deals in SP10: Andover",
+    faqs: [
+      {
+        question: "Is full fibre broadband available in Andover SP10?",
+        answer: "Yes, SP10 has extensive gigabit coverage through Openreach's FTTP infrastructure and national providers."
+      },
+      {
+        question: "Who is the primary network builder in SP10?",
+        answer: "Openreach is the primary builder across Andover town, with regional networks available near the boundaries."
+      }
+    ],
+    nearbyPostcodes: ["SP11", "SP9", "SO21"],
     lastUpdated: "June 8, 2026"
   },
   {

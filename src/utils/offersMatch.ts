@@ -5,6 +5,7 @@
 
 import { PostcodeArea, Offer, OfferAvailability, FeaturedOffer, BroadbandNewsItem } from "../types";
 import { postcodeAreasData } from "../data/postcodeAreas";
+import { extractOutwardCode } from "./postcodeHelpers";
 import rawLiveOffers from "../data/liveOffers.json";
 import { providersData } from "../data/providers";
 
@@ -73,33 +74,32 @@ import { featuredOfferData } from "../data/featuredOffer";
  * Also returns clean space-separated formats where appropriate.
  */
 export function normalisePostcode(postcodeInput: string): string {
-  const clean = postcodeInput.toUpperCase().replaceAll(/\s+/g, "").trim();
+  const outward = extractOutwardCode(postcodeInput);
   
   // Hardcoded check for matching known Wiltshire prefixes
   const knownPrefixes = [
     "SN10", "BA14", "SP1", "RG17", "SN1", "SN2", "SN3", "SN4", "SN5",
     "SN6", "SN8", "SN9", "SN11", "SN12", "SN13", "SN14", "SN15", "SN16",
-    "SP2", "SP3", "SP4", "SP5", "SP7", "SP9", "SP11", "BA12", "BA13",
-    "BA15", "GL8"
+    "SP2", "SP3", "SP4", "SP5", "SP7", "SP9", "SP10", "SP11", "BA12",
+    "BA13", "BA15", "GL8"
   ];
+
+  // Try exact lookup first
+  if (knownPrefixes.includes(outward)) {
+    return outward;
+  }
 
   // Try to find if any known prefix is a prefix of the cleaned input
   // Sorting is descending by length to match SP11 before SP1, etc.
   const sortedPrefixes = [...knownPrefixes].sort((a, b) => b.length - a.length);
   for (const prefix of sortedPrefixes) {
-    if (clean.startsWith(prefix)) {
+    if (outward.startsWith(prefix)) {
       return prefix;
     }
   }
 
-  // Fallback: If it contains a space, get the first part.
-  const spaceSplit = postcodeInput.trim().split(/\s+/);
-  if (spaceSplit.length > 1) {
-    return spaceSplit[0].toUpperCase();
-  }
-
-  // Ultimate fallback is just returning the upper-case cleaned text
-  return clean;
+  // Fallback
+  return outward;
 }
 
 /**

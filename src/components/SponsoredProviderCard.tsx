@@ -67,15 +67,15 @@ export function SponsoredProviderCard({ provider, onEnquire, className = "" }: S
   } else {
     primaryBtn = (
       <button
-        onClick={() => onEnquire(provider)}
-        className="col-span-2 w-full py-2.5 px-4 text-xs font-black bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg transition-all shadow-md cursor-pointer"
+        disabled
+        className="w-full py-2.5 px-3 text-xs font-black text-center bg-slate-800 text-slate-400 rounded-lg cursor-not-allowed"
       >
-        Ask us to check this area
+        Provider link being reviewed
       </button>
     );
   }
 
-  if (hasChecker && hasDeals) {
+  if (hasDeals) {
     const trackerUrl = buildTrackedUrl(links.broadbandDealsUrl, "default", { utm_term: "postcode_or_area" });
     secondaryBtn = (
       <a
@@ -84,18 +84,9 @@ export function SponsoredProviderCard({ provider, onEnquire, className = "" }: S
         rel="noopener noreferrer"
         className="w-full py-2.5 px-3 text-xs font-black text-center border-2 border-brand-gold bg-[#12192c] text-brand-gold hover:bg-brand-gold-light hover:text-slate-950 rounded-lg flex items-center justify-center gap-1.5 transition-all"
       >
-        View broadband packages
+        View provider packages
         <ExternalLink className="h-3 w-3" />
       </a>
-    );
-  } else if (hasChecker || hasWebsite) {
-    secondaryBtn = (
-      <button
-        onClick={() => onEnquire(provider)}
-        className="w-full py-2.5 px-4 text-xs font-black border-2 border-brand-gold bg-[#12192c] text-brand-gold hover:bg-brand-gold-light hover:text-slate-950 rounded-lg transition-all shadow-md cursor-pointer text-center flex items-center justify-center"
-      >
-        Ask us to check this area
-      </button>
     );
   }
 
@@ -221,7 +212,7 @@ export function SponsoredProviderCard({ provider, onEnquire, className = "" }: S
           {secondaryBtn}
         </div>
         <p className="text-[10px] text-center text-slate-400 font-semibold leading-relaxed font-sans">
-          Availability varies by exact address. Final price, speed, package and installation terms must be confirmed by the provider.
+          We do not sell broadband directly. Provider pricing, availability, installation and contract terms must be confirmed on the provider’s website.
         </p>
         <div className="flex items-center justify-center gap-1 text-[9.5px] text-slate-400 font-bold pt-1">
           <AlertCircle className="h-3 w-3 text-brand-gold-hover shrink-0" />

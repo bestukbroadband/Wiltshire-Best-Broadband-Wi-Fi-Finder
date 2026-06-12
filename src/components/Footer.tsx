@@ -139,7 +139,7 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
               </li>
               <li>
                 <button onClick={() => handleLinkClick("contact")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Contact Us
+                  Contact the site
                 </button>
               </li>
             </ul>

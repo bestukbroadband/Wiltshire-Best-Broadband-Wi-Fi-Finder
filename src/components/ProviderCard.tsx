@@ -68,15 +68,15 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
   } else {
     primaryBtn = (
       <button
-        onClick={() => onEnquire(provider)}
-        className="col-span-2 w-full py-2.5 px-4 text-xs font-bold bg-brand-green hover:bg-brand-green-hover text-white rounded-lg transition-all cursor-pointer shadow-md"
+        disabled
+        className="w-full py-2.5 px-3 text-xs font-bold text-center bg-slate-200 text-slate-500 rounded-lg cursor-not-allowed"
       >
-        Ask us to check this area
+        Provider link being reviewed
       </button>
     );
   }
 
-  if (hasChecker && hasDeals) {
+  if (hasDeals) {
     const trackerUrl = buildTrackedUrl(links.broadbandDealsUrl, "default", { utm_term: "postcode_or_area" });
     secondaryBtn = (
       <a
@@ -85,18 +85,9 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
         rel="noopener noreferrer"
         className="w-full py-2.5 px-3 text-xs font-bold text-center border-2 border-brand-green bg-white text-brand-green hover:bg-slate-100 rounded-lg flex items-center justify-center gap-1.5 transition-all"
       >
-        View broadband packages
+        View provider packages
         <ExternalLink className="h-3 w-3" />
       </a>
-    );
-  } else if (hasChecker || hasWebsite) {
-    secondaryBtn = (
-      <button
-        onClick={() => onEnquire(provider)}
-        className="w-full py-2.5 px-3 text-xs font-bold text-center border-2 border-brand-green bg-white text-brand-green hover:bg-slate-100 rounded-lg flex items-center justify-center transition-all cursor-pointer"
-      >
-        Ask us to check this area
-      </button>
     );
   }
 
@@ -214,7 +205,7 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
           {secondaryBtn}
         </div>
         <p className="text-[10px] text-center text-slate-500 font-semibold leading-relaxed font-sans">
-          Availability varies by exact address. Final price, speed, package and installation terms must be confirmed by the provider.
+          We do not sell broadband directly. Provider pricing, availability, installation and contract terms must be confirmed on the provider’s website.
         </p>
       </div>
     </div>

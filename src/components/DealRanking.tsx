@@ -5,15 +5,16 @@
 
 import React from "react";
 import { Provider } from "../types";
-import { Award, ArrowDown, ArrowUp, Zap, HelpCircle, AlertCircle, Sparkles } from "lucide-react";
+import { Award, ArrowDown, ArrowUp, Zap, HelpCircle, AlertCircle, Sparkles, ExternalLink } from "lucide-react";
 import { EditorScoreCard } from "./EditorScoreCard";
 import { PriceDetails } from "./PriceDetails";
+import { getProviderCtaUrl, getProviderCtaLabel } from "../utils/linkHelpers";
 
 interface DealRankingProps {
   key?: any;
   provider: Provider;
   rank: number;
-  onEnquire: (p: Provider) => void;
+  onEnquire?: (p: Provider) => void;
 }
 
 export function DealRanking({ provider, rank, onEnquire }: DealRankingProps) {
@@ -72,6 +73,9 @@ export function DealRanking({ provider, rank, onEnquire }: DealRankingProps) {
   if (provider.midContractPriceRise) {
     tags.push({ label: "Check price rise", colorClass: "bg-rose-500/10 text-rose-400 border border-rose-500/25" });
   }
+
+  const ctaUrl = getProviderCtaUrl(provider.id);
+  const ctaLabel = getProviderCtaLabel(provider.id);
 
   return (
     <div
@@ -144,16 +148,36 @@ export function DealRanking({ provider, rank, onEnquire }: DealRankingProps) {
       />
 
       {/* 3. Footer scoring card and CTAs */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-slate-805">
-        <div className="w-full sm:w-auto">
-          <EditorScoreCard provider={provider} isDark={true} />
+      <div className="flex flex-col gap-3 pt-3 border-t border-slate-805">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="w-full sm:w-auto">
+            <EditorScoreCard provider={provider} isDark={true} />
+          </div>
+          
+          {ctaUrl ? (
+            <a
+              href={ctaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-5 py-2.5 bg-brand-gold hover:bg-brand-gold-hover text-slate-950 text-xs font-black font-sans rounded-xl tracking-wide shadow-md flex items-center justify-center gap-1.5 transition-all shrink-0"
+            >
+              {ctaLabel}
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          ) : (
+            <button
+              disabled
+              className="w-full sm:w-auto px-5 py-2.5 bg-slate-800 text-slate-400 text-xs font-black font-sans rounded-xl tracking-wide cursor-not-allowed"
+            >
+              {ctaLabel}
+            </button>
+          )}
         </div>
-        <button
-          onClick={() => onEnquire(provider)}
-          className="w-full sm:w-auto px-5 py-2.5 bg-brand-gold hover:bg-brand-gold-hover text-slate-950 text-xs font-black font-sans rounded-xl tracking-wide shadow-md active:scale-95 transition-all shrink-0 cursor-pointer"
-        >
-          Enquire
-        </button>
+
+        {/* Direct provider notice (Part 5) */}
+        <p className="text-[10px] text-center text-slate-400 font-semibold leading-relaxed font-sans pt-1 border-t border-slate-800/50">
+          We do not sell broadband directly. Provider pricing, availability, installation and contract terms must be confirmed on the provider’s website.
+        </p>
       </div>
     </div>
   );

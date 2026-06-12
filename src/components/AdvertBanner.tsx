@@ -119,7 +119,7 @@ export function AdvertBanner({
     // Optional postcode prefix targeting (case-insensitive checking)
     if (postcodePrefix && ad.targetPostcodes.length > 0) {
       const match = ad.targetPostcodes.some(
-        (p) => p.toLowerCase() === postcodePrefix.toLowerCase() || postcodePrefix.toLowerCase().startsWith(p.toLowerCase())
+        (p) => p.toLowerCase() === postcodePrefix.toLowerCase()
       );
       if (!match) return false;
     }

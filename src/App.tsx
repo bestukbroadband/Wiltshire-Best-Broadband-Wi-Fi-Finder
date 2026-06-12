@@ -62,6 +62,7 @@ import { featuredOfferData } from "./data/featuredOffer";
 import { buildTrackedUrl } from "./data/trackingConfig";
 
 import { postcodeAreasData } from "./data/postcodeAreas";
+import { extractOutwardCode } from "./utils/postcodeHelpers";
 import { seoPagesData } from "./data/seoPages";
 import { townPagesData } from "./data/townPages";
 import { SEOHead } from "./components/SEOHead";
@@ -200,12 +201,22 @@ export default function App() {
     if (!trimmedQuery) return;
 
     // Check if matching postcode prefix or outward postcode sector (e.g. SN10, SN10 1EP)
-    const normalizedQuery = query.trim().toUpperCase().replace(/\s+/g, "");
-    const matchedPostcode = postcodeAreasData.find(
-      (area) =>
-        normalizedQuery === area.postcodePrefix ||
-        normalizedQuery.startsWith(area.postcodePrefix)
+    const outwardCode = extractOutwardCode(query);
+    
+    // 1. Try exact postcodePrefix match first
+    let matchedPostcode = postcodeAreasData.find(
+      (area) => area.postcodePrefix === outwardCode
     );
+
+    // 2. If no exact match (e.g., partial typing or weird layout), match longer prefix first
+    if (!matchedPostcode) {
+      const sortedAreas = [...postcodeAreasData].sort(
+        (a, b) => b.postcodePrefix.length - a.postcodePrefix.length
+      );
+      matchedPostcode = sortedAreas.find(
+        (area) => outwardCode === area.postcodePrefix || outwardCode.startsWith(area.postcodePrefix)
+      );
+    }
 
     if (matchedPostcode) {
       const newPath = `/broadband/${matchedPostcode.slug}`;

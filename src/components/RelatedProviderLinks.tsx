@@ -7,11 +7,12 @@ import React from "react";
 import { Check, Cpu, ArrowUpRight } from "lucide-react";
 import { Provider } from "../types";
 import { providersData } from "../data/providers";
+import { getProviderCtaUrl, getProviderCtaLabel } from "../utils/linkHelpers";
 
 interface RelatedProviderLinksProps {
   postcodeTargets: string[];
   townTargets: string[];
-  onEnquire: (provider: Provider) => void;
+  onEnquire?: (provider: Provider) => void;
 }
 
 export function RelatedProviderLinks({ postcodeTargets, townTargets, onEnquire }: RelatedProviderLinksProps) {
@@ -83,13 +84,20 @@ export function RelatedProviderLinks({ postcodeTargets, townTargets, onEnquire }
 
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
               <span className="text-[9px] font-bold text-slate-400">Availability: Checked Monthly</span>
-              <button
-                type="button"
-                onClick={() => onEnquire(provider)}
-                className="text-[11px] font-black font-sans text-indigo-600 hover:text-indigo-800 flex items-center gap-1 focus:outline-none"
-              >
-                Request Address Check <ArrowUpRight className="h-3 w-3" />
-              </button>
+              {getProviderCtaUrl(provider.id) ? (
+                <a
+                  href={getProviderCtaUrl(provider.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-black font-sans text-indigo-600 hover:text-indigo-800 flex items-center gap-1 focus:outline-none"
+                >
+                  Check availability <ArrowUpRight className="h-3 w-3" />
+                </a>
+              ) : (
+                <span className="text-[10px] font-bold text-slate-400">
+                  Reviewed
+                </span>
+              )}
             </div>
           </div>
         ))}

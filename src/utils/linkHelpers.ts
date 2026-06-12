@@ -21,7 +21,7 @@ export function getProviderCtaUrl(
   offer?: any,
   regionSlug?: string,
   postcodeArea?: string
-): string {
+): string | undefined {
   // 1. If offer has a customized sourceUrl or similar
   const offerUrl = offer?.sourceUrl || offer?.baseUrl || offer?.ctaUrl;
   
@@ -33,7 +33,7 @@ export function getProviderCtaUrl(
   }
 
   if (!providerId) {
-    return "#enquire";
+    return undefined;
   }
 
   const pKey = providerId.toLowerCase().trim();
@@ -63,49 +63,37 @@ export function getProviderCtaUrl(
     }
   }
 
-  // 5. Else open internal contact form
-  return "#enquire";
+  // 5. Fallback - no link found (do not send to contact form)
+  return undefined;
 }
 
 /**
  * Safe fallback helper to retrieve the correct button CTA label.
- * 
- * Logic flow:
- * 1. If availability is address_check_required, label is: Check address availability
- * 2. If source is a comparison source, label is: Compare deal
- * 3. If source is provider site, label is: View provider package
- * 4. If no external source exists, label is: Ask us to check this area
  */
 export function getProviderCtaLabel(providerId: string | undefined, offer?: any): string {
+  const url = getProviderCtaUrl(providerId, offer);
+  if (!url) {
+    return "Provider link being reviewed";
+  }
+
   if (!providerId) {
-    return "Ask us to check this area";
+    return "Check availability";
   }
 
   const pKey = providerId.toLowerCase().trim();
   const linkInfo = providerLinksData[pKey];
 
-  // If no external link info exists at all
   if (!linkInfo || !linkInfo.isActive) {
-    return "Ask us to check this area";
+    return "Check availability";
   }
 
-  // 1. Check address_check_required state
-  const availability = offer?.availability || offer?.availabilityStatus;
-  const requiresCheck = availability === "address_check_required" || 
-                        availability === "Address check required" ||
-                        linkInfo.sourceType === "availability_checker";
-  if (requiresCheck) {
-    return "Check address availability";
-  }
-
-  // 2. Check if comparison source
-  if (linkInfo.sourceType === "comparison_source") {
-    return "Compare deal";
-  }
-
-  // 3. Check if provider page
-  if (linkInfo.sourceType === "provider_page") {
-    return "View provider package";
+  // Check availability vs. details
+  if (linkInfo.availabilityCheckerUrl) {
+    return "Check availability";
+  } else if (linkInfo.broadbandDealsUrl) {
+    return "View provider packages";
+  } else if (linkInfo.officialWebsite) {
+    return "Visit provider";
   }
 
   return "Check availability";

@@ -80,7 +80,7 @@ export function Header({ activeTab, setActiveTab, onEnquireClick }: HeaderProps)
               onClick={onEnquireClick}
               className="px-4 py-2 bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg text-xs font-black font-sans select-none active:scale-95 transition-transform shrink-0 cursor-pointer shadow-md leading-none"
             >
-              Check My Area
+              Get updates
             </button>
           </div>
 
@@ -135,7 +135,7 @@ export function Header({ activeTab, setActiveTab, onEnquireClick }: HeaderProps)
               }}
               className="px-4 py-2 bg-brand-gold hover:bg-brand-gold-hover text-slate-950 rounded-lg text-xs font-black text-center flex-1 cursor-pointer"
             >
-              Check My Area
+              Get updates
             </button>
           </div>
         </div>

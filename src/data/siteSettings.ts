@@ -14,15 +14,15 @@ export const siteSettingsData = {
   },
   headlines: {
     heroTitle: "Find local broadband options for Wiltshire villages and towns",
-    heroSubheading: "Compare full fibre networks, alternative networks, 5G home broadband, wireless and national providers across Wiltshire. Search your town, village or postcode area and request an address-level check.",
-    ctaPrimary: "Check my postcode",
+    heroSubheading: "Compare full fibre networks, alternative networks, 5G home broadband, wireless and national providers across Wiltshire. Search your town, village or postcode area and stay updated.",
+    ctaPrimary: "Get Wiltshire broadband updates",
     ctaSecondary: "List your service",
-    supportingMessage: "Broadband availability across Wiltshire can change from road to road. One village may have full fibre while the next may still rely on older connections. Wiltshire Broadband Finder helps you compare local and national providers, check likely availability and request a proper address-level review before choosing."
+    supportingMessage: "Broadband availability across Wiltshire can change from road to road. One village may have full fibre while the next may still rely on older connections. Wiltshire Broadband Finder helps you compare local and national providers, and sign up for occasional updates about rural connectivity news and provider changes."
   },
   disclaimers: {
     footerCopyright: "© 2026 Cane Communications Limited. Company number 11485145. All rights reserved.",
     footerTradingStyle: "Wiltshire Broadband Finder is a trading style of Cane Communications Limited.",
-    legalCompliance: "Wiltshire Broadband Finder is an independent broadband listing and enquiry site. We are not a broadband provider and do not sell broadband contracts directly. Prices, speeds, contract terms and availability can vary by address and require direct provider check. Sponsored listings and adverts are clearly marked.",
+    legalCompliance: "Wiltshire Broadband Finder is an independent local broadband information site. We do not sell broadband directly. Always confirm availability, speeds, pricing and contract terms with the provider before ordering. Sponsored listings and adverts are clearly marked.",
     commissionNotice: "We may receive referral fees, commission, advertising income or sponsorship support from providers listed on this site. This does not affect the price you pay.",
     marketLimitNotice: "We list selected mainstream, local and alternative network providers that may serve Wiltshire homes.",
     complianceStyleWording: {
@@ -31,7 +31,7 @@ export const siteSettingsData = {
         "Instead, use careful wording: Best match, Featured deal, Popular option, Strong value, Fastest listed package, Lowest listed monthly price, Subject to provider confirmation, Final terms confirmed by provider."
       ]
     },
-    localResultsDisclaimer: "Results are an initial local match. Final availability, speed, price and contract terms must be confirmed by the provider using your full address."
+    localResultsDisclaimer: "Results are an initial local match. We do not sell broadband directly. Always confirm availability, pricing, speeds and contract terms directly on the provider's website."
   },
   howItWorks: {
     steps: [
@@ -47,11 +47,11 @@ export const siteSettingsData = {
       },
       {
         stepNumber: "03",
-        title: "Request address check",
-        description: "Submit our short form. We perform an address-level check to find which listed options serve your home."
+        title: "Stay updated",
+        description: "Sign up for updates about new packages, rural connectivity improvements, and network developments across Wiltshire."
       }
     ],
-    note: "All listed options require a full address check. Final availability, pricing, speeds and terms are confirmed directly by the provider before ordering."
+    note: "We do not sell broadband directly. Always confirm availability, pricing, speeds andcontract terms directly on the provider's website."
   }
 };
 export type SiteSettings = typeof siteSettingsData;
