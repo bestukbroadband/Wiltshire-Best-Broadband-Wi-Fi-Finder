@@ -53,7 +53,6 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
     e.preventDefault();
     setErrorMessage("");
 
-    // Validate required consent
     if (!formData.consentCheckbox) {
       setErrorMessage("You must agree to the updates and newsletter consent before submitting.");
       return;
@@ -61,9 +60,7 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
 
     setIsSubmitting(true);
 
-    // Dynamic latency simulation to look incredibly premium and robust
     setTimeout(() => {
-      // Gather UTM params
       let utm_source = "";
       let utm_medium = "";
       let utm_campaign = "";
@@ -87,7 +84,6 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
         message: formData.message,
         consentCheckbox: formData.consentCheckbox,
         
-        // Part 3 hidden form metadata
         formPurpose: "newsletter_and_site_updates",
         region: "wiltshire",
         sourcePage: typeof window !== "undefined" ? window.location.href : "unknown",
@@ -100,10 +96,8 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
         submittedAt: new Date().toISOString()
       };
 
-      // --- LOG SUBMISSIONS AS DIRECTED ---
       console.log("[Wiltshire Updates Form] Subscription Submitted:", submissionPayload);
 
-      // --- PERSISTENCE STATE ---
       const existingSubscribers = JSON.parse(localStorage.getItem("wiltshire_subscribers") || "[]");
       existingSubscribers.push(submissionPayload);
       localStorage.setItem("wiltshire_subscribers", JSON.stringify(existingSubscribers));
@@ -118,17 +112,17 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
 
   if (isSuccess) {
     return (
-      <div className="bg-[#12192c] border-2 border-brand-gold/40 rounded-2xl p-6 text-center space-y-4 animate-scaleUp text-slate-100" id="lead-form-success">
-        <div className="h-14 w-14 bg-brand-gold text-slate-950 rounded-full flex items-center justify-center text-2xl font-black mx-auto shadow-md">
+      <div className="bg-white border-2 border-brand-green/40 rounded-2xl p-6 text-center space-y-4 animate-scaleUp text-slate-900" id="lead-form-success">
+        <div className="h-14 w-14 bg-brand-green text-white rounded-full flex items-center justify-center text-2xl font-black mx-auto shadow-md">
           ✔
         </div>
         <div className="space-y-1.5">
-          <h3 className="text-xl font-black text-brand-gold tracking-tight font-sans">Subscription Active</h3>
-          <p className="text-sm text-slate-200 leading-relaxed max-w-md mx-auto font-semibold">
+          <h3 className="text-xl font-black text-brand-green tracking-tight font-sans">Subscription Active</h3>
+          <p className="text-sm text-slate-700 leading-relaxed max-w-md mx-auto font-bold">
             Thanks! You have been successfully added to our Wiltshire broadband update list.
           </p>
         </div>
-        <p className="text-[11px] text-slate-400 font-medium font-sans">
+        <p className="text-xs text-slate-500 font-bold font-sans">
           Occasional updates, tracked promotions and rural connectivity changes will be delivered straight to your email.
         </p>
       </div>
@@ -136,22 +130,22 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
   }
 
   return (
-    <div className={`bg-[#12192c] border-2 border-slate-700/85 rounded-3xl p-6 shadow-xl ${className}`} id="lead-form-card">
+    <div className={`bg-white border-2 border-slate-200 rounded-3xl p-6 shadow-md ${className}`} id="lead-form-card">
       <div className="space-y-1.5 mb-5">
-        <span className="text-xs font-bold text-brand-gold uppercase tracking-wider block leading-none">
+        <span className="text-xs font-black text-brand-green uppercase tracking-wider block leading-none">
           Stay Informed
         </span>
-        <h3 className="text-xl font-black text-white tracking-tight font-sans">
+        <h3 className="text-xl font-black text-[#091e36] tracking-tight font-sans">
           Get Wiltshire broadband updates
         </h3>
-        <p className="text-xs text-slate-300 leading-relaxed font-semibold">
+        <p className="text-xs text-slate-700 leading-relaxed font-semibold">
           Sign up for occasional updates about broadband availability, tracked offers, rural connectivity news and provider changes across Wiltshire. We do not sell broadband directly and cannot confirm address level availability. For package details or installation questions, please use the provider’s own availability checker.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {errorMessage && (
-          <div className="p-3 bg-rose-950/80 text-rose-200 border-rose-800 border rounded-lg text-xs font-semibold">
+          <div className="p-3 bg-red-50 text-red-900 border-red-200 border rounded-lg text-xs font-semibold">
             {errorMessage}
           </div>
         )}
@@ -159,33 +153,33 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
         {/* PRIMARY FIELDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">First Name *</label>
+            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">First Name *</label>
             <input
               type="text"
               name="firstName"
               required
               value={formData.firstName}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 text-xs border border-slate-700 rounded-lg focus:border-brand-gold focus:ring-1 focus:ring-brand-gold bg-slate-900 text-white outline-hidden"
+              className="w-full px-3.5 py-2.5 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Last Name *</label>
+            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Last Name *</label>
             <input
               type="text"
               name="lastName"
               required
               value={formData.lastName}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 text-xs border border-slate-700 rounded-lg focus:border-brand-gold focus:ring-1 focus:ring-brand-gold bg-slate-900 text-white outline-hidden"
+              className="w-full px-3.5 py-2.5 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Email Address *</label>
+            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Email Address *</label>
             <div className="relative">
               <input
                 type="email"
@@ -193,23 +187,23 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 pl-8 text-xs border border-slate-700 rounded-lg focus:border-brand-gold focus:ring-1 focus:ring-brand-gold bg-slate-900 text-white outline-hidden"
+                className="w-full px-3.5 py-2.5 pl-8 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold"
               />
-              <Mail className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-405" />
+              <Mail className="absolute left-2.5 top-3 h-4 w-4 text-slate-400" />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Phone Number (Optional)</label>
+            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Phone Number (Optional)</label>
             <div className="relative">
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 pl-8 text-xs border border-slate-700 rounded-lg focus:border-brand-gold focus:ring-1 focus:ring-brand-gold bg-slate-900 text-white outline-hidden"
+                className="w-full px-3.5 py-2.5 pl-8 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold"
               />
-              <Phone className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-405" />
+              <Phone className="absolute left-2.5 top-3 h-4 w-4 text-slate-400" />
             </div>
           </div>
         </div>
@@ -217,7 +211,7 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
         {/* REGIONAL LOCALITIES */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Town or Village *</label>
+            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Town or Village *</label>
             <input
               type="text"
               name="townOrVillage"
@@ -225,12 +219,12 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
               required
               value={formData.townOrVillage}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 text-xs border border-slate-700 rounded-lg focus:border-brand-gold bg-slate-900 text-white placeholder-slate-500 outline-hidden"
+              className="w-full px-3.5 py-2.5 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold placeholder-slate-400"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Postcode *</label>
+            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Postcode *</label>
             <input
               type="text"
               name="postcode"
@@ -238,19 +232,19 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
               required
               value={formData.postcode}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 text-xs border border-slate-700 rounded-lg focus:border-brand-gold bg-slate-900 text-white placeholder-slate-500 outline-hidden"
+              className="w-full px-3.5 py-2.5 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold placeholder-slate-400"
             />
           </div>
         </div>
 
-        {/* REASON FOR ENQUIRY (Part 1 update) */}
+        {/* REASON FOR ENQUIRY */}
         <div className="space-y-1">
-          <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Reason for enquiry</label>
+          <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Reason for enquiry</label>
           <select
             name="reasonForEnquiry"
             value={formData.reasonForEnquiry}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 text-xs border border-slate-700 rounded-lg focus:border-brand-gold bg-slate-900 text-white outline-hidden"
+            className="w-full px-3.5 py-2.5 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-905 font-bold"
           >
             <option value="Newsletter signup">Newsletter signup</option>
             <option value="Local broadband updates">Local broadband updates</option>
@@ -264,7 +258,7 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
 
         {/* MESSAGE COMPONENT */}
         <div className="space-y-1">
-          <label className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Your Message / Feedback (Optional)</label>
+          <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">Your Message / Feedback (Optional)</label>
           <div className="relative">
             <textarea
               name="message"
@@ -272,14 +266,14 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
               value={formData.message}
               onChange={handleInputChange}
               placeholder="Type any questions, feedback or corrections here..."
-              className="w-full px-3 py-2 pl-8 text-xs border border-slate-700 rounded-lg focus:border-brand-gold bg-slate-900 text-white placeholder-slate-500 outline-hidden text-slate-100"
+              className="w-full px-3.5 py-2.5 pl-8 text-xs border border-slate-300 rounded-lg focus:border-brand-green bg-white text-slate-900 font-bold placeholder-slate-400"
             />
-            <MessageSquare className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-405" />
+            <MessageSquare className="absolute left-2.5 top-3.5 h-4 w-4 text-slate-400" />
           </div>
         </div>
 
-        {/* CONSENT BOX - Part 2 UPDATE */}
-        <div className="bg-slate-900/40 border border-slate-700 p-3 rounded-xl">
+        {/* CONSENT BOX */}
+        <div className="bg-slate-50 border border-slate-200 p-3 rounded-xl">
           <label className="flex items-start gap-2.5 cursor-pointer">
             <input
               type="checkbox"
@@ -287,9 +281,9 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
               required
               checked={formData.consentCheckbox}
               onChange={handleCheckboxChange}
-              className="rounded text-brand-gold h-4 w-4 focus:ring-brand-gold border-slate-650 bg-slate-900 shrink-0 mt-0.5 cursor-pointer"
+              className="rounded text-brand-green h-4 w-4 focus:ring-brand-green border-slate-300 bg-white shrink-0 mt-0.5 cursor-pointer"
             />
-            <span className="text-[11px] leading-relaxed text-slate-300" id="consent-declaration-text">
+            <span className="text-xs leading-relaxed text-slate-700 font-bold" id="consent-declaration-text">
               I agree to be contacted about broadband updates, newsletter content or my general enquiry. I understand this site does not sell broadband directly and that provider availability must be checked with the provider.
             </span>
           </label>
@@ -299,13 +293,13 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 px-6 bg-brand-gold hover:bg-brand-gold-hover text-slate-950 disabled:bg-[#475569] disabled:text-slate-400 rounded-xl text-sm font-black transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer leading-none font-sans"
+          className="w-full py-3 px-6 bg-brand-green hover:bg-brand-green-hover text-white disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-sm font-black transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer leading-none"
         >
           {isSubmitting ? "Submitting..." : "Stay updated"}
           <Send className="h-4 w-4" />
         </button>
 
-        <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-sans font-medium">
+        <div className="flex items-[#091e36] justify-center gap-2 text-xs text-slate-500 font-bold">
           <ShieldCheck className="h-4 w-4 text-slate-400" />
           <span>Independent local site. We do not sell broadband directly.</span>
         </div>

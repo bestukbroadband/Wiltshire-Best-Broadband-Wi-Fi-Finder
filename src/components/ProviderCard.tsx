@@ -5,9 +5,8 @@
 
 import React from "react";
 import { Provider } from "../types";
-import { ArrowUp, ArrowDown, MapPin, BadgeHelp, Check, ExternalLink, Calendar } from "lucide-react";
+import { ArrowUp, ArrowDown, MapPin, BadgeAlert, Check, ExternalLink } from "lucide-react";
 import { PriceDetails } from "./PriceDetails";
-import { ContractLengthBadge } from "./ContractLengthBadge";
 import { EditorScoreCard } from "./EditorScoreCard";
 import { ProviderSourceNote } from "./ProviderSourceNote";
 
@@ -24,7 +23,7 @@ interface ProviderCardProps {
 export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCardProps) {
   if (!provider) {
     return (
-      <div className="p-4 bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs rounded-xl">
+      <div className="p-4 bg-yellow-50 border border-yellow-250 text-yellow-800 text-xs rounded-xl">
         Provider data is missing or unavailable.
       </div>
     );
@@ -46,7 +45,7 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
         href={trackerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full py-2.5 px-3 text-xs font-bold text-center bg-brand-green hover:bg-brand-green-hover text-white rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-md"
+        className="w-full py-2.5 px-3 text-xs font-black text-center bg-brand-green hover:bg-brand-green-hover text-white rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer"
       >
         Check availability
         <ExternalLink className="h-3 w-3" />
@@ -59,7 +58,7 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
         href={trackerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full py-2.5 px-3 text-xs font-bold text-center bg-brand-green hover:bg-brand-green-hover text-white rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-md"
+        className="w-full py-2.5 px-3 text-xs font-black text-center bg-brand-green hover:bg-brand-green-hover text-white rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer"
       >
         Visit provider
         <ExternalLink className="h-3 w-3" />
@@ -83,7 +82,7 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
         href={trackerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full py-2.5 px-3 text-xs font-bold text-center border-2 border-brand-green bg-white text-brand-green hover:bg-slate-100 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+        className="w-full py-2.5 px-3 text-xs font-black text-center border-2 border-brand-green bg-white text-brand-green hover:bg-slate-50 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer"
       >
         View provider packages
         <ExternalLink className="h-3 w-3" />
@@ -91,64 +90,101 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
     );
   }
 
+  // Derive legal, accurate label in accordance with Part 4
+  let statusText = "Provider checker required";
+  let statusColor = "bg-slate-100 text-slate-800 border-slate-300";
+
+  const isNational = [
+    "bt", "ee", "sky", "now", "now-broadband", "talktalk", "vodafone", "plusnet", "zen", "zen-internet", "virgin", "virgin-media", "three", "three-broadband", "starlink"
+  ].includes(provId);
+
+  if (isNational) {
+    statusText = "Provider checker required";
+    statusColor = "bg-slate-100 text-slate-800 border-slate-350";
+  } else {
+    // Alternate or Regional
+    const textLower = (provider.availabilityStatus || "").toLowerCase();
+    if (textLower.includes("address")) {
+      statusText = "Address check required";
+      statusColor = "bg-blue-50 text-blue-900 border-blue-250";
+    } else if (textLower.includes("regional")) {
+      statusText = "Regional relevance";
+      statusColor = "bg-stone-100 text-stone-900 border-stone-250";
+    } else if (textLower.includes("reviewed") || textLower.includes("pending")) {
+      statusText = "Review pending";
+      statusColor = "bg-yellow-50 text-amber-900 border-yellow-250";
+    } else if (provider.sourceName && (textLower.includes("verified") || textLower.includes("ofcom") || textLower.includes("thinkbroadband"))) {
+      statusText = "Verified source";
+      statusColor = "bg-teal-50 text-teal-900 border-teal-250";
+    } else {
+      statusText = "Address check required"; // Default safe fallback
+      statusColor = "bg-blue-50 text-blue-900 border-blue-250";
+    }
+  }
+
   return (
     <div
-      className={`bg-white border-2 border-slate-200 rounded-2xl shadow-md hover:border-brand-gold hover:shadow-xl transition-all duration-200 overflow-hidden flex flex-col justify-between ${className}`}
+      className={`bg-white border-2 border-slate-200 rounded-2xl shadow-xs hover:border-brand-green/40 hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col justify-between ${className}`}
       id={`prov-card-${provider.id}`}
     >
       {/* CARD TOP INFO */}
       <div className="p-5 space-y-4">
         {/* LOGO AND BRAND HEADER */}
         <div className="flex justify-between items-start gap-4">
-          <div className="space-y-1">
-            <span className="inline-block text-[9px] font-extrabold text-black bg-stone-150 rounded-sm px-1.5 py-0.5 tracking-wider uppercase">
-              {provider.networkType}
-            </span>
-            <div className="flex items-center gap-2">
-              {/* Text based logo mark logoText */}
-              <div className="h-10 px-3 bg-brand-green text-white border border-brand-green/20 text-xs font-black rounded-lg flex items-center justify-center tracking-tight uppercase shadow-sm">
+          <div className="space-y-1 flex-1">
+            <div className="flex flex-wrap gap-1.5 items-center">
+              <span className="inline-block text-[10px] font-black text-slate-800 bg-slate-100 rounded-sm px-1.5 py-0.5 tracking-wider uppercase">
+                {provider.networkType}
+              </span>
+              <span className={`inline-block text-[10px] font-black px-1.5 py-0.5 rounded border ${statusColor} uppercase tracking-wider`}>
+                {statusText}
+              </span>
+            </div>
+            
+            <div className="flex items-center gap-2.5 pt-1">
+              <div className="h-10 px-3 bg-brand-green text-white border border-brand-green/20 text-xs font-black rounded-lg flex items-center justify-center tracking-tight uppercase shadow-xs">
                 {provider.logoText}
               </div>
               <div>
-                <h3 className="text-sm font-extrabold text-brand-green leading-none">
+                <h3 className="text-sm font-black text-[#091e36] leading-none">
                   {provider.providerName}
                 </h3>
-                <span className="text-[10.5px] text-black font-heavy">
+                <span className="text-xs text-slate-705 font-bold">
                   {provider.packageName}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="text-right">
-            <span className="inline-block text-[10px] font-black text-brand-green bg-brand-gold-light px-2 py-0.5 rounded border-2 border-brand-gold">
+          <div className="text-right shrink-0">
+            <span className="inline-block text-[10px] font-bold text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-250">
               {provider.bestFor}
             </span>
           </div>
         </div>
 
         {/* SPEEDS BAR SUMMARY */}
-        <div className="grid grid-cols-2 gap-3 bg-slate-50 rounded-xl p-3 border border-slate-350">
+        <div className="grid grid-cols-2 gap-3 bg-slate-50 rounded-xl p-3 border border-slate-200">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-brand-green-light rounded-md text-brand-green shrink-0 border border-brand-green/30">
+            <div className="p-1.5 bg-brand-green/10 rounded-md text-brand-green shrink-0 border border-brand-green/20">
               <ArrowDown className="h-4 w-4" />
             </div>
             <div>
-              <span className="text-[10px] uppercase font-black tracking-wider text-black block">Avg. Download</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-slate-600 block">Avg. Download</span>
               <span className="text-base font-black text-brand-green font-sans tracking-tight">
-                {provider.averageDownloadSpeed} <span className="text-[10px] font-bold text-black font-sans">Mbps</span>
+                {provider.averageDownloadSpeed} <span className="text-[10px] font-bold text-slate-500 font-sans">Mbps</span>
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-brand-gold-light rounded-md text-brand-gold-hover shrink-0 border border-brand-gold/30">
+            <div className="p-1.5 bg-amber-50 rounded-md text-amber-700 shrink-0 border border-amber-205">
               <ArrowUp className="h-4 w-4" />
             </div>
             <div>
-              <span className="text-[10px] uppercase font-black tracking-wider text-black block">Avg. Upload</span>
-              <span className="text-base font-black text-brand-green font-sans tracking-tight">
-                {provider.averageUploadSpeed} <span className="text-[10px] font-bold text-black font-sans">Mbps</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-slate-600 block">Avg. Upload</span>
+              <span className="text-base font-black text-slate-800 font-sans tracking-tight">
+                {provider.averageUploadSpeed} <span className="text-[10px] font-bold text-slate-500 font-sans">Mbps</span>
               </span>
             </div>
           </div>
@@ -175,14 +211,14 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
         />
 
         {/* DESCRIPTION AND RURAL COVERAGE NOTES */}
-        <div className="space-y-2 text-xs text-black pt-1">
+        <div className="space-y-2 text-xs text-slate-800 pt-1">
           <p className="leading-relaxed font-semibold">
             {provider.description}
           </p>
-          <div className="flex items-start gap-1.5 text-black bg-brand-green-light/80 p-2.5 rounded-lg border-2 border-brand-green/35 text-[11px] leading-snug">
-            <MapPin className="h-3.5 w-3.5 text-brand-gold shrink-0 mt-0.5" />
+          <div className="flex items-start gap-1.5 text-slate-800 bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-xs leading-normal">
+            <MapPin className="h-3.5 w-3.5 text-brand-green shrink-0 mt-0.5" />
             <span>
-              <strong className="text-black font-extrabold">Wiltshire Coverage:</strong> {provider.coverageNotes || provider.coverageNote} Suffix checks required.
+              <strong className="text-slate-900 font-black">Wiltshire Coverage:</strong> {provider.coverageNotes || provider.coverageNote} Suffix checks required.
             </span>
           </div>
         </div>
@@ -205,10 +241,11 @@ export function ProviderCard({ provider, onEnquire, className = "" }: ProviderCa
           {secondaryBtn}
         </div>
         <p className="text-[10px] text-center text-slate-500 font-semibold leading-relaxed font-sans">
-          We do not sell broadband directly. Provider pricing, availability, installation and contract terms must be confirmed on the provider’s website.
+          Wiltshire Broadband Finder does not sell broadband directly. Always confirm availability, speeds, pricing, installation and contract terms with the provider before ordering.
         </p>
       </div>
     </div>
   );
 }
+
 export default ProviderCard;

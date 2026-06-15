@@ -13,16 +13,16 @@ export const siteSettingsData = {
     contactEmail: "bestukbroaband@proton.me"
   },
   headlines: {
-    heroTitle: "Find local broadband options for Wiltshire villages and towns",
-    heroSubheading: "Compare full fibre networks, alternative networks, 5G home broadband, wireless and national providers across Wiltshire. Search your town, village or postcode area and stay updated.",
+    heroTitle: "Best broadband in Wiltshire",
+    heroSubheading: "Check listed broadband, WiFi and internet provider options across Wiltshire towns, villages and postcode areas. Enter your postcode area to see providers and availability checkers to try.",
     ctaPrimary: "Get Wiltshire broadband updates",
     ctaSecondary: "List your service",
-    supportingMessage: "Broadband availability across Wiltshire can change from road to road. One village may have full fibre while the next may still rely on older connections. Wiltshire Broadband Finder helps you compare local and national providers, and sign up for occasional updates about rural connectivity news and provider changes."
+    supportingMessage: "Wiltshire Broadband Finder helps you check listed broadband and WiFi options across towns, villages and rural postcode areas. We group national providers, regional broadband networks, full fibre options, mobile broadband and satellite choices so you can quickly open the right provider checkers."
   },
   disclaimers: {
     footerCopyright: "© 2026 Cane Communications Limited. Company number 11485145. All rights reserved.",
-    footerTradingStyle: "Wiltshire Broadband Finder is a trading style of Cane Communications Limited.",
-    legalCompliance: "Wiltshire Broadband Finder is an independent local broadband information site. We do not sell broadband directly. Always confirm availability, speeds, pricing and contract terms with the provider before ordering. Sponsored listings and adverts are clearly marked.",
+    footerTradingStyle: "Wiltshire Broadband Finder is an independent local broadband information guide.",
+    legalCompliance: "Wiltshire Broadband Finder does not sell broadband directly. Always confirm availability, speeds, pricing, installation and contract terms with the provider before ordering.",
     commissionNotice: "We may receive referral fees, commission, advertising income or sponsorship support from providers listed on this site. This does not affect the price you pay.",
     marketLimitNotice: "We list selected mainstream, local and alternative network providers that may serve Wiltshire homes.",
     complianceStyleWording: {
@@ -31,27 +31,27 @@ export const siteSettingsData = {
         "Instead, use careful wording: Best match, Featured deal, Popular option, Strong value, Fastest listed package, Lowest listed monthly price, Subject to provider confirmation, Final terms confirmed by provider."
       ]
     },
-    localResultsDisclaimer: "Results are an initial local match. We do not sell broadband directly. Always confirm availability, pricing, speeds and contract terms directly on the provider's website."
+    localResultsDisclaimer: "Availability varies by exact address. Always confirm speeds, prices and contract terms with the provider before ordering."
   },
   howItWorks: {
     steps: [
       {
         stepNumber: "01",
-        title: "Search your locale",
-        description: "Type in your Wiltshire town, village, or part postcode to find active operators in your postcode zone."
+        title: "Enter your postcode area",
+        description: "Search by Wiltshire postcode district, such as SN10, SN12, SN15, BA14 or SP1."
       },
       {
         stepNumber: "02",
-        title: "Compare listed options",
-        description: "Filter by speed, altnets vs national, monthly rates, or contract terms next to each matching card."
+        title: "See providers to check",
+        description: "We show national, regional and alternative providers that may be relevant to that area."
       },
       {
         stepNumber: "03",
-        title: "Stay updated",
-        description: "Sign up for updates about new packages, rural connectivity improvements, and network developments across Wiltshire."
+        title: "Confirm with the provider",
+        description: "Use provider checkers to confirm exact availability, speed, installation and price."
       }
     ],
-    note: "We do not sell broadband directly. Always confirm availability, pricing, speeds andcontract terms directly on the provider's website."
+    note: "Broadband availability across Wiltshire can change from road to road. Always check exact local coverage on the provider's official checkers."
   }
 };
 export type SiteSettings = typeof siteSettingsData;

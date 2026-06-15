@@ -68,6 +68,8 @@ import { townPagesData } from "./data/townPages";
 import { SEOHead } from "./components/SEOHead";
 import { SeoPageTemplate } from "./components/SeoPageTemplate";
 import { InternalSEOLinks } from "./components/InternalSEOLinks";
+import { WiltshirePopularAreas } from "./components/WiltshirePopularAreas";
+import { RuralBroadbandWiltshire } from "./components/RuralBroadbandWiltshire";
 import { Provider, Town, LocalUpdate, SeoPageData } from "./types";
 import { ProviderDirectoryView } from "./components/ProviderDirectoryView";
 import { ProviderProfileView } from "./components/ProviderProfileView";
@@ -584,7 +586,7 @@ export default function App() {
   }, [activeTab, activeTown, activePostcodeArea]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0c101d] via-[#12192c] to-[#04060b] flex flex-col font-sans" id="wiltshire-applet-root">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col font-sans" id="wiltshire-applet-root">
       
       <SEOHead seoData={currentSeoData} />
 
@@ -621,8 +623,153 @@ export default function App() {
                   onListProviderClick={() => setActiveTab("list-provider")}
                 />
 
-                {/* HERO SPONSOR STRIP */}
-                <AdvertBanner location="hero-sponsor-strip" className="w-full mt-4" />
+                {/* HOW IT WORKS SECTION */}
+                <HowItWorks />
+
+                {/* WILTSHIRE POPULAR AREAS SECTION */}
+                <WiltshirePopularAreas onAreaSubmit={handleHeroSearchSubmit} />
+
+                {/* VISUAL INFRASTRUCTURE CATEGORIES SELECTIONS */}
+                <section className="space-y-4 pt-4">
+                  <div className="space-y-2 text-center md:text-left">
+                    <span className="text-xs font-black text-brand-green uppercase tracking-wider block leading-none font-sans">
+                      Infrastructure Options
+                    </span>
+                    <h2 className="text-xl md:text-2xl font-black text-[#091e36] tracking-tight">
+                      Compare Wiltshire Deployment Classes
+                    </h2>
+                    <p className="text-sm text-slate-705 font-semibold max-w-xl">
+                      Select a specific connectivity medium to filter our objective local guides instantly.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {providerCategoriesData.slice(0, 8).map((cat) => (
+                      <ProviderCategoryCard
+                        key={cat.id}
+                        category={cat}
+                        isActive={selectedCategoryId === cat.id}
+                        onClick={() => handleCategorySelect(cat.id)}
+                      />
+                    ))}
+                  </div>
+                </section>
+
+                {/* COMPARISON ENGINE WRAPPER */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4" id="comparison-finder">
+                  
+                  {/* FILTERS SIDE BAR */}
+                  <div className="lg:col-span-1 space-y-6">
+                    <div className="sticky top-20 space-y-6">
+                      <FilterPanel
+                        filters={filters}
+                        resultCount={filteredProviders.length}
+                        onChange={setFilters}
+                        onReset={() => {
+                          setFilters(initialFilterState);
+                          setSelectedCategoryId(null);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* ACTIVE PROVIDER DECK */}
+                  <div className="lg:col-span-2 space-y-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 border border-slate-200 rounded-xl shadow-xs text-slate-900">
+                      <div>
+                        <h2 className="text-base font-black text-slate-900 font-sans tracking-tight leading-none">
+                          Listed Providers serving Wiltshire Parishes
+                        </h2>
+                        <span className="text-xs text-slate-500 font-bold block mt-1">
+                          Refined results based on your selected parameters below.
+                        </span>
+                      </div>
+
+                      <div className="flex gap-1">
+                        <button
+                          onClick={() => setFilters((prev) => ({ ...prev, selectedTypes: [] }))}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                            filters.selectedTypes.length === 0
+                              ? "bg-brand-green text-white font-black shadow-xs border border-brand-green/30"
+                              : "bg-slate-100 text-slate-700 hover:bg-slate-205"
+                          }`}
+                        >
+                          All Networks
+                        </button>
+                        <button
+                          onClick={() => setFilters((prev) => ({ ...prev, selectedTypes: ["Alternative network providers"] }))}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                            filters.selectedTypes.includes("Alternative network providers")
+                              ? "bg-brand-green text-white font-black shadow-xs border border-brand-green/30"
+                              : "bg-slate-100 text-slate-700 hover:bg-slate-205"
+                          }`}
+                        >
+                          Altnets
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* DYNAMIC SHIELD - SPONSORED SPOTLIGHT CARDS FIRST */}
+                    {filteredProviders.length > 0 && filters.searchQuery === "" && (
+                      <div className="space-y-4">
+                        <span className="text-xs uppercase font-black text-slate-500 block tracking-wider mb-1">
+                          Featured local specialists
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fadeIn">
+                          {providersData.filter((p) => p.isSponsored).slice(0, 2).map((spon) => (
+                            <SponsoredProviderCard
+                              key={spon.id}
+                              provider={spon}
+                              onEnquire={handleEnquireTrigger}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* REGULAR DECK LISTINGS */}
+                    <div className="space-y-5">
+                      <span className="text-xs uppercase font-black text-slate-550 block tracking-wider">
+                        Standard Local Matches
+                      </span>
+
+                      {filteredProviders.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fadeIn">
+                          {filteredProviders.map((provider) => (
+                            <ProviderCard
+                              key={provider.id}
+                              provider={provider}
+                              onEnquire={handleEnquireTrigger}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="py-14 text-center bg-white border border-slate-200 rounded-3xl space-y-3">
+                          <Sliders className="h-10 w-10 text-slate-400 mx-auto" />
+                          <h4 className="text-sm font-bold text-slate-900">No matching providers found</h4>
+                          <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+                            No provider fits those combined speed, price, and price freeze settings. Try resetting contract duration slider or widening maximum budget limits.
+                          </p>
+                          <button
+                            onClick={() => {
+                              setFilters(initialFilterState);
+                              setSelectedCategoryId(null);
+                            }}
+                            className="text-xs font-bold text-brand-green underline hover:text-brand-green-hover transition-colors font-sans"
+                          >
+                            Reset filters and check all
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* BEST LISTED DEALS PRE-RENDER WRAPPED */}
+                    <div className="pt-6 border-t border-slate-200">
+                      <BestDealsSection onEnquire={handleEnquireTrigger} limit={3} />
+                    </div>
+
+                  </div>
+                </div>
 
                 {/* WEEKLY OFFER HIGHLIGHT SECTION */}
                 {featuredOfferData && featuredOfferData.isLive ? (
@@ -685,9 +832,9 @@ export default function App() {
                     }}
                   />
                 ) : (
-                  <div className="bg-white border-2 border-slate-200 rounded-2xl shadow-md p-6 space-y-3" id="weekly-availability-editorial-card">
+                  <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-3" id="weekly-availability-editorial-card">
                     <div className="flex items-center gap-2 text-brand-green">
-                      <span className="p-1.5 bg-brand-green-light rounded-lg">
+                      <span className="p-1.5 bg-brand-green/10 rounded-lg">
                         <svg className="h-4.5 w-4.5 text-brand-green shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -702,163 +849,8 @@ export default function App() {
                   </div>
                 )}
 
-                {/* AD LEADERBOARD BILLBOARD */}
-                <AdvertBanner placement="Top leaderboard advert" className="w-full" />
-
-                {/* VISUAL INFRASTRUCTURE CATEGORIES SELECTIONS */}
-                <section className="space-y-3">
-                  <div className="space-y-1 text-center md:text-left">
-                    <span className="text-[11px] font-extrabold text-brand-gold uppercase tracking-widest leading-none">
-                      Infrastructure Options
-                    </span>
-                    <h2 className="text-xl md:text-2xl font-black text-white tracking-tight">
-                      Compare Wiltshire Deployment Classes
-                    </h2>
-                    <p className="text-xs text-slate-300 font-semibold max-w-xl">
-                      Select a specific connectivity medium to filter our objective local guides instantly.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                    {providerCategoriesData.slice(0, 8).map((cat) => (
-                      <ProviderCategoryCard
-                        key={cat.id}
-                        category={cat}
-                        isActive={selectedCategoryId === cat.id}
-                        onClick={() => handleCategorySelect(cat.id)}
-                      />
-                    ))}
-                  </div>
-                </section>
-
-                {/* COMPARISON ENGINE WRAPPER */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4" id="comparison-finder">
-                  
-                  {/* FILTERS SIDE BAR */}
-                  <div className="lg:col-span-1 space-y-6">
-                    <div className="sticky top-20 space-y-6">
-                      <FilterPanel
-                        filters={filters}
-                        resultCount={filteredProviders.length}
-                        onChange={setFilters}
-                        onReset={() => {
-                          setFilters(initialFilterState);
-                          setSelectedCategoryId(null);
-                        }}
-                      />
-                      
-                      {/* SIDE PANEL SPONSORED BANNER */}
-                      <AdvertBanner placement="Sidebar advert" />
-                    </div>
-                  </div>
-
-                  {/* ACTIVE PROVIDER DECK */}
-                  <div className="lg:col-span-2 space-y-6">
-                    {selectedCategoryId && (
-                      <AdvertBanner 
-                        location="provider-category-sponsor" 
-                        categoryName={selectedCategoryId} 
-                        className="w-full" 
-                      />
-                    )}
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-[#12192c] p-4 border-2 border-slate-700/60 rounded-xl shadow-lg">
-                      <div>
-                        <h2 className="text-base font-black text-white font-sans tracking-tight leading-none">
-                          Listed Providers serving Wiltshire Parishes
-                        </h2>
-                        <span className="text-[11px] text-slate-350 font-bold block mt-1">
-                          Refined results based on your selected parameters below.
-                        </span>
-                      </div>
-
-                      <div className="flex gap-1">
-                        <button
-                          onClick={() => setFilters((prev) => ({ ...prev, selectedTypes: [] }))}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
-                            filters.selectedTypes.length === 0
-                              ? "bg-brand-gold text-slate-950 font-black shadow-md border border-brand-gold/30"
-                              : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-                          }`}
-                        >
-                          All Networks
-                        </button>
-                        <button
-                          onClick={() => setFilters((prev) => ({ ...prev, selectedTypes: ["Alternative network providers"] }))}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
-                            filters.selectedTypes.includes("Alternative network providers")
-                              ? "bg-brand-gold text-slate-950 font-black shadow-md border border-brand-gold/30"
-                              : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-                          }`}
-                        >
-                          Altnets
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* DYNAMIC SHIELD - SPONSORED SPOTLIGHT CARDS FIRST */}
-                    {filteredProviders.length > 0 && filters.searchQuery === "" && (
-                      <div className="space-y-4">
-                        <span className="text-[10px] uppercase font-black text-slate-300 block tracking-widest mb-1">
-                          Featured local specialists
-                        </span>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5 animate-fadeIn">
-                          {providersData.filter((p) => p.isSponsored).slice(0, 2).map((spon) => (
-                            <SponsoredProviderCard
-                              key={spon.id}
-                              provider={spon}
-                              onEnquire={handleEnquireTrigger}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* REGULAR DECK LISTINGS */}
-                    <div className="space-y-5">
-                      <span className="text-[10px] uppercase font-black text-slate-300 block tracking-widest">
-                        Standard Local Matches
-                      </span>
-
-                      {filteredProviders.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5 animate-fadeIn">
-                          {filteredProviders.map((provider) => (
-                            <ProviderCard
-                              key={provider.id}
-                              provider={provider}
-                              onEnquire={handleEnquireTrigger}
-                            />
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="py-14 text-center bg-[#12192c] border-2 border-slate-700/60 rounded-2xl space-y-3">
-                          <Sliders className="h-10 w-10 text-brand-gold mx-auto" />
-                          <h4 className="text-sm font-bold text-white">No matching providers found</h4>
-                          <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                            No provider fits those combined speed, price, and price freeze settings. Try resting contract duration slider or widening maximum budget limits.
-                          </p>
-                          <button
-                            onClick={() => {
-                              setFilters(initialFilterState);
-                              setSelectedCategoryId(null);
-                            }}
-                            className="text-xs font-bold text-brand-gold underline hover:text-white transition-colors"
-                          >
-                            Reset filters and check all
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* BEST LISTED DEALS PRE-RENDER WRAPPED */}
-                    <div className="pt-6 border-t border-slate-108">
-                      <BestDealsSection onEnquire={handleEnquireTrigger} limit={3} />
-                    </div>
-
-                  </div>
-                </div>
-
-                {/* HOW IT WORKS SECTION */}
-                <HowItWorks />
+                {/* RURAL BROADBAND IN WILTSHIRE & POSTCODE CHECKS */}
+                <RuralBroadbandWiltshire />
 
                 {/* WILTSHIRE REGISTERED TRACKED PROVIDERS GRID */}
                 <WiltshireTrackedProviders
@@ -879,14 +871,14 @@ export default function App() {
 
                 {/* DYNAMIC LOCAL DEVELOPMENT ARTICLES */}
                 <section className="space-y-4" id="rural-broadband-news">
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-extrabold text-brand-gold uppercase tracking-widest block leading-none mb-1 font-sans">
+                  <div className="space-y-2">
+                    <span className="text-xs font-black text-brand-green uppercase tracking-wider block leading-none font-sans">
                       Wiltshire Updates
                     </span>
-                    <h2 className="text-xl md:text-2xl font-black text-white tracking-tight">
+                    <h2 className="text-xl md:text-2xl font-black text-[#091e36] tracking-tight">
                       Local Digital Infrastructure News
                     </h2>
-                    <p className="text-xs text-slate-300 font-semibold max-w-xl leading-relaxed">
+                    <p className="text-sm text-slate-750 font-semibold max-w-xl leading-relaxed">
                       Read about BDUK Project Gigabit rollouts, altnet mergers, and local fibre voucher statuses across our counties.
                     </p>
                   </div>
@@ -901,9 +893,6 @@ export default function App() {
                     ))}
                   </div>
                 </section>
-
-                {/* IN-CONTENT EDITORIAL ADVERT */}
-                <AdvertBanner location="in-content-advert" className="w-full" />
 
                 {/* TRUST & COMPLIANCE PLEDGES */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">

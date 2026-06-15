@@ -4,9 +4,7 @@
  */
 
 import React from "react";
-import { Network, HelpCircle, Mail, Map } from "lucide-react";
 import { siteSettingsData } from "../data/siteSettings";
-import { providerCategoriesData } from "../data/providerCategories";
 import { townsData } from "../data/towns";
 import { BrandLogo } from "./BrandLogo";
 
@@ -26,11 +24,10 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Get a selection of 6 prominent Wiltshire towns for high layout variety
-  const featuredTowns = townsData.slice(0, 8);
+  const featuredTowns = townsData.slice(0, 10);
 
   return (
-    <footer className="bg-[#0b0e1a] border-t border-slate-800 text-slate-300 text-xs py-12 md:py-16" id="site-footer">
+    <footer className="bg-white border-t border-slate-200 text-slate-800 text-xs py-12 md:py-16" id="site-footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
         {/* FOOTER MULTICOLUMNS */}
@@ -38,51 +35,41 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
           
           {/* SITE INFO AND BRAND COLUMN */}
           <div className="space-y-4 md:col-span-1">
-            <BrandLogo variant="footer" showText={true} />
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Assisting Wiltshire households and agricultural ventures in connecting with high-speed full fibre, altnet, 5G, and orbit satellite arrays.
+            <BrandLogo variant="lightBackground" size="w-8 h-8" showText={true} />
+            <p className="text-xs text-slate-600 leading-relaxed font-semibold">
+              Wiltshire Broadband Finder is an independent local broadband information guide. We assist Wiltshire households and communities in identifying listed broadband and WiFi operator choices.
             </p>
-            <div className="text-[10px] text-slate-450 space-y-1.5 leading-tight">
-              <p className="font-extrabold text-brand-gold">Project of: {siteSettingsData.owner.companyName}</p>
-              <p>Company Reg No: {siteSettingsData.owner.companyNumber}</p>
-              <p>Enquiry Email: <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-brand-gold hover:underline transition-colors font-bold" id="footer-contact-email-link">Info</a></p>
+            <div className="text-xs text-slate-500 space-y-1 leading-normal font-semibold">
+              <p className="font-extrabold text-brand-green">Owner: {siteSettingsData.owner.companyName}</p>
+              <p>Company Number: {siteSettingsData.owner.companyNumber}</p>
+              <p>Email: <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-brand-green hover:underline font-bold">bestukbroaband@proton.me</a></p>
             </div>
           </div>
 
-          {/* SEO GUIDES COLUMN */}
+          {/* BROADBAND OPTIONS & CHANNELS */}
           <div className="space-y-3">
-            <h4 className="text-brand-gold text-xs font-black uppercase tracking-widest border-b border-slate-800 pb-2">
-              Broadband Guides
+            <h4 className="text-[#091e36] text-xs font-black uppercase tracking-wider border-b border-slate-200 pb-2">
+              Broadband Providers
             </h4>
-            <ul className="space-y-2 text-[11px] font-semibold">
+            <ul className="space-y-2 text-xs font-bold text-slate-605">
               <li>
-                <button onClick={() => handleLinkClick("best-broadband-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Best Broadband in Wiltshire
+                <button onClick={() => handleLinkClick("providers-directory")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  Listed Broadband Providers
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("best-wifi-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Best WiFi in Wiltshire
+                <button onClick={() => handleLinkClick("best-deals")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  Best Listed Deals
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("rural-broadband-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Best Local Broadband
+                <button onClick={() => handleLinkClick("alt-net")} className="text-slate-705 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  Regional &amp; Alternative Networks
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("full-fibre-broadband-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Full Fibre Wiltshire
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("alternative-network-broadband-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Alternative Networks
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("broadband-deals-wiltshire")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Broadband Deals Wiltshire
+                <button onClick={() => handleLinkClick("home")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  Search Postcode Areas
                 </button>
               </li>
             </ul>
@@ -90,15 +77,15 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
 
           {/* POPULAR TOWNS COLUMN */}
           <div className="space-y-3">
-            <h4 className="text-brand-gold text-xs font-black uppercase tracking-widest border-b border-slate-800 pb-2">
-              Wiltshire Towns Covered
+            <h4 className="text-[#091e36] text-xs font-black uppercase tracking-wider border-b border-slate-200 pb-2">
+              Wiltshire Market Towns
             </h4>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[11px] font-semibold">
+            <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-xs font-bold text-slate-650">
               {featuredTowns.map((town) => (
                 <button
                   key={town.id}
                   onClick={() => handleTownClick(town.id)}
-                  className="text-slate-300 hover:text-brand-gold hover:underline transition-colors text-left truncate cursor-pointer"
+                  className="text-slate-700 hover:text-brand-green transition-colors text-left truncate cursor-pointer"
                 >
                   {town.name}
                 </button>
@@ -106,40 +93,35 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
             </div>
           </div>
 
-          {/* COMPLIANCE PAGES COLUMN */}
+          {/* UTILITY & SUPPORT COLUMN */}
           <div className="space-y-3">
-            <h4 className="text-brand-gold text-xs font-black uppercase tracking-widest border-b border-slate-800 pb-2">
-              Legal &amp; Partners
+            <h4 className="text-[#091e36] text-xs font-black uppercase tracking-wider border-b border-slate-200 pb-2">
+              Get Updates &amp; Contact
             </h4>
-            <ul className="space-y-2 text-[11px] font-semibold">
+            <ul className="space-y-2 text-xs font-bold text-slate-650">
               <li>
-                <button onClick={() => handleLinkClick("list-provider")} className="text-brand-gold hover:text-brand-gold-hover hover:underline transition-colors cursor-pointer text-left font-black">
-                  List Your Broadband Service
+                <button onClick={() => handleLinkClick("home")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  Get updates
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("advertise")} className="text-brand-gold hover:text-brand-gold-hover hover:underline transition-colors cursor-pointer text-left font-black">
-                  Advertise With Us
+                <button onClick={() => handleLinkClick("list-provider")} className="text-brand-green hover:underline cursor-pointer text-left">
+                  List your broadband service
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("privacy")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Privacy Policy
+                <button onClick={() => handleLinkClick("advertise")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  How we track offers
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick("terms")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
+                <button onClick={() => handleLinkClick("privacy")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
+                  Privacy note
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleLinkClick("terms")} className="text-slate-700 hover:text-brand-green transition-colors cursor-pointer text-left">
                   Terms of Use
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("cookie")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Cookie Policy
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick("contact")} className="text-slate-300 hover:text-brand-gold hover:underline transition-colors cursor-pointer text-left">
-                  Contact the site
                 </button>
               </li>
             </ul>
@@ -148,18 +130,18 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
         </div>
 
         {/* REGULATORY DISCLAIMER ZONE - MUST BE PROMINENT */}
-        <div className="pt-8 border-t border-slate-800 space-y-4">
-          <div className="bg-[#12192c] p-4 rounded-xl border-2 border-slate-750 text-[10.5px] leading-relaxed text-slate-300 space-y-2.5 shadow-md">
-            <p>
-              <strong>Compliance Disclaimer:</strong> {siteSettingsData.disclaimers.legalCompliance}
+        <div className="pt-8 border-t border-slate-200 space-y-4">
+          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs leading-relaxed text-slate-800 space-y-2.5 font-semibold">
+            <p id="footer-availability-disclaimer">
+              <strong>Provider availability disclaimer:</strong> Wiltshire Broadband Finder does not sell broadband directly. Always confirm availability, speeds, pricing, installation and contract terms with the provider before ordering.
             </p>
             <p>
-              <strong>Commission Wording Detail:</strong> {siteSettingsData.disclaimers.commissionNotice} {siteSettingsData.disclaimers.marketLimitNotice} We make zero guarantees regarding line speeds or package costs.
+              <strong>Commission Announcement:</strong> We may receive referral fees, commission, advertising support, or sponsorship payments from some of the operators listed on this site. This is independent from provider checker checks.
             </p>
           </div>
 
           {/* COPYRIGHT SHIELD */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-400 font-sans">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-505 font-bold font-sans">
             <p>{siteSettingsData.disclaimers.footerCopyright}</p>
             <p>{siteSettingsData.disclaimers.footerTradingStyle}</p>
           </div>
@@ -169,4 +151,5 @@ export function Footer({ onNavClick, activeTab }: FooterProps) {
     </footer>
   );
 }
+
 export default Footer;
