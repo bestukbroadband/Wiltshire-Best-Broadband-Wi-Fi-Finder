@@ -55,6 +55,7 @@ import { TownSearch } from "./components/TownSearch";
 import { TownPage } from "./components/TownPage";
 import { PostcodePage } from "./components/PostcodePage";
 import { AdminDashboard } from "./components/AdminDashboard";
+import { AdminLogin } from "./components/AdminLogin";
 import { AdIntegrationHub } from "./components/AdIntegrationHub";
 import { CookieBanner } from "./components/CookieBanner";
 import { BroadbandNewsTicker } from "./components/BroadbandNewsTicker";
@@ -102,6 +103,10 @@ export default function App() {
   
   // Tab within Advertise routing: "apply" | "hubs"
   const [advertiseSubTab, setAdvertiseSubTab] = useState<"apply" | "hubs">("apply");
+
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
+    return sessionStorage.getItem("wiltshire_admin_authenticated") === "true";
+  });
 
   // Synchronize path/slug router on load & popstate
   useEffect(() => {
@@ -1271,7 +1276,25 @@ export default function App() {
 
             {/* 8. ADMIN DASHBOARD ROUTE */}
             {activeTab === "admin" && (
-              <AdminDashboard />
+              isAdminAuthenticated ? (
+                <div className="space-y-4">
+                  <div className="flex justify-end pr-2">
+                    <button
+                      onClick={() => {
+                        sessionStorage.removeItem("wiltshire_admin_authenticated");
+                        sessionStorage.removeItem("wiltshire_admin_user");
+                        setIsAdminAuthenticated(false);
+                      }}
+                      className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 rounded-xl text-xs font-black transition-all cursor-pointer border border-stone-200 uppercase tracking-wider flex items-center gap-1.5 shadow-3xs"
+                    >
+                      Sign Out Workspace
+                    </button>
+                  </div>
+                  <AdminDashboard />
+                </div>
+              ) : (
+                <AdminLogin onSuccess={() => setIsAdminAuthenticated(true)} />
+              )
             )}
 
             {/* 9. PRIVATE POLICY TAB */}
