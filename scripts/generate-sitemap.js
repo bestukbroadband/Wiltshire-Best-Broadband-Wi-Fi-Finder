@@ -117,3 +117,20 @@ xml += '</urlset>\n';
 const sitemapPath = path.resolve('public', 'sitemap.xml');
 fs.writeFileSync(sitemapPath, xml, 'utf8');
 console.log(`\nSuccessfully compiled ${urls.length} indexable URLs to ${sitemapPath}!`);
+
+// Ensure logo.png and og-image.png exist in public folders by copying the highest fidelity wbbw icon if available
+try {
+  const iconSource = path.resolve('public', 'icons', 'wbbw-app-icon.png');
+  const logoDest = path.resolve('public', 'logo.png');
+  const ogImageDest = path.resolve('public', 'icons', 'og-image.png');
+  
+  if (fs.existsSync(iconSource)) {
+    fs.copyFileSync(iconSource, logoDest);
+    fs.copyFileSync(iconSource, ogImageDest);
+    console.log(`Successfully verified and updated ${logoDest} and ${ogImageDest}`);
+  } else {
+    console.warn(`Source icon not found at ${iconSource}`);
+  }
+} catch (logoErr) {
+  console.error("Failed to copy logo asset:", logoErr);
+}

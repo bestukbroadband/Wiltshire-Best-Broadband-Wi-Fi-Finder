@@ -42,18 +42,49 @@ export function SEOHead({ seoData }: SEOHeadProps) {
       canonicalEl.setAttribute("href", seoData.canonicalUrl);
     }
 
+    // Helper to resolve absolute URL dynamically
+    const resolveAbsoluteUrl = (urlStr: string) => {
+      if (!urlStr) return window.location.origin + "/logo.png";
+      
+      // If it's a placeholder image or points to /images/ that doesn't exist physically, fallback to the beautiful logo.png
+      if (urlStr.includes("/images/og-") || urlStr.includes("/images/twitter-")) {
+        return window.location.origin + "/logo.png";
+      }
+
+      // If it's already an absolute external url and doesn't belong to our domain
+      if (urlStr.startsWith("http") && !urlStr.includes("wiltshirebroadbandfinder.co.uk")) {
+        return urlStr;
+      }
+
+      let pathVal = urlStr;
+      if (urlStr.startsWith("https://www.wiltshirebroadbandfinder.co.uk")) {
+        pathVal = urlStr.replace("https://www.wiltshirebroadbandfinder.co.uk", "");
+      } else if (urlStr.startsWith("http://www.wiltshirebroadbandfinder.co.uk")) {
+        pathVal = urlStr.replace("http://www.wiltshirebroadbandfinder.co.uk", "");
+      }
+
+      if (!pathVal.startsWith("/")) {
+        pathVal = "/" + pathVal;
+      }
+
+      return window.location.origin + pathVal;
+    };
+
+    const resolvedOgImage = resolveAbsoluteUrl(seoData.ogImage);
+    const resolvedTwitterImage = resolveAbsoluteUrl(seoData.twitterImage);
+
     // 4. Open Graph (OG)
     updateOrCreateMeta("property", "og:title", seoData.ogTitle || seoData.pageTitle);
     updateOrCreateMeta("property", "og:description", seoData.ogDescription || seoData.metaDescription);
-    updateOrCreateMeta("property", "og:image", seoData.ogImage);
+    updateOrCreateMeta("property", "og:image", resolvedOgImage);
     updateOrCreateMeta("property", "og:url", seoData.canonicalUrl);
     updateOrCreateMeta("property", "og:type", "website");
 
     // 5. Twitter Meta Tags
-    updateOrCreateMeta("name", "twitter:card", "summary_large_image");
+    updateOrCreateMeta("name", "twitter:card", "summary");
     updateOrCreateMeta("name", "twitter:title", seoData.twitterTitle || seoData.ogTitle);
     updateOrCreateMeta("name", "twitter:description", seoData.twitterDescription || seoData.ogDescription);
-    updateOrCreateMeta("name", "twitter:image", seoData.twitterImage);
+    updateOrCreateMeta("name", "twitter:image", resolvedTwitterImage);
 
     // 6. Keywords
     if (seoData.primaryKeyword) {
