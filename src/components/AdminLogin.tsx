@@ -96,7 +96,6 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="name@wiltshire.gov.uk"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full px-3.5 py-2.5 pl-9 text-xs bg-white border border-slate-300 focus:border-brand-green text-slate-900 outline-hidden rounded-xl font-bold placeholder:text-slate-400"
@@ -114,7 +113,6 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3.5 py-2.5 pl-9 pr-10 text-xs bg-white border border-slate-300 focus:border-brand-green text-slate-900 outline-hidden rounded-xl font-bold placeholder:text-slate-400 font-mono"
