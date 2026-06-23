@@ -72,7 +72,7 @@ export function AdvertiseForm() {
             className="underline font-bold text-brand-green hover:text-emerald-900 transition-colors"
             id="advertise-success-email-link"
           >
-            Info
+            bestukbroaband@proton.me
           </a>.
         </p>
       </div>
@@ -239,7 +239,7 @@ export function AdvertiseForm() {
           className="underline font-bold text-brand-green hover:text-emerald-900 transition-colors"
           id="advertise-direct-email-link"
         >
-          Info
+          bestukbroaband@proton.me
         </a>.
       </p>
     </form>

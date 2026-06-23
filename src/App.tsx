@@ -1060,7 +1060,7 @@ export default function App() {
                           className="text-brand-gold font-bold hover:underline transition-colors"
                           id="advertise-side-email-link"
                         >
-                          Info
+                          bestukbroaband@proton.me
                         </a>.
                       </p>
                     </div>
@@ -1363,7 +1363,7 @@ export default function App() {
                   <div className="bg-white border rounded-xl p-4 space-y-2 text-xs text-slate-600">
                     <p><strong>Operator:</strong> Cane Communications Limited</p>
                     <p><strong>Reg No:</strong> 11485145</p>
-                    <p><strong>Email:</strong> <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-slate-900 font-bold hover:underline transition-colors animate-pulse" id="contact-tab-email-link">Info</a></p>
+                    <p><strong>Email:</strong> <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-slate-900 font-bold hover:underline transition-colors" id="contact-tab-email-link">{siteSettingsData.owner.contactEmail}</a></p>
                     <p><strong>Address:</strong> Wiltshire, United Kingdom</p>
                   </div>
                 </div>
@@ -1386,9 +1386,14 @@ export default function App() {
                         <input type="email" name="email" required placeholder="Work Email" className="p-2 border rounded" />
                       </div>
                       <textarea name="message" required rows={4} placeholder="Your question or local village fibre status report..." className="w-full text-xs p-2.5 border rounded" />
-                      <button type="submit" className="px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-lg cursor-pointer">
-                        Send Message
-                      </button>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-1">
+                        <button type="submit" className="px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-lg cursor-pointer hover:bg-slate-800 transition-colors w-fit">
+                          Send Message
+                        </button>
+                        <p className="text-[11px] text-slate-500 font-semibold">
+                          Alternatively, email us directly: <a href={`mailto:${siteSettingsData.owner.contactEmail}`} className="text-brand-green hover:underline font-extrabold">{siteSettingsData.owner.contactEmail}</a>
+                        </p>
+                      </div>
                     </form>
                   </div>
                 </div>

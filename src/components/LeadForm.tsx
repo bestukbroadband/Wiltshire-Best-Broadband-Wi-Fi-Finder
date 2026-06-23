@@ -123,7 +123,7 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
           </p>
         </div>
         <p className="text-xs text-slate-500 font-bold font-sans">
-          Occasional updates, tracked promotions and rural connectivity changes will be delivered straight to your email.
+          Occasional updates, tracked promotions and rural connectivity changes will be delivered straight to your email. Alternatively, query directly at <a href="mailto:bestukbroaband@proton.me" className="text-brand-green underline font-black">bestukbroaband@proton.me</a>.
         </p>
       </div>
     );
@@ -299,9 +299,14 @@ export function LeadForm({ preSelectedProvider, onSubmitSuccess, className = "" 
           <Send className="h-4 w-4" />
         </button>
 
-        <div className="flex items-[#091e36] justify-center gap-2 text-xs text-slate-500 font-bold">
-          <ShieldCheck className="h-4 w-4 text-slate-400" />
-          <span>Independent local site. We do not sell broadband directly.</span>
+        <div className="flex flex-col items-center justify-center gap-1.5 text-xs text-slate-500 font-bold border-t border-slate-100 pt-3">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-slate-400 shrink-0" />
+            <span>Independent local site. We do not sell broadband directly.</span>
+          </div>
+          <p className="text-slate-400 text-[11px]">
+            Direct email enquiry: <a href="mailto:bestukbroaband@proton.me" className="text-brand-green hover:underline font-extrabold">bestukbroaband@proton.me</a>
+          </p>
         </div>
       </form>
     </div>

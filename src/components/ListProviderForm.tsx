@@ -62,7 +62,7 @@ export function ListProviderForm() {
         </div>
         <h4 className="text-base font-bold text-brand-green font-sans">Proposal Lodged Successfully</h4>
         <p className="text-xs text-stone-650 leading-relaxed max-w-sm mx-auto">
-          Thank you. Your listing request is registered. Our database compliance auditor will cross-examine your package files against active Wiltshire road scopes before activating your card listing.
+          Thank you. Your listing request is registered. Our database compliance auditor will cross-examine your package files against active Wiltshire road scopes before activating your card listing. You can also follow up directly at <a href="mailto:bestukbroaband@proton.me" className="underline font-bold text-brand-green hover:text-emerald-900 transition-colors">bestukbroaband@proton.me</a>.
         </p>
       </div>
     );
@@ -327,6 +327,17 @@ export function ListProviderForm() {
         <span>{isSubmitting ? "Loading Proposal data..." : "Submit Listing Proposal"}</span>
         <Send className="h-3 w-3" />
       </button>
+
+      <p className="text-[11px] text-stone-500 text-center leading-normal mt-2">
+        Alternatively, please direct your provider listings, speed data or coverage maps directly to{" "}
+        <a 
+          href="mailto:bestukbroaband@proton.me" 
+          className="underline font-bold text-brand-green hover:text-emerald-900 transition-colors"
+          id="list-provider-direct-email-link"
+        >
+          bestukbroaband@proton.me
+        </a>.
+      </p>
     </form>
   );
 }
