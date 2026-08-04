@@ -1,5 +1,164 @@
 [
   {
+    "timestamp": "2026-08-04T07:08:51.987Z",
+    "runId": "run-1785827331987",
+    "success": true,
+    "scrapedCount": 18,
+    "updatedCount": 18,
+    "reviewRequiredCount": 3,
+    "failedSources": [
+      "zzoomm",
+      "airband",
+      "trooli",
+      "wessex",
+      "truespeed",
+      "gigaclear",
+      "voneus"
+    ],
+    "logs": [
+      {
+        "providerId": "zzoomm",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "airband",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "trooli",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "wessex",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "truespeed",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "gigaclear",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "voneus",
+        "status": "source_failed",
+        "info": "Scrape error occurred: HTTP fetch failed with code 404. Retained existing cached offers."
+      },
+      {
+        "providerId": "openreach",
+        "status": "approved",
+        "info": "Package 'Fibre broadband  Openreach' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "bt",
+        "status": "review_required",
+        "info": "Package 'Broadband  Home Broadband  Line Rental' processed. Status: review_required. Warnings: Suspicious price change of 72.0% (Old: £100, New: £27.99)."
+      },
+      {
+        "providerId": "ee",
+        "status": "approved",
+        "info": "Package 'EE Broadband Deals For August 2026  Hom' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "ee",
+        "status": "review_required",
+        "info": "Package 'EE Broadband dealsWeve got speeds to su' processed. Status: review_required. Warnings: Suspicious price change of 23.5% (Old: £33.99, New: £25.99)."
+      },
+      {
+        "providerId": "ee",
+        "status": "approved",
+        "info": "Package 'Fast74Mbps Standard Broadband24 month co' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "sky",
+        "status": "approved",
+        "info": "Package 'Sky Standard Lite' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "talktalk",
+        "status": "approved",
+        "info": "Package 'Broadband Offers  Unlimited Broadband P' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "talktalk",
+        "status": "approved",
+        "info": "Package 'Wi-Fi deals youll loveExplore unlimited' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "talktalk",
+        "status": "approved",
+        "info": "Package 'Small Print 19 items Fibre 35From 26' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "vodafone",
+        "status": "approved",
+        "info": "Package 'HomeBroadbandOur best broadband deals En' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "vodafone",
+        "status": "approved",
+        "info": "Package 'Compare our broadband plansOur plans are' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "vodafone",
+        "status": "approved",
+        "info": "Package 'Vodafone Broadband Vodafone Pro 3 Broadb' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "plusnet",
+        "status": "approved",
+        "info": "Package 'Our Best Broadband Deals  Best Broadban' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "plusnet",
+        "status": "review_required",
+        "info": "Package 'iframe titlegtm height0 srchttp' processed. Status: review_required. Warnings: Suspicious price change of 100.0% (Old: £25, New: £50)."
+      },
+      {
+        "providerId": "plusnet",
+        "status": "approved",
+        "info": "Package 'Broadband Packages' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "zen",
+        "status": "approved",
+        "info": "Package 'function w d s l i \n        wl' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "virgin",
+        "status": "approved",
+        "info": "Package 'Broadband FAQsWhat is broadbandHigh-spe' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "virgin",
+        "status": "approved",
+        "info": "Package 'Sport  Cinema Mega TV Sky Cinema and' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "virgin",
+        "status": "approved",
+        "info": "Package 'Sport Volt New customers only Mega TV' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "three5g",
+        "status": "approved",
+        "info": "Package 'Unlimited data\n 12 month plan' processed. Status: approved. Warnings: None"
+      },
+      {
+        "providerId": "starlink",
+        "status": "approved",
+        "info": "Package 'Starlink Standard Lite' processed. Status: approved. Warnings: None"
+      }
+    ]
+  },
+  {
     "timestamp": "2026-08-03T07:55:02.460Z",
     "runId": "run-1785743702460",
     "success": true,
